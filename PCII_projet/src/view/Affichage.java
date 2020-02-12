@@ -34,13 +34,18 @@ public class Affichage extends JPanel{
     	this.V = v;
     	this.P = p;
     	this.P.setHorizon(this.horHeight);
-    	this.P.setMaxX(this.WIDTH);
+    	this.P.setMaxX(this.WIDTH+100);
+    	this.P.genereArrierePlan();
     }
     
     private void dessinePiste(Graphics g) {
     	g.drawLine(0, this.P.getHorizon(), this.WIDTH, this.P.getHorizon());
     	ArrayList<Point> ptList = this.P.getBG();
-    	//for(int i=0; i<ptList.size())
+    	for(int i=0; i<ptList.size()-2; i++) {
+    		Point p1 = ptList.get(i);
+    		Point p2 = ptList.get(i+1);
+    		g.drawLine(p1.x, p1.y, p2.x, p2.y);
+    	}
     }
     
     private void dessineVehicule() {
