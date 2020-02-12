@@ -1,8 +1,12 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.Toolkit;
+import java.util.ArrayList;
+
 import javax.swing.JPanel;
 
 import model.Piste;
@@ -17,23 +21,36 @@ public class Affichage extends JPanel{
 	public final int WIDTH = screenSize.width;
     public final int HEIGHT = screenSize.height;
     
+    //Emplacement de l'horizon
+    private final int horHeight = (int) (this.HEIGHT*0.3);
+    
     //Modele
-    private Vehicule vehicule;
-    private Piste piste;
+    private Vehicule V;
+    private Piste P;
 	
     
     public Affichage(Vehicule v, Piste p) {
     	this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-    	this.vehicule = v;
-    	this.piste = p;
+    	this.V = v;
+    	this.P = p;
+    	this.P.setHorizon(this.horHeight);
+    	this.P.setMaxX(this.WIDTH);
     }
     
     private void dessinePiste(Graphics g) {
-    	g.drawLine(0, this.piste.getHorizon(), this.WIDTH, this.piste.getHorizon());
+    	g.drawLine(0, this.P.getHorizon(), this.WIDTH, this.P.getHorizon());
+    	ArrayList<Point> ptList = this.P.getBG();
+    	//for(int i=0; i<ptList.size())
     }
     
     private void dessineVehicule() {
     	
+    }
+    
+    public void paint(Graphics g) {
+    	paintComponent(g);
+    	setBackground(Color.WHITE);
+    	this.dessinePiste(g);
     }
     
 }
