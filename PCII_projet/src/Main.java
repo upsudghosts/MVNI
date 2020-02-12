@@ -14,7 +14,7 @@ public class Main {
 		
 		//Elements utiles
 		//Modele
-		Vehicule V = new Vehicule(20,20);
+		Vehicule V = new Vehicule();
 		Piste P = new Piste();
 		
 		//Vue
