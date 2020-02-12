@@ -7,11 +7,14 @@ public class Piste {
 	
 	private int horizonHeight;
 	private int maxX;
+	private int maxY;
 	private ArrayList<Point> bg;
+	private ArrayList<Point> track;
 	
 	public Piste() {
 		this.horizonHeight = 10;
 		this.bg = new ArrayList<Point>();
+		this.track = new ArrayList<Point>();
 	}
 	
 	public void genereArrierePlan() {
@@ -29,6 +32,23 @@ public class Piste {
 		}
 	}
 	
+	public void createTrack() {
+		//int currY = this.maxX;
+		//while(currY > this.horizonHeight+100) {
+		//	
+		//}
+		int x = (int) ((this.maxX/2 - this.maxX/8)+(Math.random() * ((this.maxX/2 + this.maxX/8)-(this.maxX/2 - this.maxX/8))));
+		//int x = this.maxX/2;
+		int currY = this.horizonHeight;
+		this.track.add(new Point(x, currY));
+		while(currY <= this.maxY+100) {
+			x = (int) ((this.maxX/2 - this.maxX/8)+(Math.random() * ((this.maxX/2 + this.maxX/8)-(this.maxX/2 - this.maxX/8))));
+			//currY += (int) (50+(Math.random() * (100-50)));
+			currY += (int) ((this.maxY-this.horizonHeight)/8+(Math.random() * ((this.maxY-this.horizonHeight)/4-(this.maxY-this.horizonHeight)/8)));
+			this.track.add(new Point(x, currY));
+		}
+	}
+	
 	public int getHorizon() {
 		return this.horizonHeight;
 	}
@@ -41,23 +61,24 @@ public class Piste {
 		return this.bg;
 	}
 	
+	public ArrayList<Point> getTrack(){
+		return this.track;
+	}
+	
 	public void setMaxX(int n) {
 		this.maxX = n;
 	}
 	
+	public void setMaxY(int n) {
+		this.maxY = n;
+	}
+	
+	
 	public static void main(String[] args) {
-		Piste piste = new Piste();
-		piste.setHorizon(50);
-		piste.setMaxX(500);
-		piste.genereArrierePlan();
-		ArrayList<Point> li = piste.getBG();
-		System.out.println("Taille liste points : " + li.size());
-		
-		for(int i=0; i<li.size()-2; i++) {
-    		Point p1 = li.get(i);
-    		Point p2 = li.get(i+1);
-    		System.out.println("(" + p1.x + ", " + p1.y + ") ; (" + p2.x + ", " + p2.y + ")");
-    	}
-		
+		Piste p = new Piste();
+		p.setHorizon(50);
+		p.setMaxY(500);
+		p.setMaxX(500);
+		p.createTrack();
 	}
 }

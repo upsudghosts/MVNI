@@ -35,12 +35,22 @@ public class Affichage extends JPanel{
     	this.P = p;
     	this.P.setHorizon(this.horHeight);
     	this.P.setMaxX(this.WIDTH+100);
+    	this.P.setMaxY(this.HEIGHT);
     	this.P.genereArrierePlan();
+    	this.P.createTrack();
     }
     
     private void dessinePiste(Graphics g) {
     	g.drawLine(0, this.P.getHorizon(), this.WIDTH, this.P.getHorizon());
+    	//Montains
     	ArrayList<Point> ptList = this.P.getBG();
+    	for(int i=0; i<ptList.size()-2; i++) {
+    		Point p1 = ptList.get(i);
+    		Point p2 = ptList.get(i+1);
+    		g.drawLine(p1.x, p1.y, p2.x, p2.y);
+    	}
+    	//Track
+    	ptList = this.P.getTrack();
     	for(int i=0; i<ptList.size()-2; i++) {
     		Point p1 = ptList.get(i);
     		Point p2 = ptList.get(i+1);
