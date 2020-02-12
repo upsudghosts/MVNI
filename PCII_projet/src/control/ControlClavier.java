@@ -8,12 +8,12 @@ import view.Affichage;
 
 public class ControlClavier implements KeyListener{
 	
-	public Affichage affichage;
-	public Vehicule vehicule;
+	public Affichage A;
+	public Vehicule V;
 	
 	public ControlClavier (Affichage a, Vehicule v) {
-		this.affichage = a;
-		this.vehicule = v;
+		this.A = a;
+		this.V = v;
 	}
 
 	@Override
@@ -24,18 +24,29 @@ public class ControlClavier implements KeyListener{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(e.equals(KeyEvent.VK_DOWN)) {
-			System.out.print("Down");
-		}else
-		if(e.equals(KeyEvent.VK_UP)) {
-			System.out.print("Up");
-		}else
-		if(e.equals(KeyEvent.VK_LEFT)) {
-			System.out.print("Left");
-		}else
-		if(e.equals(KeyEvent.VK_RIGHT)) {
-			System.out.print("Right");
-		}
+		switch(e.getKeyCode()) {
+			case KeyEvent.VK_DOWN :
+				this.V.update_moveStatus(3);
+				
+				break;
+				
+			case KeyEvent.VK_UP :
+				this.V.update_moveStatus(2);
+				break;
+				
+			case KeyEvent.VK_LEFT :
+				this.V.update_moveStatus(0);
+				break;
+				
+			case KeyEvent.VK_RIGHT :
+				this.V.update_moveStatus(1);
+				break;
+		}	
+		/**Refreshing view and putting thread to sleep for 50 ms to see updates on our screen.*/
+		A.repaint();
+		try { Thread.sleep(50); }
+		catch (Exception exc) { exc.printStackTrace(); }
+		System.out.println(this.V.getMoveStatus());
 	}
 
 	@Override
