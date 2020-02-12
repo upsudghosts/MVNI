@@ -42,10 +42,8 @@ public class Affichage extends JPanel{
     	this.P.setMaxX(this.WIDTH+100);
     	this.P.setMaxY(this.HEIGHT);
     	this.P.genereArrierePlan();
-<<<<<<< HEAD
     	this.P.setCurrY(this.HEIGHT);
     	this.P.createTrack2();
-=======
     	
     	/**Initializing buttons.*/
 		this.startButton = new JButton("Click Here to Start Game");
@@ -60,7 +58,6 @@ public class Affichage extends JPanel{
 		this.scorelabel.setVisible(false);
 		this.deathlabel.setVisible(false);
 		this.restartButton.setVisible(false);
->>>>>>> branch 'master' of https://github.com/upsudghosts/MVNI.git
     }
     
     private void drawPiste(Graphics g) {

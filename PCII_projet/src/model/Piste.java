@@ -77,9 +77,10 @@ public class Piste {
 			Point p = this.track.get(i);
 			p.y += MOVEVAL;
 			//Si le point n'est plus utile, on le retire
-			if(p.y > this.maxY) {
-				this.track.remove(i);
-				System.out.println("nb pt : " + this.track.size());
+			if(i>0) {
+				if(p.y > this.maxY && this.track.get(i-1).y > this.maxY) {
+					this.track.remove(i-1);
+				}
 			}
 		}
 		//Si il le faut, on rajoute un point

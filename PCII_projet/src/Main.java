@@ -29,13 +29,12 @@ public class Main {
 		Affichage A = new Affichage(V, P);
 		
 		//Controle
-<<<<<<< HEAD
-		ControlClavier controlClavier = new ControlClavier(affichage, V);
-		affichage.addKeyListener(controlClavier);
-		Thread thr = new Thread(new Avancer(affichage, P, V));
-		(thr).start();
-=======
 		ControlClavier controlClavier = new ControlClavier(A, V);
+		A.addKeyListener(controlClavier);
+		Thread thr = new Thread(new Avancer(A, P, V));
+		(thr).start();
+		
+		//ControlClavier controlClavier = new ControlClavier(A, V);
 		ControlSouris controlSouris  = new ControlSouris(A);
 		
 		mainFrame.addKeyListener(controlClavier);
@@ -44,7 +43,6 @@ public class Main {
 		mainFrame.addMouseListener(controlSouris);
 		A.startButton.addMouseListener(controlSouris);
 		A.restartButton.addMouseListener(controlSouris);
->>>>>>> branch 'master' of https://github.com/upsudghosts/MVNI.git
 				
 		//Adding view to our frame.
 		mainFrame.add(A);
