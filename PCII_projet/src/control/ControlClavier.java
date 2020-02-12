@@ -24,10 +24,18 @@ public class ControlClavier implements KeyListener{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		//if(e.equals(KeyEvent.VK_KP_LEFT)) {
-		//	System.out.print("G");
-		//}
+		if(e.equals(KeyEvent.VK_DOWN)) {
+			System.out.print("Down");
+		}else
+		if(e.equals(KeyEvent.VK_UP)) {
+			System.out.print("Up");
+		}else
+		if(e.equals(KeyEvent.VK_LEFT)) {
+			System.out.print("Left");
+		}else
+		if(e.equals(KeyEvent.VK_RIGHT)) {
+			System.out.print("Right");
+		}
 	}
 
 	@Override

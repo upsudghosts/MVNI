@@ -40,7 +40,7 @@ public class Affichage extends JPanel{
     	this.P.createTrack();
     }
     
-    private void dessinePiste(Graphics g) {
+    private void drawPiste(Graphics g) {
     	g.drawLine(0, this.P.getHorizon(), this.WIDTH, this.P.getHorizon());
     	//Montains
     	ArrayList<Point> ptList = this.P.getBG();
@@ -58,14 +58,20 @@ public class Affichage extends JPanel{
     	}
     }
     
-    private void dessineVehicule() {
+    private void drawVehicule(Graphics g) {
+    	Point vcoord = V.getCoord();
+    	Point center = new Point(vcoord.x+ V.getHitWidth()/2, vcoord.y+V.getHitHeight()/2);
     	
+    	g.drawRect(vcoord.x, vcoord.y, V.getHitWidth(), V.getHitHeight());
+    	g.drawLine(center.x+5, center.y+5, center.x-5, center.y-5);
+    	g.drawLine(center.x-5, center.y+5, center.x+5, center.y-5);
     }
     
     public void paint(Graphics g) {
     	paintComponent(g);
     	setBackground(Color.WHITE);
-    	this.dessinePiste(g);
+    	this.drawPiste(g);
+    	this.drawVehicule(g);
     }
     
 }
