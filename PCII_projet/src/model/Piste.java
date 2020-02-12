@@ -5,9 +5,11 @@ import java.util.ArrayList;
 
 public class Piste {
 	
+	private static final int MOVEVAL = 5;
 	private int horizonHeight;
 	private int maxX;
 	private int maxY;
+	private int currY;
 	private ArrayList<Point> bg;
 	private ArrayList<Point> track;
 	
@@ -41,12 +43,46 @@ public class Piste {
 		//int x = this.maxX/2;
 		int currY = this.horizonHeight;
 		this.track.add(new Point(x, currY));
-		while(currY <= this.maxY+100) {
+		while(currY <= this.maxY) {
 			x = (int) ((this.maxX/2 - this.maxX/8)+(Math.random() * ((this.maxX/2 + this.maxX/8)-(this.maxX/2 - this.maxX/8))));
 			//currY += (int) (50+(Math.random() * (100-50)));
 			currY += (int) ((this.maxY-this.horizonHeight)/8+(Math.random() * ((this.maxY-this.horizonHeight)/4-(this.maxY-this.horizonHeight)/8)));
 			this.track.add(new Point(x, currY));
 		}
+	}
+	
+	public void createTrack2() {
+		while(this.currY >= this.horizonHeight) {
+			if(this.track.size()<1) {
+				this.currY = this.maxY;
+				this.track.add(new Point(this.maxX/2, this.maxY));
+			}else {
+					int x = (int) ((this.maxX/2 - this.maxX/8)+(Math.random() * ((this.maxX/2 + this.maxX/8)-(this.maxX/2 - this.maxX/8))));
+					int y = (int) ((this.maxY-this.horizonHeight)/8+(Math.random() * ((this.maxY-this.horizonHeight)/4-(this.maxY-this.horizonHeight)/8)));
+					this.currY -= y;
+					this.track.add(new Point(x, currY));
+			}
+		}
+		
+	}
+	
+	public void addLastPoint() {
+		this.currY = this.horizonHeight;
+		int x = (int) ((this.maxX/2 - this.maxX/8)+(Math.random() * ((this.maxX/2 + this.maxX/8)-(this.maxX/2 - this.maxX/8))));
+		this.track.add(new Point(x, this.currY));
+	}
+	
+	public void moveTrack() {
+		for(int i=0; i<this.track.size(); i++){
+			Point p = this.track.get(i);
+			p.y += MOVEVAL;
+			//Si le point n'est plus utile, on le retire
+			if(p.y > this.maxY) {
+				this.track.remove(i);
+				System.out.println("nb pt : " + this.track.size());
+			}
+		}
+		//Si il le faut, on rajoute un point
 	}
 	
 	public int getHorizon() {
@@ -73,6 +109,10 @@ public class Piste {
 		this.maxY = n;
 	}
 	
+	public void setCurrY(int n) {
+		this.currY = n;
+	}
+	
 	
 	public static void main(String[] args) {
 		Piste p = new Piste();
@@ -80,5 +120,8 @@ public class Piste {
 		p.setMaxY(500);
 		p.setMaxX(500);
 		p.createTrack();
+		//p.createTrack2();
+		System.out.println("Taille piste : " + p.getTrack().size());
+		System.out.println("currY : " + p.currY);
 	}
 }

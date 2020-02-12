@@ -1,5 +1,6 @@
 import javax.swing.JFrame;
 
+import control.Avancer;
 import control.ControlClavier;
 import model.Piste;
 import model.Vehicule;
@@ -23,6 +24,8 @@ public class Main {
 		//Controle
 		ControlClavier controlClavier = new ControlClavier(affichage, V);
 		affichage.addKeyListener(controlClavier);
+		Thread thr = new Thread(new Avancer(affichage, P, V));
+		(thr).start();
 				
 		//On ajoute l'affichage a la fenetre
 		mainFrame.add(affichage);
