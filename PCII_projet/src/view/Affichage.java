@@ -32,8 +32,8 @@ public class Affichage extends JPanel{
     	g.drawLine(0, this.piste.getHorizon(), this.WIDTH, this.piste.getHorizon());
     }
     
-    private void dessineVehicule() {
-    	
+    private void dessineVehicule(Graphics g) {
+    	g.drawRect(V.x, V.y, V.getHitWidth, V.getHitHeight);
     }
     
 }
