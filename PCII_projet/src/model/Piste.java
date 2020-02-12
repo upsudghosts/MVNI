@@ -5,12 +5,12 @@ import java.util.ArrayList;
 
 public class Piste {
 	
-	private int hauteurHorizon;
-	private ArrayList<Point> arrierePlan;
+	private int horizonHeight;
+	private ArrayList<Point> bg;
 	
 	public Piste() {
-		this.hauteurHorizon = 10;
-		this.arrierePlan = new ArrayList<Point>();
+		this.horizonHeight = 10;
+		this.bg = new ArrayList<Point>();
 		
 		this.genereArrierePlan();
 	}
@@ -20,7 +20,7 @@ public class Piste {
 	}
 	
 	public int getHorizon() {
-		return this.hauteurHorizon;
+		return this.horizonHeight;
 	}
 	
 }

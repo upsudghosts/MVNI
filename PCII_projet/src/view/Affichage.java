@@ -13,9 +13,9 @@ public class Affichage extends JPanel{
 	private static final long serialVersionUID = 1L;
 
 	//Taille par defaut de l'interface
-	Dimension tailleEcran = Toolkit.getDefaultToolkit().getScreenSize();
-	public final int LARG = tailleEcran.width;
-    public final int HAUT = tailleEcran.height;
+	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	public final int WIDTH = screenSize.width;
+    public final int HEIGHT = screenSize.height;
     
     //Modele
     private Vehicule vehicule;
@@ -23,13 +23,13 @@ public class Affichage extends JPanel{
 	
     
     public Affichage(Vehicule v, Piste p) {
-    	this.setPreferredSize(new Dimension(LARG, HAUT));
+    	this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
     	this.vehicule = v;
     	this.piste = p;
     }
     
     private void dessinePiste(Graphics g) {
-    	g.drawLine(0, this.piste.getHorizon(), this.LARG, this.piste.getHorizon());
+    	g.drawLine(0, this.piste.getHorizon(), this.WIDTH, this.piste.getHorizon());
     }
     
     private void dessineVehicule() {

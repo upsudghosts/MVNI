@@ -10,26 +10,26 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		//On cree la fenetre
-		JFrame fenetre = new JFrame("Course moto");
+		JFrame mainFrame = new JFrame("Course moto");
 		
 		//Elements utiles
 		//Modele
-		Vehicule vehicule = new Vehicule();
-		Piste piste = new Piste();
+		Vehicule V = new Vehicule();
+		Piste P = new Piste();
 		
 		//Vue
-		Affichage affichage = new Affichage(vehicule, piste);
+		Affichage affichage = new Affichage(V, P);
 		
 		//Controle
-		ControlClavier controlClavier = new ControlClavier(affichage, vehicule);
+		ControlClavier controlClavier = new ControlClavier(affichage, V);
 		affichage.addKeyListener(controlClavier);
 				
 		//On ajoute l'affichage a la fenetre
-		fenetre.add(affichage);
+		mainFrame.add(affichage);
 						
-		fenetre.pack();
-		fenetre.setVisible(true);
-		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mainFrame.pack();
+		mainFrame.setVisible(true);
+		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 }
