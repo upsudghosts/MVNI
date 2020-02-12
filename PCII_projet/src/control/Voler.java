@@ -30,20 +30,25 @@ public class Voler extends Thread {
 	@Override
 	public void run() {
 		System.out.println("Fly Thread Started");
-		/**If the project is on : */
+		/**If the vehicle is flying : */
 		if(V.getFlyStatus()) {
 			/**While it's on : */
 			while(V.getFlyStatus()) {
 				switch (V.getMoveStatus()) {
 					case "LEFT":
+						this.V.move(leftCoef);
 						break;
 					case "RIGHT":
+						this.V.move(rightCoef);
 						break;
 					case "UP":
+						this.V.move(upCoef);
 						break;
 					case "DOWN":
+						this.V.move(downCoef);
 						break;
 					case "NEUTRAL":
+						this.V.move(0);
 						break;
 				}
 			}
