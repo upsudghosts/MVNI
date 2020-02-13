@@ -40,9 +40,19 @@ public class Affichage extends JPanel{
     	this.P.setMaxX(this.WIDTH+100);
     	this.P.setMaxY(this.HEIGHT);
     	this.P.genereArrierePlan();
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/upsudghosts/MVNI.git
     	this.P.setCurrY(this.HEIGHT);
     	this.P.createTrack2();
+<<<<<<< HEAD
+=======
+    	
+    	/**Initializing buttons.*/
+		this.startButton = new JButton("Click Here to Start Game");
+		this.restartButton = new JButton("Click Here to Start a New Game");
+>>>>>>> branch 'master' of https://github.com/upsudghosts/MVNI.git
 		
 		/**Initializing buttons.*/
 		this.startlabel = new JLabel("Press SPACE to Start Game");
@@ -52,6 +62,7 @@ public class Affichage extends JPanel{
 		/**These labels and the button are meant to be seen after death, or in-game. Not before.*/
 		this.scorelabel.setVisible(false);
 		this.deathlabel.setVisible(false);
+<<<<<<< HEAD
 
     }
     
@@ -61,6 +72,9 @@ public class Affichage extends JPanel{
     
     public int getHeight() {
     	return this.HEIGHT;
+=======
+		this.restartButton.setVisible(false);
+>>>>>>> branch 'master' of https://github.com/upsudghosts/MVNI.git
     }
     
     private void drawPiste(Graphics g) {

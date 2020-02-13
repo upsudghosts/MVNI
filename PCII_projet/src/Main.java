@@ -24,10 +24,9 @@ public class Main {
 		//Controle
 		ControlClavier controlClavier = new ControlClavier(A, V, P);
 		
-		/**Adding our mouse Listener to enable user/program live interaction.*/
 		mainFrame.addKeyListener(controlClavier);
+
 		
-		//Adding view to our frame.
 		mainFrame.add(A);
 		
 		/**Adding labels and buttons in correct order.*/ 
