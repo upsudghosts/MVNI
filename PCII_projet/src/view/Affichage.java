@@ -3,7 +3,9 @@ package view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 
@@ -82,16 +84,34 @@ public class Affichage extends JPanel{
     }
     
     private void drawVehicule(Graphics g) {
+    	Graphics2D g2d = (Graphics2D) g;
     	Point vcoord = V.getCoord();
     	Point center = new Point(vcoord.x+ V.getHitWidth()/2, vcoord.y+V.getHitHeight()/2);
     	
-    	g.drawRect(vcoord.x, vcoord.y, V.getHitWidth(), V.getHitHeight());
+    	Rectangle rect1 = new Rectangle(vcoord.x, vcoord.y, V.getHitWidth(), V.getHitHeight());
+
+    	switch(this.V.getMoveStatus()) {
+	    	case "LEFT":
+				g2d.rotate(Math.toRadians(-45), rect1.x+rect1.width/4, rect1.y);
+				break;
+			case "RIGHT":
+				g2d.rotate(Math.toRadians(45),rect1.x+rect1.width-(rect1.width/4), rect1.y);
+				break;
+			case "UP":
+				break;
+			case "DOWN":
+				
+				break;
+			case "NEUTRAL":
+				break;
+    	}
+        g2d.draw(rect1);
     	g.drawLine(center.x+5, center.y+5, center.x-5, center.y-5);
     	g.drawLine(center.x-5, center.y+5, center.x+5, center.y-5);
     }
     
     public void paint(Graphics g) {
-    	paintComponent(g);
+    	super.paintComponent(g);
     	setBackground(Color.WHITE);
     	this.drawPiste(g);
     	this.drawVehicule(g);
