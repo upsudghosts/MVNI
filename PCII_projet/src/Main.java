@@ -1,4 +1,6 @@
 import java.awt.FlowLayout;
+import java.io.IOException;
+
 import javax.swing.JFrame;
 import control.ControlClavier;
 import model.Piste;
@@ -7,7 +9,7 @@ import view.Affichage;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		//On cree la fenetre
 		JFrame mainFrame = new JFrame("Course moto");
 

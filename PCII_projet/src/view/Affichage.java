@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -12,7 +11,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -39,10 +37,14 @@ public class Affichage extends JPanel{
     private Piste P;
     
     //Img Access
-    private String parallax_mountains;
+    private String parallax_mountains, spaceships, effects;
+	ArrayList<BufferedImage> imgV, imgEff, imgBg; 
+    
+    //Animation vehicule
+    private int blink, green_light;
 	
     
-    public Affichage(Vehicule v, Piste p) {
+    public Affichage(Vehicule v, Piste p) throws IOException {
     	this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
     	this.V = v;
     	this.P = p;
@@ -54,7 +56,21 @@ public class Affichage extends JPanel{
     	this.P.setCurrY(this.HEIGHT);
     	this.P.createTrack2();
     	
-    	this.parallax_mountains = "./Img/parallax_mountain_pack/layers/";
+    	this.parallax_mountains = "./assets/parallax_mountain_pack/layers/";
+    	this.spaceships = "./assets/spaceships/";
+    	this.effects = "./assets/effects/green-particle/";
+    	
+    	this.imgBg= new ArrayList<BufferedImage>();
+    	this.imgEff= new ArrayList<BufferedImage>();
+    	this.imgV= new ArrayList<BufferedImage>();
+    	
+    	this.loadImgV();
+    	this.loadImgEff();
+    	this.loadImgBg();
+    	
+    	
+    	this.blink = 0;
+    	this.green_light = 0;
 
 		/**Initializing buttons.*/
 		this.startlabel = new JLabel("Press SPACE to Start Game");
@@ -97,13 +113,16 @@ public class Affichage extends JPanel{
     	}
     }
     
-    private void drawVehicule(Graphics g) {
+    private void drawVehicule(Graphics g){
+    	Image NewI;
+    	
     	Graphics2D g2d = (Graphics2D) g;
+    	
     	Point vcoord = V.getCoord();
     	Point center = new Point(vcoord.x+ V.getHitWidth()/2, vcoord.y+V.getHitHeight()/2);
     	
     	Rectangle rect1 = new Rectangle(vcoord.x, vcoord.y, V.getHitWidth(), V.getHitHeight());
-
+    	
     	switch(this.V.getMoveStatus()) {
 	    	case "LEFT":
 				g2d.rotate(Math.toRadians(-45), rect1.x+rect1.width/4, rect1.y);
@@ -119,36 +138,43 @@ public class Affichage extends JPanel{
 			case "NEUTRAL":
 				break;
     	}
+    	
         g2d.draw(rect1);
+        
+    	NewI = imgV.get(this.blink).getScaledInstance(this.V.getHitWidth(), this.V.getHitHeight(), BufferedImage.SCALE_SMOOTH);
+    	g2d.drawImage(NewI, vcoord.x, vcoord.y, null);
+        
+        
     	g.drawLine(center.x+5, center.y+5, center.x-5, center.y-5);
     	g.drawLine(center.x-5, center.y+5, center.x+5, center.y-5);
+    	
+    	this.drawFlyEffect(g, vcoord);
+    	
+    	this.incrView();
     }
     
-    private void drawBg(Graphics g) throws IOException {
-    	ArrayList<BufferedImage> Images = new ArrayList<BufferedImage>();
-    	
-    	Images.add(ImageIO.read(new File(this.parallax_mountains+"parallax-mountain-bg.png")));
-    	Images.add(ImageIO.read(new File(this.parallax_mountains+"parallax-mountain-montain-far.png")));
-    	Images.add(ImageIO.read(new File(this.parallax_mountains+"parallax-mountain-mountains.png")));
-    	Images.add(ImageIO.read(new File(this.parallax_mountains+"parallax-mountain-trees.png")));
-    	Images.add(ImageIO.read(new File(this.parallax_mountains+"parallax-mountain-foreground-trees.png")));
-    	
-    	
-    	for(BufferedImage I : Images) {
-    		Image NewI = I.getScaledInstance(this.WIDTH, this.horHeight-2, BufferedImage.SCALE_SMOOTH);
+    private void drawBg(Graphics g){
+    	Image NewI;
+    	for(BufferedImage I : this.imgBg) {
+    		NewI = I.getScaledInstance(this.WIDTH, this.horHeight-2, BufferedImage.SCALE_SMOOTH);
     		g.drawImage(NewI, 0,0, null);
     	}
     }
     
+    private void drawFlyEffect(Graphics g, Point coord) {
+    	Image NewI;
+    	
+    	Graphics2D g2d = (Graphics2D) g;
+    	
+    	NewI = imgEff.get(this.green_light).getScaledInstance(this.V.getHitWidth(), this.V.getHitHeight(), BufferedImage.SCALE_SMOOTH);
+    	g2d.drawImage(NewI, coord.x+this.V.getHitWidth(), coord.y-+this.V.getHitHeight(), null);
+    }
     public void paint(Graphics g) {
     	paintComponent(g);
     	this.drawPiste(g);
-    	try {
-			this.drawBg(g);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+    	this.drawBg(g);
     	this.drawVehicule(g);
+    
     	
     }
     
@@ -156,4 +182,37 @@ public class Affichage extends JPanel{
     	repaint();
     }
     
+    private void incrView() {
+
+    	if(this.blink < 2) { this.blink++; } 
+    	else { this.blink = 0;}
+    	
+    	if(this.green_light < 3) { this.green_light ++; }
+    	else { this.green_light = 0; }
+    }
+
+    private void loadImgV() throws IOException {
+     	this.imgV.add(ImageIO.read(new File(this.spaceships+"colored-ufo.png")));
+    	this.imgV.add(ImageIO.read(new File(this.spaceships+"colored-ufo-2.png")));
+    	this.imgV.add(ImageIO.read(new File(this.spaceships+"colored-ufo-3.png")));
+    }
+    
+    private void loadImgEff() throws IOException {
+    	this.imgEff.add(ImageIO.read(new File(this.effects+"1.png")));
+    	this.imgEff.add(ImageIO.read(new File(this.effects+"2.png")));
+    	this.imgEff.add(ImageIO.read(new File(this.effects+"3.png")));
+    	this.imgEff.add(ImageIO.read(new File(this.effects+"4.png")));
+    	
+    }
+
+    private void loadImgBg() throws IOException {
+    	this.imgBg.add(ImageIO.read(new File(this.parallax_mountains+"parallax-mountain-bg.png")));
+    	this.imgBg.add(ImageIO.read(new File(this.parallax_mountains+"parallax-mountain-montain-far.png")));
+    	this.imgBg.add(ImageIO.read(new File(this.parallax_mountains+"parallax-mountain-mountains.png")));
+    	this.imgBg.add(ImageIO.read(new File(this.parallax_mountains+"parallax-mountain-trees.png")));
+    	this.imgBg.add(ImageIO.read(new File(this.parallax_mountains+"parallax-mountain-foreground-trees.png")));
+    	
+    }
 }
+
+
