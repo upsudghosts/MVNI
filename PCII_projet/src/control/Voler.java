@@ -22,10 +22,10 @@ public class Voler extends Thread {
 	 * 
 	 */
 	public Voler(Affichage a, Piste track, Vehicule ve) {
-		this.leftCoef = 5; 
-		this.rightCoef = 5;
-		this.upCoef = 5;
-		this.downCoef = 5;
+		this.leftCoef = 15; 
+		this.rightCoef = 15;
+		this.upCoef = 15;
+		this.downCoef = 15;
 		
 		this.V = ve;
 		this.A = a;

@@ -73,7 +73,7 @@ public class Piste {
 	}
 	
 	public void speedUp() {
-		if (this.MOVEVAL < 15) { this.MOVEVAL ++;}
+		if (this.MOVEVAL < 15) { this.MOVEVAL += 2;}
 	}
 	
 	public void speedDown() {

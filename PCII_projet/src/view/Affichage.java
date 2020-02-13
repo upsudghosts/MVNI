@@ -4,11 +4,16 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -32,6 +37,9 @@ public class Affichage extends JPanel{
     //Modele
     private Vehicule V;
     private Piste P;
+    
+    //Img Access
+    private String parallax_mountains;
 	
     
     public Affichage(Vehicule v, Piste p) {
@@ -45,6 +53,8 @@ public class Affichage extends JPanel{
 
     	this.P.setCurrY(this.HEIGHT);
     	this.P.createTrack2();
+    	
+    	this.parallax_mountains = "./Img/parallax_mountain_pack/layers/";
 
 		/**Initializing buttons.*/
 		this.startlabel = new JLabel("Press SPACE to Start Game");
@@ -68,12 +78,16 @@ public class Affichage extends JPanel{
     private void drawPiste(Graphics g) {
     	g.drawLine(0, this.P.getHorizon(), this.WIDTH, this.P.getHorizon());
     	//Montains
+    	
     	ArrayList<Point> ptList = this.P.getBG();
+    	
+    	/*
     	for(int i=0; i<ptList.size()-1; i++) {
     		Point p1 = ptList.get(i);
     		Point p2 = ptList.get(i+1);
     		g.drawLine(p1.x, p1.y, p2.x, p2.y);
-    	}
+    	}*/
+    	
     	//Track
     	ptList = this.P.getTrack();
     	for(int i=0; i<ptList.size()-1; i++) {
@@ -110,11 +124,32 @@ public class Affichage extends JPanel{
     	g.drawLine(center.x-5, center.y+5, center.x+5, center.y-5);
     }
     
+    private void drawBg(Graphics g) throws IOException {
+    	ArrayList<BufferedImage> Images = new ArrayList<BufferedImage>();
+    	
+    	Images.add(ImageIO.read(new File(this.parallax_mountains+"parallax-mountain-bg.png")));
+    	Images.add(ImageIO.read(new File(this.parallax_mountains+"parallax-mountain-montain-far.png")));
+    	Images.add(ImageIO.read(new File(this.parallax_mountains+"parallax-mountain-mountains.png")));
+    	Images.add(ImageIO.read(new File(this.parallax_mountains+"parallax-mountain-trees.png")));
+    	Images.add(ImageIO.read(new File(this.parallax_mountains+"parallax-mountain-foreground-trees.png")));
+    	
+    	
+    	for(BufferedImage I : Images) {
+    		Image NewI = I.getScaledInstance(this.WIDTH, this.horHeight-2, BufferedImage.SCALE_SMOOTH);
+    		g.drawImage(NewI, 0,0, null);
+    	}
+    }
+    
     public void paint(Graphics g) {
-    	super.paintComponent(g);
-    	setBackground(Color.WHITE);
+    	paintComponent(g);
     	this.drawPiste(g);
+    	try {
+			this.drawBg(g);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     	this.drawVehicule(g);
+    	
     }
     
     public void change() {

@@ -33,8 +33,8 @@ public class Vehicule {
 	public Vehicule() {
 		this.x = screenSize.width/2-this.hitWidth;
 		this.y = screenSize.height/2+this.hitHeight;
-		this.hitHeight = 50;
-		this.hitWidth = 100;
+		this.hitHeight = 75;
+		this.hitWidth = 150;
 		
 		this.inFlight = false;
 		this.isAlive = true;
