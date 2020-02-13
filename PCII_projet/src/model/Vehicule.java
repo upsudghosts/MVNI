@@ -15,7 +15,7 @@ public class Vehicule {
 	private int position;
 	
 	//Vehicle status
-	private boolean inFlight;
+	private boolean inFlight, isAlive;
 	
 	private enum moveStatus{ 
 		LEFT, RIGHT, UP, DOWN, NEUTRAL;
@@ -26,7 +26,7 @@ public class Vehicule {
 	        return list[i];
 	    }
 	};
-	private moveStatus flyStatus;
+	private moveStatus mvStat;
 	
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	
@@ -37,7 +37,8 @@ public class Vehicule {
 		this.hitWidth = 100;
 		
 		this.inFlight = false;
-		this.flyStatus = moveStatus.NEUTRAL;
+		this.isAlive = true;
+		this.mvStat = moveStatus.NEUTRAL;
 	}
 	
 	public Point getCoord() {
@@ -60,16 +61,22 @@ public class Vehicule {
 		return this.inFlight;
 	}
 	
+	public boolean getAlive() {
+		return this.isAlive;
+	}
+	
 	public String getMoveStatus() {
-		return ""+this.flyStatus+"";
+		return ""+this.mvStat+"";
 	}
 	
 	public void update_moveStatus(int index) {
-		this.flyStatus = moveStatus.getVal(index);
+		if(this.inFlight && this.isAlive) {
+			this.mvStat = moveStatus.getVal(index);
+		}
 	}
 	
 	public void move(int coef) {
-		switch (this.flyStatus) {
+		switch (this.mvStat) {
 			case LEFT:
 				this.x -= coef;
 				break;
@@ -83,7 +90,6 @@ public class Vehicule {
 				this.y -= coef;
 				break;
 			case NEUTRAL:
-				System.out.println("Not started");
 				break;
 		}
 	}
@@ -93,6 +99,7 @@ public class Vehicule {
 	}
 	
 	public void stopRace() {
+		this.isAlive = false;
 		this.inFlight = false;
 	}
 	
@@ -101,6 +108,6 @@ public class Vehicule {
 		this.y = screenSize.height/2+this.hitHeight;
 		
 		this.inFlight = false;
-		this.flyStatus = moveStatus.NEUTRAL;
+		this.mvStat = moveStatus.NEUTRAL;
 	}
 }

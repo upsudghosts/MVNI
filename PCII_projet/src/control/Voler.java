@@ -3,7 +3,9 @@
  */
 package control;
 
+import model.Piste;
 import model.Vehicule;
+import view.Affichage;
 
 /**
  * @author piotrborissov
@@ -14,17 +16,19 @@ public class Voler extends Thread {
 	/**Number of pixels our bike will move in any of the four directions.*/
 	private int leftCoef, rightCoef, upCoef, downCoef;
 	private Vehicule V;
+	private Affichage A;
 
 	/**
 	 * 
 	 */
-	public Voler(Vehicule v) {
-		this.leftCoef = 5;
+	public Voler(Affichage a, Piste track, Vehicule ve) {
+		this.leftCoef = 5; 
 		this.rightCoef = 5;
 		this.upCoef = 5;
 		this.downCoef = 5;
 		
-		this.V = v;
+		this.V = ve;
+		this.A = a;
 	}
 
 	@Override
@@ -51,6 +55,10 @@ public class Voler extends Thread {
 						this.V.move(0);
 						break;
 				}
+				/**Refreshing view and putting thread to sleep for 50 ms to see updates on our screen.*/
+				this.A.change();
+				try { Thread.sleep(50); }
+				catch (Exception exc) { exc.printStackTrace(); }
 			}
 		}
 	}

@@ -7,7 +7,6 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -17,7 +16,6 @@ import model.Vehicule;
 public class Affichage extends JPanel{
 	/**Needed labels and buttons for the project.*/
 	public JLabel startlabel, scorelabel, deathlabel; 
-	public JButton startButton, restartButton; 
 
 	private static final long serialVersionUID = 1L;
 
@@ -42,25 +40,27 @@ public class Affichage extends JPanel{
     	this.P.setMaxX(this.WIDTH+100);
     	this.P.setMaxY(this.HEIGHT);
     	this.P.genereArrierePlan();
-<<<<<<< HEAD
+
     	this.P.setCurrY(this.HEIGHT);
     	this.P.createTrack2();
-=======
-    	
-    	/**Initializing buttons.*/
-		this.startButton = new JButton("Click Here to Start Game");
-		this.restartButton = new JButton("Click Here to Start a New Game");
 		
 		/**Initializing buttons.*/
-		this.startlabel = new JLabel("Start Game ?");
+		this.startlabel = new JLabel("Press SPACE to Start Game");
 		this.scorelabel = new JLabel("Score : " + this.V.getPos());
 		this.deathlabel = new JLabel();
 		
 		/**These labels and the button are meant to be seen after death, or in-game. Not before.*/
 		this.scorelabel.setVisible(false);
 		this.deathlabel.setVisible(false);
-		this.restartButton.setVisible(false);
->>>>>>> branch 'master' of https://github.com/upsudghosts/MVNI.git
+
+    }
+    
+    public int getWidth() {
+    	return this.WIDTH;
+    }
+    
+    public int getHeight() {
+    	return this.HEIGHT;
     }
     
     private void drawPiste(Graphics g) {

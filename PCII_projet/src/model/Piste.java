@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Piste {
 	
-	private static final int MOVEVAL = 5;
+	private int MOVEVAL = 5;
 	private int horizonHeight;
 	private int maxX;
 	private int maxY;
@@ -72,8 +72,16 @@ public class Piste {
 		this.track.add(new Point(x, this.currY));
 	}
 	
+	public void speedUp() {
+		if (this.MOVEVAL < 15) { this.MOVEVAL ++;}
+	}
+	
+	public void speedDown() {
+		if(this.MOVEVAL > 0) { this.MOVEVAL --; }
+	}
+	
 	public void moveTrack() {
-		for(int i=0; i<this.track.size(); i++){
+		for(int i = 0; i < this.track.size() ; i++){
 			Point p = this.track.get(i);
 			p.y += MOVEVAL;
 			//Si le point n'est plus utile, on le retire
