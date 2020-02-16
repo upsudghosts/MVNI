@@ -24,15 +24,15 @@ public class Affichage extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 
-	//Taille par defaut de l'interface
+	//DEfault interface size
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     public final int WIDTH = screenSize.width;
     public final int HEIGHT = screenSize.height;
     
-    //Emplacement de l'horizon
+    //Horizon height
     private final int horHeight = (int) (this.HEIGHT*0.3);
     
-    //Modele
+    //Model
     private Vehicule V;
     private Piste P;
     
@@ -83,14 +83,23 @@ public class Affichage extends JPanel{
 
     }
     
+    /** Gives the default width of the interface
+     * @return an int, the width of the interface
+     **/
     public int getWidth() {
     	return this.WIDTH;
     }
     
+    /** Gives the default heigth of the interface
+     * @return an int, the height of the interface
+     **/
     public int getHeight() {
     	return this.HEIGHT;
     }
     
+    /** Draws the track
+     * @param g the Graphics on which we draw
+     **/
     private void drawPiste(Graphics g) {
     	g.drawLine(0, this.P.getHorizon(), this.WIDTH, this.P.getHorizon());
     	//Montains
@@ -113,6 +122,9 @@ public class Affichage extends JPanel{
     	}
     }
     
+    /** Draws the vehicle at the right coordinates
+     * @param g the Graphics on which we draw
+     **/
     private void drawVehicule(Graphics g){
     	Image NewI;
     	
@@ -153,6 +165,10 @@ public class Affichage extends JPanel{
     	this.incrView();
     }
     
+    
+    /** Draws the background image
+     * @param g the graphics on which we draw
+     **/
     private void drawBg(Graphics g){
     	Image NewI;
     	for(BufferedImage I : this.imgBg) {
@@ -161,6 +177,10 @@ public class Affichage extends JPanel{
     	}
     }
     
+    /** Draws an image representing effects where the vehicle is flying
+     * @param g the Graphics on which we draw
+     * @param coord the Point where we draw the image
+     **/
     private void drawFlyEffect(Graphics g, Point coord) {
     	Image NewI;
     	
@@ -169,6 +189,10 @@ public class Affichage extends JPanel{
     	NewI = imgEff.get(this.green_light).getScaledInstance(this.V.getHitWidth(), this.V.getHitHeight(), BufferedImage.SCALE_SMOOTH);
     	g2d.drawImage(NewI, coord.x+this.V.getHitWidth(), coord.y-+this.V.getHitHeight(), null);
     }
+    
+    /** Draws every element of this interface on a Graphics
+     * @param g a Graphics on which we draw
+     **/
     public void paint(Graphics g) {
     	paintComponent(g);
     	this.drawPiste(g);
@@ -178,10 +202,16 @@ public class Affichage extends JPanel{
     	
     }
     
+    /**Repaints the interface : used if there is a change
+     * 
+     **/
     public void change() {
     	repaint();
     }
     
+    /** Changes the**/ /*Indice*/ /** of the vehicle and effect images to animate them
+     * 
+     **/
     private void incrView() {
 
     	if(this.blink < 2) { this.blink++; } 
@@ -191,12 +221,15 @@ public class Affichage extends JPanel{
     	else { this.green_light = 0; }
     }
 
+    /**Loads and adds all the vehicle images to the imgV ArrayList**/
     private void loadImgV() throws IOException {
      	this.imgV.add(ImageIO.read(new File(this.spaceships+"colored-ufo.png")));
     	this.imgV.add(ImageIO.read(new File(this.spaceships+"colored-ufo-2.png")));
     	this.imgV.add(ImageIO.read(new File(this.spaceships+"colored-ufo-3.png")));
     }
     
+    
+    /**Loads and adds all the images representing flying effects to the imgEff ArrayList**/
     private void loadImgEff() throws IOException {
     	this.imgEff.add(ImageIO.read(new File(this.effects+"1.png")));
     	this.imgEff.add(ImageIO.read(new File(this.effects+"2.png")));
@@ -205,6 +238,7 @@ public class Affichage extends JPanel{
     	
     }
 
+    /** Loads and adds all the elements of the background image to the imgBg ArrayList **/
     private void loadImgBg() throws IOException {
     	this.imgBg.add(ImageIO.read(new File(this.parallax_mountains+"parallax-mountain-bg.png")));
     	this.imgBg.add(ImageIO.read(new File(this.parallax_mountains+"parallax-mountain-montain-far.png")));
