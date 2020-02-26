@@ -58,19 +58,19 @@ public class ControlClavier implements KeyListener{
 	public void keyPressed(KeyEvent e) {
 		switch(e.getKeyCode()) {
 			case KeyEvent.VK_DOWN :
-				this.V.update_moveStatus(3);
+				this.Fly.update_moveStatus(3);
 				break;
 				
 			case KeyEvent.VK_UP :
-				this.V.update_moveStatus(2);
+				this.Fly.update_moveStatus(2);
 				break;
 				
 			case KeyEvent.VK_LEFT :
-				this.V.update_moveStatus(0);
+				this.Fly.update_moveStatus(0);
 				break;
 				
 			case KeyEvent.VK_RIGHT :
-				this.V.update_moveStatus(1);
+				this.Fly.update_moveStatus(1);
 				break;
 				
 			case KeyEvent.VK_SPACE:
@@ -97,7 +97,7 @@ public class ControlClavier implements KeyListener{
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		this.V.update_moveStatus(4);
+		this.Fly.update_moveStatus(4);
 		System.out.println(this.V.getMoveStatus());
 		
 	}

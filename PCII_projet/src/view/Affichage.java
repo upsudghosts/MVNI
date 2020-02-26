@@ -196,8 +196,8 @@ public class Affichage extends JPanel{
      **/
     public void paint(Graphics g) {
     	paintComponent(g);
-    	this.drawBg(g);
     	this.drawPiste(g);
+    	this.drawBg(g);
     	this.drawVehicule(g);
     	
     }

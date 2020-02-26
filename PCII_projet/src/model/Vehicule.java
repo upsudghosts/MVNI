@@ -17,16 +17,7 @@ public class Vehicule {
 	//Vehicle status
 	private boolean inFlight, isAlive;
 	
-	private enum moveStatus{ 
-		LEFT, RIGHT, UP, DOWN, NEUTRAL;
-		
-		private static moveStatus[] list = moveStatus.values();
-
-	    public static moveStatus getVal(int i) {
-	        return list[i];
-	    }
-	};
-	private moveStatus mvStat;
+	private String mvStat;
 	
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	
@@ -38,7 +29,8 @@ public class Vehicule {
 		
 		this.inFlight = false;
 		this.isAlive = true;
-		this.mvStat = moveStatus.NEUTRAL;
+		
+		this.mvStat = "NEUTRAL";
 	}
 	
 	public Point getCoord() {
@@ -65,49 +57,44 @@ public class Vehicule {
 		return this.isAlive;
 	}
 	
-	public String getMoveStatus() {
-		return ""+this.mvStat+"";
-	}
-	
-	public void update_moveStatus(int index) {
-		if(this.inFlight && this.isAlive) {
-			this.mvStat = moveStatus.getVal(index);
-		}
-	}
-	
-	public void move(int coef) {
-		switch (this.mvStat) {
-			case LEFT:
+	public void move(String mvDir, int coef) {
+		this.mvStat = mvDir;
+		switch (mvStat) {
+			case "LEFT":
 				if(this.x  == this.hitWidth) {
 					this.x = this.hitWidth;
 					break;
 				}
 				this.x -= coef;
 				break;
-			case RIGHT:
+			case "RIGHT":
 				if(this.x  == screenSize.width) {
 					this.x = screenSize.width;
 					break;
 				}
 				this.x += coef;
 				break;
-			case UP:
+			case "UP":
 				if(this.y  == this.hitHeight) {
 					this.y = this.hitHeight;
 					break;
 				}
 				this.y -= coef;
 				break;
-			case DOWN:
+			case "DOWN":
 				if(this.y  == screenSize.height - 3*this.hitHeight) {
 					this.y = screenSize.height - 3*this.hitHeight;
 					break;
 				}
 				this.y += coef;
 				break;
-			case NEUTRAL:
+			case "NEUTRAL":
 				break;
 		}
+	}
+	
+	public String getMoveStatus() {
+		return this.mvStat;
 	}
 	
 	public void startRace() {
@@ -124,6 +111,5 @@ public class Vehicule {
 		this.y = screenSize.height/2+this.hitHeight;
 		
 		this.inFlight = false;
-		this.mvStat = moveStatus.NEUTRAL;
 	}
 }

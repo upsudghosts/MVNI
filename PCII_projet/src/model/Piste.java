@@ -1,88 +1,126 @@
 package model;
 
-import java.awt.Dimension;
 import java.awt.Point;
-import java.awt.Toolkit;
 import java.util.ArrayList;
-
-import view.Affichage;
 
 public class Piste {
 	
-	private int MOVEVAL = 5;
+	private int MOVEVAL = 10;
 	private int horHeight, trackSize;
-	private int maxX, maxY, distX;
+	private int maxX, maxY, symX;
+	
+	private int coefProf;
 
 	private Point accelPt;
 	
 	private ArrayList<Point> trackL, trackR;
+
 	
 	public Piste() {
 		this.horHeight = 10;
 		this.trackL = new ArrayList<Point>();
 		this.trackR= new ArrayList<Point>();
-		
-		this.distX = 300;
+	
 		this.trackSize = 0;
+		this.coefProf = 20;
 	}
 	
 	public void createTrack() {
-		int i = 0;
-		
-		int x = (int) ((this.maxX/4 - this.maxX/8)+(Math.random() * ((this.maxX/2 + this.maxX/8)-(this.maxX/2 - this.maxX/8))));
+		int currX = 300;
 		int currY = this.maxY;
-		this.trackL.add(new Point(0, currY));
-		this.trackR.add(new Point(this.maxX, currY));
+		
+		this.trackL.add(new Point(currX, currY));
+		this.trackR.add(new Point(this.maxX-currX, currY));
+		
 		this.trackSize ++;
 		
-		while(currY >= this.horHeight) {
-			i++;
-			x = (int) ((this.maxX/4 - this.maxX/8)+(Math.random() * ((this.maxX/2 + this.maxX/8)-(this.maxX/2 - this.maxX/8))));
-			currY -= (int) ((this.maxY-this.horHeight)/8+(Math.random() * ((this.maxY-this.horHeight)/4-(this.maxY-this.horHeight)/8)));
-			this.trackL.add(new Point(x, currY));
-			this.distX = this.distX - 10*i;
-			this.trackR.add(new Point(this.maxX/2 + (this.maxX/2-x), currY));
-			this.trackSize ++;
-		}
+		for(int i = 0; i < 2; i++) { this.addPoint(); }
 	}
 	
 	public void addPoint() {
+		int prevX = this.trackL.get(this.trackSize-1).x;
 		int currY = this.horHeight;
-		int x = (int) ((this.maxX/2 - this.maxX/8)+(Math.random() * ((this.maxX/2 + this.maxX/8)-(this.maxX/2 - this.maxX/8))));
+		int x = 0;
+		if ((int)(Math.random()*10) > 5 && (prevX < this.maxX - 200 || prevX <200)) {
+			x = (int) (prevX+50);
+		} else if ((int)(Math.random()*10) <= 5 && (prevX > this.maxX - 200 || prevX > 200)){
+			x = (int) (prevX-50);
+		}
+		
 		this.trackL.add(new Point(x, currY));
-		this.trackR.add(new Point(x+this.distX, currY));
+		this.symX = x + 10*this.coefProf;
+		this.trackR.add(new Point(this.symX , currY));
+		this.trackSize ++;
 	}
 	
 	public void speedUp() {
-		if (this.MOVEVAL < 15) { this.MOVEVAL += 2;}
+		if (this.MOVEVAL < 20) { this.MOVEVAL += 2;}
 	}
 	
 	public void speedDown() {
-		if(this.MOVEVAL > 0) { this.MOVEVAL --; }
+		if(this.MOVEVAL > 3) { this.MOVEVAL --; }
 	}
 	
 	public void moveTrack() {
-		for(int i = 0; i < this.trackL.size() ; i++){
-			Point pL = this.trackL.get(i);
-			Point pR = this.trackR.get(i);
-			
-			pL.x -= MOVEVAL;
-			pL.y += MOVEVAL;
-			
-			pR.x += MOVEVAL;
-			pR.y += MOVEVAL;
-			
-			//Si le point n'est plus utile, on le retire
-			if(i>0) {
-				if(pL.y > this.maxY && this.trackL.get(i-1).y > this.maxY) {
-					this.addPoint();
-					
-					this.trackL.remove(i-1);
-					this.trackR.remove(i-1);
-				}
+
+		if ( this.trackL.get(this.trackSize - 2).y < this.maxY) {	
+			for(int i = 0; i < this.trackL.size()-1; i++){
+				Point pL = this.trackL.get(i);
+				Point pR = this.trackR.get(i);
+	
+				pL.x -= MOVEVAL;
+				pL.y += MOVEVAL;
+				
+				pR.x += MOVEVAL;
+				pR.y += MOVEVAL;
 			}
+		} else {
+			this.addPoint();
+			
+			this.trackL.remove(0);
+			this.trackR.remove(0);
+			this.trackSize --;
 		}
 		//Si il le faut, on rajoute un point
+	}
+	
+	public void trackEffect(String mvStat, int coef) {
+		Point pL, pR;
+		int lastLX = this.trackL.get(this.trackSize-1).x;
+		int lastRX = this.trackL.get(this.trackSize-1).x;
+		
+		int firstLX = this.trackL.get(0).x;
+		int firstRX = this.trackL.get(0).x;
+		
+		
+		for(int i = 0; i < this.trackSize; i++) {
+			pL = this.trackL.get(i);
+			pR = this.trackR.get(i);
+			switch (mvStat) {
+			case "LEFT":
+				pL.x += coef/10;
+				pR.x += coef/10;
+				break;
+			case "RIGHT":
+				pL.x -= coef/10;
+				pR.x -= coef/10;
+				break;
+			case "UP":
+				if(lastLX - lastRX > 5) {
+					pL.x += 100;
+					pR.x -= 100;
+				}
+				break;
+			case "DOWN":
+				if(firstLX - firstRX < 200) {
+					pL.x -= coef/10;
+					pR.x += coef/10;
+				}
+				break;
+			case "NEUTRAL":
+				break;
+			}
+		}
 	}
 	
 	public int getHorizon() {
@@ -116,15 +154,5 @@ public class Piste {
 	
 	private void setAccelPt(int x, int y) {
 		this.accelPt = new Point(x,y);
-	}
-
-	public static void main(String[] args) {
-		Piste p = new Piste();
-		p.setHorizon(50);
-		p.setMaxY(500);
-		p.setMaxX(500);
-		p.createTrack();
-		//p.createTrack2();
-		System.out.println("Taille piste : " + p.trackSize);
 	}
 }
