@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -124,6 +125,19 @@ public class Affichage extends JPanel{
 		}
     }
     
+    /** Draws the current speed and the distance traveled
+     * @param g the Graphics on which we draw
+     **/
+    private void drawScore(Graphics g) {
+    	g.setColor(Color.WHITE);
+    	String speed = "speed : " + this.P.getSpeed();
+    	//g.drawString(speed, WIDTH-90, 25);
+    	String dist = "Score : " + this.P.getDist();
+    	//g.drawString(dist, WIDTH-90, 45);
+    	g.drawString(speed, 10, 25);
+    	g.drawString(dist, 10, 45);
+    }
+    
     /** Draws the vehicle at the right coordinates
      * @param g the Graphics on which we draw
      **/
@@ -196,10 +210,11 @@ public class Affichage extends JPanel{
      **/
     public void paint(Graphics g) {
     	paintComponent(g);
-    	this.drawBg(g);
-    	this.drawPiste(g);
-    	this.drawVehicule(g);
     	
+    	this.drawPiste(g);
+    	this.drawBg(g);
+    	this.drawScore(g);
+    	this.drawVehicule(g);
     }
     
     /**Repaints the interface : used if there is a change

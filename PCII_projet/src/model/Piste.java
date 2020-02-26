@@ -13,7 +13,9 @@ public class Piste {
 	private int horHeight, trackSize;
 	private int maxX, maxY, distX;
 
-	private Point accelPt;
+	private Point accelPt; //Le point auquel on accelere le plus
+	private int traveledDist;
+	public final int tDistUp = 1;
 	
 	private ArrayList<Point> trackL, trackR;
 	
@@ -24,6 +26,7 @@ public class Piste {
 		
 		this.distX = 300;
 		this.trackSize = 0;
+		this.traveledDist = 0;
 	}
 	
 	public void createTrack() {
@@ -83,10 +86,19 @@ public class Piste {
 			}
 		}
 		//Si il le faut, on rajoute un point
+		this.traveledDist += tDistUp*this.MOVEVAL;
 	}
 	
 	public int getHorizon() {
 		return this.horHeight;
+	}
+	
+	public int getSpeed() {
+		return this.MOVEVAL;
+	}
+	
+	public int getDist() {
+		return this.traveledDist;
 	}
 	
 	public void setHorizon(int n) {
@@ -110,7 +122,6 @@ public class Piste {
 	}
 	
 	public Point getAccelPt() {
-
 		return this.accelPt;
 	}
 	
