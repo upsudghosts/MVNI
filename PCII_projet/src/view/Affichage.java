@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
@@ -40,7 +41,7 @@ public class Affichage extends JPanel{
     
     //Img Access
     private String parallax_mountains, spaceships, effects;
-	ArrayList<BufferedImage> imgV, imgEff, imgBg; 
+	ArrayList<BufferedImage> imgV, imgEff, imgBg, imgG; 
     
     //Animation vehicule
     private int blink, green_light;
@@ -64,11 +65,12 @@ public class Affichage extends JPanel{
     	this.imgBg= new ArrayList<BufferedImage>();
     	this.imgEff= new ArrayList<BufferedImage>();
     	this.imgV= new ArrayList<BufferedImage>();
+    	this.imgG = new ArrayList<BufferedImage>();
     	
     	this.loadImgV();
     	this.loadImgEff();
     	this.loadImgBg();
-    	
+    	this.loadImgGround();
     	
     	this.blink = 0;
     	this.green_light = 0;
@@ -102,6 +104,7 @@ public class Affichage extends JPanel{
      * @param g the Graphics on which we draw
      **/
     private void drawPiste(Graphics g) {
+    	//Track
     	g.drawLine(0, this.P.getHorizon(), this.WIDTH, this.P.getHorizon());
     	
     	ArrayList<Point> ptL = this.P.getTrackL();
@@ -130,6 +133,30 @@ public class Affichage extends JPanel{
 		for(CheckPoint cp : cpL) {
 			g.drawLine(0, cp.getHeight(), WIDTH, cp.getHeight());
 		}
+		
+		//Image
+		Polygon poly = new Polygon();
+
+		for(int i=0; i<ptL.size(); i++) {
+			Point TempL = ptL.get(i);
+			poly.addPoint(TempL.x, TempL.y);
+		}
+		for(int i=ptL.size()-1; i>0; i--) {
+			Point Temp = ptR.get(i);
+			poly.addPoint(Temp.x, Temp.y);
+		}
+		/*
+		poly.addPoint(40, 700);
+		poly.addPoint(78, 700);
+		poly.addPoint(78, 800);
+		poly.addPoint(40, 800);
+		*/
+		Graphics g2 = g.create();
+		g2.fillPolygon(poly);
+		g2.drawString("test", 500, 500);
+		//g2.setClip(poly);
+		//Image NewI = this.imgG.get(0);
+    	//g2.drawImage(NewI, 0, 0, null);
     }
     
     /** Draws the current speed and the distance traveled
@@ -268,6 +295,10 @@ public class Affichage extends JPanel{
     	this.imgBg.add(ImageIO.read(new File(this.parallax_mountains+"parallax-mountain-trees.png")));
     	this.imgBg.add(ImageIO.read(new File(this.parallax_mountains+"parallax-mountain-foreground-trees.png")));
     	
+    }
+    
+    private void loadImgGround() throws IOException {
+    	this.imgG.add(ImageIO.read(new File(this.parallax_mountains+"parallax-mountain-bg.png")));
     }
 }
 
