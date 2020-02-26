@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -20,7 +21,7 @@ import model.Vehicule;
 
 public class Affichage extends JPanel{
 	/**Needed labels and buttons for the project.*/
-	public JLabel startlabel, scorelabel, deathlabel; 
+	public JLabel startlabel, deathlabel; 
 
 	private static final long serialVersionUID = 1L;
 
@@ -73,11 +74,9 @@ public class Affichage extends JPanel{
 
 		/**Initializing buttons.*/
 		this.startlabel = new JLabel("Press SPACE to Start Game");
-		this.scorelabel = new JLabel("Score : " + this.V.getPos());
 		this.deathlabel = new JLabel();
 		
 		/**These labels and the button are meant to be seen after death, or in-game. Not before.*/
-		this.scorelabel.setVisible(false);
 		this.deathlabel.setVisible(false);
 
     }
@@ -122,6 +121,19 @@ public class Affichage extends JPanel{
 			}
 			prevR= Temp;
 		}
+    }
+    
+    /** Draws the current speed and the distance traveled
+     * @param g the Graphics on which we draw
+     **/
+    private void drawScore(Graphics g) {
+    	g.setColor(Color.WHITE);
+    	String speed = "speed : " + this.P.getSpeed();
+    	//g.drawString(speed, WIDTH-90, 25);
+    	String dist = "Score : " + this.P.getDist();
+    	//g.drawString(dist, WIDTH-90, 45);
+    	g.drawString(speed, 10, 25);
+    	g.drawString(dist, 10, 45);
     }
     
     /** Draws the vehicle at the right coordinates
@@ -196,10 +208,11 @@ public class Affichage extends JPanel{
      **/
     public void paint(Graphics g) {
     	paintComponent(g);
+    	
     	this.drawPiste(g);
     	this.drawBg(g);
+    	this.drawScore(g);
     	this.drawVehicule(g);
-    	
     }
     
     /**Repaints the interface : used if there is a change

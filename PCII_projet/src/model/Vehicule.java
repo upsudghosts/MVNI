@@ -12,8 +12,6 @@ public class Vehicule {
 	//Hitbox Dimensions
 	private int hitWidth, hitHeight;
 	
-	private int position;
-	
 	//Vehicle status
 	private boolean inFlight, isAlive;
 	
@@ -43,10 +41,6 @@ public class Vehicule {
 	
 	public int getHitHeight() {
 		return this.hitHeight;
-	}
-	
-	public int getPos() {
-		return this.position;
 	}
 	
 	public boolean getFlyStatus() {

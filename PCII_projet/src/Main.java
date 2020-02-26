@@ -34,8 +34,7 @@ public class Main {
 		/**Adding labels and buttons in correct order.*/ 
 		
 		mainFrame.add(A.startlabel);
-        
-		mainFrame.add(A.scorelabel);
+
 		mainFrame.add(A.deathlabel);
 
 		

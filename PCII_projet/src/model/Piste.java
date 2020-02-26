@@ -11,7 +11,9 @@ public class Piste {
 	
 	private int coefProf;
 
-	private Point accelPt;
+	private Point accelPt; //Le point auquel on accelere le plus
+	private int traveledDist;
+	public final int tDistUp = 1;
 	
 	private ArrayList<Point> trackL, trackR;
 
@@ -23,6 +25,7 @@ public class Piste {
 	
 		this.trackSize = 0;
 		this.coefProf = 20;
+		this.traveledDist = 0;
 	}
 	
 	public void createTrack() {
@@ -82,6 +85,7 @@ public class Piste {
 			this.trackSize --;
 		}
 		//Si il le faut, on rajoute un point
+		this.traveledDist += tDistUp*this.MOVEVAL;
 	}
 	
 	public void trackEffect(String mvStat, int coef) {
@@ -127,6 +131,14 @@ public class Piste {
 		return this.horHeight;
 	}
 	
+	public int getSpeed() {
+		return this.MOVEVAL;
+	}
+	
+	public int getDist() {
+		return this.traveledDist;
+	}
+	
 	public void setHorizon(int n) {
 		this.horHeight = n;
 	}
@@ -148,7 +160,6 @@ public class Piste {
 	}
 	
 	public Point getAccelPt() {
-
 		return this.accelPt;
 	}
 	

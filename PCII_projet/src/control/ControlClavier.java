@@ -77,13 +77,11 @@ public class ControlClavier implements KeyListener{
 				if(!this.V.getFlyStatus() && this.V.getAlive()) {
 					/**Updating button and label conditions*/
 					this.A.startlabel.setText("Game Started");
-					this.A.scorelabel.setVisible(true);
 					/**Starting need threads*/
 					this.startGame();
 				}else if(!this.V.getAlive()){
 					this.A.deathlabel.setVisible(false);
 					this.A.startlabel.setVisible(true);
-					this.A.scorelabel.setVisible(true);
 						
 					/**Setting to default for the project to restart. /!\ Do not change the order /!\*/
 					this.V.restart();
