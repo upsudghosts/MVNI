@@ -18,11 +18,15 @@ public class Piste {
 	public final int tDistUp = 1;
 	
 	private ArrayList<Point> trackL, trackR;
+	private ArrayList<CheckPoint> cpList;
 	
 	public Piste() {
 		this.horHeight = 10;
 		this.trackL = new ArrayList<Point>();
 		this.trackR= new ArrayList<Point>();
+		this.cpList = new ArrayList<CheckPoint>();
+		
+		this.cpList.add(new CheckPoint(this.horHeight));
 		
 		this.distX = 300;
 		this.trackSize = 0;
@@ -85,8 +89,19 @@ public class Piste {
 				}
 			}
 		}
-		//Si il le faut, on rajoute un point
 		this.traveledDist += tDistUp*this.MOVEVAL;
+		//The checkpoints move and we remove it if needed
+		for(int i=0; i<this.cpList.size(); i++) {
+			CheckPoint cp = this.cpList.get(i);
+			cp.decreaseHeight(this.MOVEVAL);
+			if(cp.getHeight()>this.maxY) {
+				this.cpList.remove(cp);
+			}
+		}
+		//We add a checkpoint if we need it
+		if(this.traveledDist%1000 == 0) {
+			this.cpList.add(new CheckPoint(this.horHeight));
+		}
 	}
 	
 	public int getHorizon() {
@@ -111,6 +126,10 @@ public class Piste {
 	
 	public ArrayList<Point> getTrackR(){
 		return this.trackR;
+	}
+	
+	public ArrayList<CheckPoint> getCP(){
+		return this.cpList;
 	}
 	
 	public void setMaxX(int n) {

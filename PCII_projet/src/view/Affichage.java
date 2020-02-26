@@ -16,6 +16,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import model.CheckPoint;
 import model.Piste;
 import model.Vehicule;
 
@@ -105,6 +106,7 @@ public class Affichage extends JPanel{
     	
     	ArrayList<Point> ptL = this.P.getTrackL();
     	ArrayList<Point> ptR = this.P.getTrackR();
+    	ArrayList<CheckPoint> cpL = this.P.getCP();
     	
     	//TrackL
     	Point prevL = null;
@@ -122,6 +124,11 @@ public class Affichage extends JPanel{
 				g.drawLine(prevR.x, prevR.y, Temp.x, Temp.y);
 			}
 			prevR= Temp;
+		}
+		
+		//Checkpoints
+		for(CheckPoint cp : cpL) {
+			g.drawLine(0, cp.getHeight(), WIDTH, cp.getHeight());
 		}
     }
     
