@@ -34,13 +34,13 @@ public class Avancer extends Thread{
 				case "DOWN":
 					if (coordV.y > this.A.getHeight()/2 && coordV.y < this.A.getHeight() - 3*this.V.getHitHeight()) {
 						this.P.speedUp();
-						System.out.println("Speed Up");
+						//System.out.println("Speed Up");
 					}
 					break;
 				case "UP":
 					if (coordV.y < this.A.getHeight()/2) {
 						this.P.speedDown();
-						System.out.println("Speed Down");
+						//System.out.println("Speed Down");
 					}
 					break;
 			}

@@ -96,7 +96,7 @@ public class ControlClavier implements KeyListener{
 	@Override
 	public void keyReleased(KeyEvent e) {
 		this.Fly.update_moveStatus(4);
-		System.out.println(this.V.getMoveStatus());
+		//System.out.println(this.V.getMoveStatus());
 		
 	}
 
