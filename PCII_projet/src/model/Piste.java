@@ -2,15 +2,14 @@ package model;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Piste {
 	
-	private int MOVEVAL = 10;
+	private int MOVEVAL = 20, ZOOM = 0;
 	private int horHeight, trackSize;
 	private int maxX, maxY, symX;
 	
-	private int coefProf;
-
 	private Point accelPt; //Le point auquel on accelere le plus
 	private int traveledDist;
 	public final int tDistUp = 1;
@@ -19,12 +18,10 @@ public class Piste {
 
 	
 	public Piste() {
-		this.horHeight = 10;
 		this.trackL = new ArrayList<Point>();
 		this.trackR= new ArrayList<Point>();
 	
 		this.trackSize = 0;
-		this.coefProf = 20;
 		this.traveledDist = 0;
 	}
 	
@@ -41,27 +38,34 @@ public class Piste {
 	}
 	
 	public void addPoint() {
-		int prevX = this.trackL.get(this.trackSize-1).x;
+		Random ran = new Random();
+		
+		int prevXL = this.trackL.get(this.trackSize-1).x;
+		
 		int currY = this.horHeight;
-		int x = 0;
-		if ((int)(Math.random()*10) > 5 && (prevX < this.maxX - 200 || prevX <200)) {
-			x = (int) (prevX+50);
-		} else if ((int)(Math.random()*10) <= 5 && (prevX > this.maxX - 200 || prevX > 200)){
-			x = (int) (prevX-50);
+		int currX = 0;
+		
+		int dir = ran.nextInt(100);
+		if (dir > 50 && (prevXL < this.maxX - 200 || prevXL <200)) {
+			currX = prevXL+50;
+		} else if (dir <= 50 && (prevXL > this.maxX - 200 || prevXL > 200)){
+			currX = prevXL-50;
 		}
 		
-		this.trackL.add(new Point(x, currY));
-		this.symX = x + 10*this.coefProf;
+		this.trackL.add(new Point(currX, currY));
+		
+		this.symX = currX + 50 + ZOOM/2;
+		
 		this.trackR.add(new Point(this.symX , currY));
 		this.trackSize ++;
 	}
 	
 	public void speedUp() {
-		if (this.MOVEVAL < 20) { this.MOVEVAL += 2;}
+		if (this.MOVEVAL < 35) { this.MOVEVAL += 2;}
 	}
 	
 	public void speedDown() {
-		if(this.MOVEVAL > 3) { this.MOVEVAL --; }
+		if(this.MOVEVAL > 10) { this.MOVEVAL --; }
 	}
 	
 	public void moveTrack() {
@@ -84,19 +88,12 @@ public class Piste {
 			this.trackR.remove(0);
 			this.trackSize --;
 		}
-		//Si il le faut, on rajoute un point
 		this.traveledDist += tDistUp*this.MOVEVAL;
 	}
 	
 	public void trackEffect(String mvStat, int coef) {
 		Point pL, pR;
-		int lastLX = this.trackL.get(this.trackSize-1).x;
-		int lastRX = this.trackL.get(this.trackSize-1).x;
-		
-		int firstLX = this.trackL.get(0).x;
-		int firstRX = this.trackL.get(0).x;
-		
-		
+	
 		for(int i = 0; i < this.trackSize; i++) {
 			pL = this.trackL.get(i);
 			pR = this.trackR.get(i);
@@ -110,15 +107,17 @@ public class Piste {
 				pR.x -= coef/10;
 				break;
 			case "UP":
-				if(lastLX - lastRX > 5) {
-					pL.x += 100;
-					pR.x -= 100;
+				if(ZOOM > 0) {
+					pL.x += coef/10;
+					pR.x -= coef/10;
+					ZOOM --;
 				}
 				break;
 			case "DOWN":
-				if(firstLX - firstRX < 200) {
+				if(ZOOM < 50) {
 					pL.x -= coef/10;
 					pR.x += coef/10;
+					ZOOM ++;
 				}
 				break;
 			case "NEUTRAL":

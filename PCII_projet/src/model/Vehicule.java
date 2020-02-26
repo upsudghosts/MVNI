@@ -55,29 +55,29 @@ public class Vehicule {
 		this.mvStat = mvDir;
 		switch (mvStat) {
 			case "LEFT":
-				if(this.x  == this.hitWidth) {
+				if(this.x  <= this.hitWidth) {
 					this.x = this.hitWidth;
 					break;
 				}
 				this.x -= coef;
 				break;
 			case "RIGHT":
-				if(this.x  == screenSize.width) {
-					this.x = screenSize.width;
+				if(this.x  >= screenSize.width - 2*this.hitWidth) {
+					this.x = screenSize.width - 2*this.hitWidth;
 					break;
 				}
 				this.x += coef;
 				break;
 			case "UP":
-				if(this.y  == this.hitHeight) {
-					this.y = this.hitHeight;
+				if(this.y  <= (int)(screenSize.height*0.2)) {
+					this.y = (int)(screenSize.height*0.2);
 					break;
 				}
 				this.y -= coef;
 				break;
 			case "DOWN":
-				if(this.y  == screenSize.height - 3*this.hitHeight) {
-					this.y = screenSize.height - 3*this.hitHeight;
+				if(this.y  >= screenSize.height - 4*this.hitHeight) {
+					this.y = screenSize.height - 4*this.hitHeight;
 					break;
 				}
 				this.y += coef;
