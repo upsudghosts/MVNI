@@ -25,7 +25,7 @@ import model.Vehicule;
 
 public class Affichage extends JPanel{
 	/**Needed labels and buttons for the project.*/
-	public JLabel startlabel, scorelabel, deathlabel; 
+	public JLabel startlabel, deathlabel; 
 
 	private static final long serialVersionUID = 1L;
 
@@ -79,11 +79,9 @@ public class Affichage extends JPanel{
 
 		/**Initializing buttons.*/
 		this.startlabel = new JLabel("Press SPACE to Start Game");
-		this.scorelabel = new JLabel("Score : " + this.V.getPos());
 		this.deathlabel = new JLabel();
 		
 		/**These labels and the button are meant to be seen after death, or in-game. Not before.*/
-		this.scorelabel.setVisible(false);
 		this.deathlabel.setVisible(false);
 
     }
