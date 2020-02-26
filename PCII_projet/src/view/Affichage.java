@@ -152,6 +152,7 @@ public class Affichage extends JPanel{
 		//g2.setClip(poly);
 		//Image NewI = this.imgG.get(0);
     	//g2.drawImage(NewI, 0, 0, null);
+		
 		/*
 		BufferedImage source = this.imgG.get(0);
 		
@@ -173,6 +174,8 @@ public class Affichage extends JPanel{
 		g2.drawImage(source, 0, 0, null);
 		g2.dispose();
 		*/
+		
+		
     }
     
     /** Draws the current speed and the distance traveled
