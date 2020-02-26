@@ -78,16 +78,32 @@ public class Vehicule {
 	public void move(int coef) {
 		switch (this.mvStat) {
 			case LEFT:
+				if(this.x  == this.hitWidth) {
+					this.x = this.hitWidth;
+					break;
+				}
 				this.x -= coef;
 				break;
 			case RIGHT:
+				if(this.x  == screenSize.width) {
+					this.x = screenSize.width;
+					break;
+				}
 				this.x += coef;
 				break;
 			case UP:
-				this.y += coef;
+				if(this.y  == this.hitHeight) {
+					this.y = this.hitHeight;
+					break;
+				}
+				this.y -= coef;
 				break;
 			case DOWN:
-				this.y -= coef;
+				if(this.y  == screenSize.height - 3*this.hitHeight) {
+					this.y = screenSize.height - 3*this.hitHeight;
+					break;
+				}
+				this.y += coef;
 				break;
 			case NEUTRAL:
 				break;

@@ -32,7 +32,7 @@ public class Avancer extends Thread{
 			
 			switch(this.V.getMoveStatus()) {
 				case "DOWN":
-					if (coordV.y > this.A.getHeight()/2 && coordV.y < this.A.getHeight()) {
+					if (coordV.y > this.A.getHeight()/2 && coordV.y < this.A.getHeight() - 3*this.V.getHitHeight()) {
 						this.P.speedUp();
 						System.out.println("Speed Up");
 					}

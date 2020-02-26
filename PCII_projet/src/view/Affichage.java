@@ -48,13 +48,12 @@ public class Affichage extends JPanel{
     	this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
     	this.V = v;
     	this.P = p;
+    	
     	this.P.setHorizon(this.horHeight);
-    	this.P.setMaxX(this.WIDTH+100);
+    	this.P.setMaxX(this.WIDTH);
     	this.P.setMaxY(this.HEIGHT);
-    	this.P.genereArrierePlan();
-
-    	this.P.setCurrY(this.HEIGHT);
-    	this.P.createTrack2();
+    	
+    	this.P.createTrack();
     	
     	this.parallax_mountains = "./assets/parallax_mountain_pack/layers/";
     	this.spaceships = "./assets/spaceships/";
@@ -93,24 +92,27 @@ public class Affichage extends JPanel{
     
     private void drawPiste(Graphics g) {
     	g.drawLine(0, this.P.getHorizon(), this.WIDTH, this.P.getHorizon());
-    	//Montains
     	
-    	ArrayList<Point> ptList = this.P.getBG();
+    	ArrayList<Point> ptL = this.P.getTrackL();
+    	ArrayList<Point> ptR = this.P.getTrackR();
     	
-    	/*
-    	for(int i=0; i<ptList.size()-1; i++) {
-    		Point p1 = ptList.get(i);
-    		Point p2 = ptList.get(i+1);
-    		g.drawLine(p1.x, p1.y, p2.x, p2.y);
-    	}*/
+    	//TrackL
+    	Point prevL = null;
+		for(Point Temp : ptL) {
+			if(prevL != null) {
+				g.drawLine(prevL.x, prevL.y, Temp.x, Temp.y);
+			}
+			prevL = Temp;
+		}
     	
-    	//Track
-    	ptList = this.P.getTrack();
-    	for(int i=0; i<ptList.size()-1; i++) {
-    		Point p1 = ptList.get(i);
-    		Point p2 = ptList.get(i+1);
-    		g.drawLine(p1.x, p1.y, p2.x, p2.y);
-    	}
+    	//TrackR
+		Point prevR = null;
+		for(Point Temp : ptR) {
+			if(prevR != null) {
+				g.drawLine(prevR.x, prevR.y, Temp.x, Temp.y);
+			}
+			prevR= Temp;
+		}
     }
     
     private void drawVehicule(Graphics g){
@@ -141,16 +143,15 @@ public class Affichage extends JPanel{
     	
         g2d.draw(rect1);
         
+        if(this.V.getFlyStatus()) { this.drawFlyEffect(g, vcoord);}
+        
+        
     	NewI = imgV.get(this.blink).getScaledInstance(this.V.getHitWidth(), this.V.getHitHeight(), BufferedImage.SCALE_SMOOTH);
     	g2d.drawImage(NewI, vcoord.x, vcoord.y, null);
         
         
     	g.drawLine(center.x+5, center.y+5, center.x-5, center.y-5);
     	g.drawLine(center.x-5, center.y+5, center.x+5, center.y-5);
-    	
-    	this.drawFlyEffect(g, vcoord);
-    	
-    	this.incrView();
     }
     
     private void drawBg(Graphics g){
@@ -167,14 +168,14 @@ public class Affichage extends JPanel{
     	Graphics2D g2d = (Graphics2D) g;
     	
     	NewI = imgEff.get(this.green_light).getScaledInstance(this.V.getHitWidth(), this.V.getHitHeight(), BufferedImage.SCALE_SMOOTH);
-    	g2d.drawImage(NewI, coord.x+this.V.getHitWidth(), coord.y-+this.V.getHitHeight(), null);
+    	g2d.drawImage(NewI, coord.x, coord.y+this.V.getHitHeight()/2, null);
     }
+    
     public void paint(Graphics g) {
     	paintComponent(g);
-    	this.drawPiste(g);
     	this.drawBg(g);
+    	this.drawPiste(g);
     	this.drawVehicule(g);
-    
     	
     }
     
@@ -182,8 +183,7 @@ public class Affichage extends JPanel{
     	repaint();
     }
     
-    private void incrView() {
-
+    public void incrView() {
     	if(this.blink < 2) { this.blink++; } 
     	else { this.blink = 0;}
     	

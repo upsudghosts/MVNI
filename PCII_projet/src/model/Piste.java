@@ -1,75 +1,56 @@
 package model;
 
+import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.util.ArrayList;
+
+import view.Affichage;
 
 public class Piste {
 	
 	private int MOVEVAL = 5;
-	private int horizonHeight;
-	private int maxX;
-	private int maxY;
-	private int currY;
-	private ArrayList<Point> bg;
-	private ArrayList<Point> track;
+	private int horHeight, trackSize;
+	private int maxX, maxY, distX;
+
+	private Point accelPt;
+	
+	private ArrayList<Point> trackL, trackR;
 	
 	public Piste() {
-		this.horizonHeight = 10;
-		this.bg = new ArrayList<Point>();
-		this.track = new ArrayList<Point>();
-	}
-	
-	public void genereArrierePlan() {
-		int y = (int) (Math.random() * (this.horizonHeight-50));
-		this.bg.add(new Point(0, y));
-		int currX = 0;
-		while(currX<=maxX) {
-			//int x = (int) (currX + (Math.random() * (maxX-currX)));
-			int x = (int) (50+(Math.random() * (100-50)));
-			//int x = (int) (50+(Math.random() * (this.max-50)));
-			//y = (int) (50+(Math.random() * (this.horizonHeight - 50)));
-			y = (int) (this.horizonHeight/8+(Math.random() * (this.horizonHeight - this.horizonHeight/8)));
-			this.bg.add(new Point(currX+x, y));
-			currX += x;
-		}
+		this.horHeight = 10;
+		this.trackL = new ArrayList<Point>();
+		this.trackR= new ArrayList<Point>();
+		
+		this.distX = 300;
+		this.trackSize = 0;
 	}
 	
 	public void createTrack() {
-		//int currY = this.maxX;
-		//while(currY > this.horizonHeight+100) {
-		//	
-		//}
-		int x = (int) ((this.maxX/2 - this.maxX/8)+(Math.random() * ((this.maxX/2 + this.maxX/8)-(this.maxX/2 - this.maxX/8))));
-		//int x = this.maxX/2;
-		int currY = this.horizonHeight;
-		this.track.add(new Point(x, currY));
-		while(currY <= this.maxY) {
-			x = (int) ((this.maxX/2 - this.maxX/8)+(Math.random() * ((this.maxX/2 + this.maxX/8)-(this.maxX/2 - this.maxX/8))));
-			//currY += (int) (50+(Math.random() * (100-50)));
-			currY += (int) ((this.maxY-this.horizonHeight)/8+(Math.random() * ((this.maxY-this.horizonHeight)/4-(this.maxY-this.horizonHeight)/8)));
-			this.track.add(new Point(x, currY));
-		}
-	}
-	
-	public void createTrack2() {
-		while(this.currY >= this.horizonHeight) {
-			if(this.track.size()<1) {
-				this.currY = this.maxY;
-				this.track.add(new Point(this.maxX/2, this.maxY));
-			}else {
-					int x = (int) ((this.maxX/2 - this.maxX/8)+(Math.random() * ((this.maxX/2 + this.maxX/8)-(this.maxX/2 - this.maxX/8))));
-					int y = (int) ((this.maxY-this.horizonHeight)/8+(Math.random() * ((this.maxY-this.horizonHeight)/4-(this.maxY-this.horizonHeight)/8)));
-					this.currY -= y;
-					this.track.add(new Point(x, currY));
-			}
-		}
+		int i = 0;
 		
+		int x = (int) ((this.maxX/4 - this.maxX/8)+(Math.random() * ((this.maxX/2 + this.maxX/8)-(this.maxX/2 - this.maxX/8))));
+		int currY = this.maxY;
+		this.trackL.add(new Point(0, currY));
+		this.trackR.add(new Point(this.maxX, currY));
+		this.trackSize ++;
+		
+		while(currY >= this.horHeight) {
+			i++;
+			x = (int) ((this.maxX/4 - this.maxX/8)+(Math.random() * ((this.maxX/2 + this.maxX/8)-(this.maxX/2 - this.maxX/8))));
+			currY -= (int) ((this.maxY-this.horHeight)/8+(Math.random() * ((this.maxY-this.horHeight)/4-(this.maxY-this.horHeight)/8)));
+			this.trackL.add(new Point(x, currY));
+			this.distX = this.distX - 10*i;
+			this.trackR.add(new Point(this.maxX/2 + (this.maxX/2-x), currY));
+			this.trackSize ++;
+		}
 	}
 	
-	public void addLastPoint() {
-		this.currY = this.horizonHeight;
+	public void addPoint() {
+		int currY = this.horHeight;
 		int x = (int) ((this.maxX/2 - this.maxX/8)+(Math.random() * ((this.maxX/2 + this.maxX/8)-(this.maxX/2 - this.maxX/8))));
-		this.track.add(new Point(x, this.currY));
+		this.trackL.add(new Point(x, currY));
+		this.trackR.add(new Point(x+this.distX, currY));
 	}
 	
 	public void speedUp() {
@@ -81,13 +62,23 @@ public class Piste {
 	}
 	
 	public void moveTrack() {
-		for(int i = 0; i < this.track.size() ; i++){
-			Point p = this.track.get(i);
-			p.y += MOVEVAL;
+		for(int i = 0; i < this.trackL.size() ; i++){
+			Point pL = this.trackL.get(i);
+			Point pR = this.trackR.get(i);
+			
+			pL.x -= MOVEVAL;
+			pL.y += MOVEVAL;
+			
+			pR.x += MOVEVAL;
+			pR.y += MOVEVAL;
+			
 			//Si le point n'est plus utile, on le retire
 			if(i>0) {
-				if(p.y > this.maxY && this.track.get(i-1).y > this.maxY) {
-					this.track.remove(i-1);
+				if(pL.y > this.maxY && this.trackL.get(i-1).y > this.maxY) {
+					this.addPoint();
+					
+					this.trackL.remove(i-1);
+					this.trackR.remove(i-1);
 				}
 			}
 		}
@@ -95,19 +86,19 @@ public class Piste {
 	}
 	
 	public int getHorizon() {
-		return this.horizonHeight;
+		return this.horHeight;
 	}
 	
 	public void setHorizon(int n) {
-		this.horizonHeight = n;
+		this.horHeight = n;
 	}
 	
-	public ArrayList<Point> getBG(){
-		return this.bg;
+	public ArrayList<Point> getTrackL(){
+		return this.trackL;
 	}
 	
-	public ArrayList<Point> getTrack(){
-		return this.track;
+	public ArrayList<Point> getTrackR(){
+		return this.trackR;
 	}
 	
 	public void setMaxX(int n) {
@@ -118,11 +109,15 @@ public class Piste {
 		this.maxY = n;
 	}
 	
-	public void setCurrY(int n) {
-		this.currY = n;
+	public Point getAccelPt() {
+
+		return this.accelPt;
 	}
 	
-	
+	private void setAccelPt(int x, int y) {
+		this.accelPt = new Point(x,y);
+	}
+
 	public static void main(String[] args) {
 		Piste p = new Piste();
 		p.setHorizon(50);
@@ -130,7 +125,6 @@ public class Piste {
 		p.setMaxX(500);
 		p.createTrack();
 		//p.createTrack2();
-		System.out.println("Taille piste : " + p.getTrack().size());
-		System.out.println("currY : " + p.currY);
+		System.out.println("Taille piste : " + p.trackSize);
 	}
 }

@@ -12,8 +12,10 @@ public class ControlClavier implements KeyListener{
 	public Affichage A;
 	public Vehicule V;
 	public Piste P;
+	
 	public Voler Fly;
 	public Avancer Advance;
+	public Effects Eff;
 	
 	public ControlClavier (Affichage a, Vehicule v, Piste p) {
 		this.A = a;
@@ -30,10 +32,12 @@ public class ControlClavier implements KeyListener{
 		/**Initializing threads.*/
 		this.Fly = new Voler(this.A, this.P, this.V);
 		this.Advance = new Avancer(this.A, this.P, this.V);
+		this.Eff = new Effects(this.A, this.P, this.V);
 			
 		/**Starting said threads.*/
 		(this.Fly).start();
 		(this.Advance).start();
+		(this.Eff).start();
 	}
 		
 	/**
@@ -54,11 +58,11 @@ public class ControlClavier implements KeyListener{
 	public void keyPressed(KeyEvent e) {
 		switch(e.getKeyCode()) {
 			case KeyEvent.VK_DOWN :
-				this.V.update_moveStatus(2);
+				this.V.update_moveStatus(3);
 				break;
 				
 			case KeyEvent.VK_UP :
-				this.V.update_moveStatus(3);
+				this.V.update_moveStatus(2);
 				break;
 				
 			case KeyEvent.VK_LEFT :
