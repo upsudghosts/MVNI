@@ -13,9 +13,10 @@ public class ControlClavier implements KeyListener{
 	public Vehicule V;
 	public Piste P;
 	
-	public Voler Fly;
-	public Avancer Advance;
-	public Effects Eff;
+	private Voler Fly;
+	private Avancer Advance;
+	private Effects Eff;
+	private AffichageControl AC;  
 	
 	public ControlClavier (Affichage a, Vehicule v, Piste p) {
 		this.A = a;
@@ -30,14 +31,16 @@ public class ControlClavier implements KeyListener{
 		this.V.startRace();
 		
 		/**Initializing threads.*/
+		this.AC = new AffichageControl(this.A);
 		this.Fly = new Voler(this.A, this.P, this.V);
 		this.Advance = new Avancer(this.A, this.P, this.V);
-		this.Eff = new Effects(this.A, this.P, this.V);
+		this.Eff = new Effects(this.AC, this.P, this.V);
 			
 		/**Starting said threads.*/
 		(this.Fly).start();
 		(this.Advance).start();
 		(this.Eff).start();
+		(this.AC).start();
 	}
 		
 	/**

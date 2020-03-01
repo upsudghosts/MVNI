@@ -12,6 +12,7 @@ import view.Affichage;
  *
  */
 public class Voler extends Thread {
+	public static final int TPSWAIT = 50;
 	
 	/**Number of pixels our bike will move in any of the four directions.*/
 	private int leftCoef, rightCoef, upCoef, downCoef;
@@ -76,7 +77,7 @@ public class Voler extends Thread {
 				}
 				/**Refreshing view and putting thread to sleep for 50 ms to see updates on our screen.*/
 				this.A.change();
-				try { Thread.sleep(50); }
+				try { Thread.sleep(TPSWAIT); }
 				catch (Exception exc) { exc.printStackTrace(); }
 			}
 		}

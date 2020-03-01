@@ -5,34 +5,33 @@ import model.Vehicule;
 import view.Affichage;
 
 public class Effects extends Thread{
+	public static final int TPSWAIT = 80;
 	
-	private int t_eff;
 	private Vehicule V;
-	private Affichage A;
 	private Piste P;
 	
-	public Effects(Affichage a, Piste track, Vehicule ve) {
-		this. A = a;
+	private AffichageControl AC;
+	
+	public Effects(AffichageControl ac, Piste track, Vehicule ve) {
+		this. AC = ac;
 		this.V = ve;
 		this.P = track;
 		
-		this.t_eff = 100;
 	}
 	
 	@Override
 	public void run() {
-		System.out.println("Fly Thread Started");
+		System.out.println("Effects Thread Started");
 		/**If the vehicle is flying : */
 		if(V.getFlyStatus()) {
 			/**While it's on : */
 			while(V.getFlyStatus()) {
-				this.A.incrView();
-				
-				/**Refreshing view and putting thread to sleep for 50 ms to see updates on our screen.*/
-				this.A.change();
-				
-				try { Thread.sleep(t_eff); }
-				catch (Exception exc) { exc.printStackTrace(); }
+				this.AC.modifEff();
+				try {
+					Thread.sleep(TPSWAIT) ;
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}
