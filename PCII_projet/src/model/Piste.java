@@ -16,7 +16,7 @@ public class Piste {
 	
 	private ArrayList<Point> trackL, trackR;
 
-	private ArrayList<CheckPoint> cpList;
+	private ArrayList<CheckPoint> cpList; //the checkpoint list
 
 
 	
@@ -31,6 +31,9 @@ public class Piste {
 		this.traveledDist = 0;
 	}
 	
+	/** Creates a track with two initial points at the bottom of the screen, and adds more points generated with the addPoint() method
+	 * 
+	 **/
 	public void createTrack() {
 		int currX = 300;
 		int currY = this.maxY;
@@ -43,6 +46,9 @@ public class Piste {
 		for(int i = 0; i < 2; i++) { this.addPoint(); }
 	}
 	
+	/** Adds a new Point at the horizon height to each part of the track.
+	 * The point added to the left track has a random x and the point added to the right track is on its right
+	 **/
 	public void addPoint() {
 		Random ran = new Random();
 		
@@ -66,10 +72,16 @@ public class Piste {
 		this.trackSize ++;
 	}
 	
+	/** Increases the speed by 2 if the current speed is not higher than 35 
+	 * 
+	 **/
 	public void speedUp() {
 		if (this.MOVEVAL < 35) { this.MOVEVAL += 2;}
 	}
 	
+	/** Decreases the speed by 1 if the current speed is not lower than 10 
+	 * 
+	 **/
 	public void speedDown() {
 		if(this.MOVEVAL > 10) { this.MOVEVAL --; }
 	}
@@ -109,6 +121,12 @@ public class Piste {
 		}
 	}
 	
+	
+	/** Moves the track depending on the movement of the Vehicle :
+	 * Zooms in or out of the vehicle goes lower or higher and moves the track to the right (left) if the vehicle goes to the left (right) 
+	 * @param mvStat a String, the direction of the vehicle, that indicates which movement the track does
+	 * @param coef an integer that indicates how big the movement is
+	 **/
 	public void trackEffect(String mvStat, int coef) {
 		Point pL, pR;
 
@@ -144,46 +162,80 @@ public class Piste {
 		}
 	}
 	
+	/** Gives the horizon height
+	 * @return an integer, the height of the horizon
+	 **/
 	public int getHorizon() {
 		return this.horHeight;
 	}
 	
+	/** Gives the current speed at whitch the track moves
+	 * @return an integer, the current speed
+	 **/
 	public int getSpeed() {
 		return this.MOVEVAL;
 	}
 	
+	/** Gives the current distance traveled by the Vehicle
+	 * @return an integer,  the distance travelled
+	 **/
 	public int getDist() {
 		return this.traveledDist;
 	}
-	
+
+	/** Sets the height of the horizon
+	 * @param n an integer, the new height of the horizon
+	 **/
 	public void setHorizon(int n) {
 		this.horHeight = n;
 	}
 	
+	/** Gives the list of point forming the left part of the track
+	 * @return the list of Point forming the left part of the track
+	 **/
 	public ArrayList<Point> getTrackL(){
 		return this.trackL;
 	}
 	
+	/** Gives the list of point forming the right part of the track
+	 * @return the list of Point forming the right part of the track
+	 **/
 	public ArrayList<Point> getTrackR(){
 		return this.trackR;
 	}
 	
+	/** Gives the current checkpoint list
+	 * @return the checkpoint list
+	 **/
 	public ArrayList<CheckPoint> getCP(){
 		return this.cpList;
 	}
 	
+	/** Sets the maximum x coordinate that a track Point can have
+	 * @param n an integer, the maximum X
+	 **/
 	public void setMaxX(int n) {
 		this.maxX = n;
 	}
 	
+	/** Sets the maximum Y coordinate that a track Point can have
+	 * @param n an integer, the maximum height
+	 **/
 	public void setMaxY(int n) {
 		this.maxY = n;
 	}
 	
+	/** Gives the acceleration point : the point where the ship accelerates the most
+	 * @return the acceleration Point
+	 **/
 	public Point getAccelPt() {
 		return this.accelPt;
 	}
 	
+	/** Sets the acceleration point by creating a new point with the given coordinates
+	 * @param x an integer, the x coordinate of the Point
+	 * @param y an integer, the y coordinate of the Point
+	 **/
 	private void setAccelPt(int x, int y) {
 		this.accelPt = new Point(x,y);
 	}
