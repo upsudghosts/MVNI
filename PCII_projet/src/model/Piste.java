@@ -16,25 +16,28 @@ public class Piste {
 	
 	private ArrayList<Point> trackL, trackR;
 
-	private ArrayList<CheckPoint> cpList; //the checkpoint list
+	//private ArrayList<CheckPoint> cpList; //the checkpoint list
+	private CheckPointList cpList; //the checkpoint list (new version)
 
 
 	
 	public Piste() {
 		this.trackL = new ArrayList<Point>();
 		this.trackR= new ArrayList<Point>();
-		this.cpList = new ArrayList<CheckPoint>();
+		//this.cpList = new ArrayList<CheckPoint>();
 		
-		this.cpList.add(new CheckPoint(this.horHeight));
+		//this.cpList.add(new CheckPoint(this.horHeight));
 		
 		this.trackSize = 0;
 		this.traveledDist = 0;
 	}
 	
 	/** Creates a track with two initial points at the bottom of the screen, and adds more points generated with the addPoint() method
-	 * 
+	 * Also creates the CheckPointList and gives it the value of the horizon
 	 **/
 	public void createTrack() {
+		this.cpList = new CheckPointList(this.horHeight); //Creation de la liste de checkPoint
+		
 		int currX = 300;
 		int currY = this.maxY;
 		
@@ -108,6 +111,7 @@ public class Piste {
 		}
 		this.traveledDist += tDistUp*this.MOVEVAL;
 		//The checkpoints move and we remove it if needed
+		/*
 		for(int i=0; i<this.cpList.size(); i++) {
 			CheckPoint cp = this.cpList.get(i);
 			cp.decreaseHeight(this.MOVEVAL);
@@ -115,9 +119,16 @@ public class Piste {
 				this.cpList.remove(cp);
 			}
 		}
+		*/
+		this.cpList.moveCP(this.MOVEVAL, this.maxY);
 		//We add a checkpoint if we need it
+		/*
 		if(this.traveledDist%1000 == 0) {
 			this.cpList.add(new CheckPoint(this.horHeight));
+		}
+		*/
+		if(this.traveledDist%1000 == 0) {
+			this.cpList.addCP();
 		}
 	}
 	
@@ -208,7 +219,8 @@ public class Piste {
 	 * @return the checkpoint list
 	 **/
 	public ArrayList<CheckPoint> getCP(){
-		return this.cpList;
+		//System.out.println(this.cpList.getCpList().size());
+		return this.cpList.getCpList();
 	}
 	
 	/** Sets the maximum x coordinate that a track Point can have
