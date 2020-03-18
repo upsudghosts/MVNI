@@ -8,6 +8,7 @@ public class CheckPointList {
 	private int timeToAdd; //time in ms to add to the timer once we reach the next checkpoint
 	private int timeToSub; //time to substract to the time to add
 	private int timer;
+	private long prevTime;
 	
 	public CheckPointList(int horY) {
 		this.cpList = new ArrayList<CheckPoint>();
@@ -16,6 +17,7 @@ public class CheckPointList {
 		this.timer = 0;
 		this.timeToAdd = 15*1000;
 		this.timeToSub = 2*1000;
+		this.prevTime = System.currentTimeMillis();
 	}
 	
 	/** Gives the current checkpoint list
@@ -46,6 +48,16 @@ public class CheckPointList {
 				this.cpList.remove(cp);
 			}
 		}
+	}
+	
+	/** Changes the value of the timer
+	 * 
+	 **/
+	//Probablement pas tres efficace
+	public void changeTime() {
+		long currTime = System.currentTimeMillis();
+		this.timer -= (currTime - prevTime);
+		this.prevTime = currTime;
 	}
 	
 	/** Adds time to the timer and lowers the time the player will have to reach the next checkPoint

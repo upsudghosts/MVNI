@@ -7,7 +7,7 @@ import model.Piste;
 import model.Vehicule;
 import view.Affichage;
 
-public class Main {
+public class Main { 
 
 	public static void main(String[] args) throws IOException {
 		//On cree la fenetre

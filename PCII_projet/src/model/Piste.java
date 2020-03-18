@@ -14,6 +14,9 @@ public class Piste {
 	private int traveledDist;
 	public final int tDistUp = 1;
 	
+	private int traveledSinceCP;
+	private static final int DISTTOCP = 1000;
+	
 	private ArrayList<Point> trackL, trackR;
 
 	//private ArrayList<CheckPoint> cpList; //the checkpoint list
@@ -30,6 +33,8 @@ public class Piste {
 		
 		this.trackSize = 0;
 		this.traveledDist = 0;
+		
+		this.traveledSinceCP = 0;
 	}
 	
 	/** Creates a track with two initial points at the bottom of the screen, and adds more points generated with the addPoint() method
@@ -110,6 +115,7 @@ public class Piste {
 			this.trackSize --;
 		}
 		this.traveledDist += tDistUp*this.MOVEVAL;
+		this.traveledSinceCP += tDistUp*this.MOVEVAL;
 		//The checkpoints move and we remove it if needed
 		/*
 		for(int i=0; i<this.cpList.size(); i++) {
@@ -127,7 +133,8 @@ public class Piste {
 			this.cpList.add(new CheckPoint(this.horHeight));
 		}
 		*/
-		if(this.traveledDist%1000 == 0) {
+		if(this.traveledSinceCP >= DISTTOCP) {
+			this.traveledSinceCP = 0;
 			this.cpList.addCP();
 		}
 	}
