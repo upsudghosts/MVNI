@@ -1,5 +1,5 @@
 import java.awt.FlowLayout;
-import java.io.IOException;
+import java.io.IOException; 
 
 import javax.swing.JFrame;
 import control.ControlClavier;
