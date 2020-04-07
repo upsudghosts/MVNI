@@ -27,8 +27,9 @@ public class ControlClavier implements KeyListener{
 	/**
 	* void startGame function that creates the necessary threads each time a new game starts.
 	*/
-	public void startGame() {
+	public void startGame(KeyEvent e) {
 		this.V.startRace();
+		//this.P.setCPTimer((KeyListener) this);
 		
 		/**Initializing threads.*/
 		this.AC = new AffichageControl(this.A);
@@ -81,7 +82,7 @@ public class ControlClavier implements KeyListener{
 					/**Updating button and label conditions*/
 					this.A.startlabel.setText("Game Started");
 					/**Starting need threads*/
-					this.startGame();
+					this.startGame(e);
 				}else if(!this.V.getAlive()){
 					this.A.deathlabel.setVisible(false);
 					this.A.startlabel.setVisible(true);

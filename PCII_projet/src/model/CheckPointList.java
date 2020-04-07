@@ -1,23 +1,30 @@
 package model;
 
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
+import javax.swing.Timer;
 
 public class CheckPointList {
 	private ArrayList<CheckPoint> cpList;
 	private int horHeight;
 	private int timeToAdd; //time in ms to add to the timer once we reach the next checkpoint
 	private int timeToSub; //time to substract to the time to add
-	private int timer;
+	private int timerVal;
 	private long prevTime;
+	
+	private Timer timer;
 	
 	public CheckPointList(int horY) {
 		this.cpList = new ArrayList<CheckPoint>();
 		this.horHeight = horY;
 		
-		this.timer = 0;
+		this.timerVal = 10*1000;
 		this.timeToAdd = 15*1000;
 		this.timeToSub = 2*1000;
 		this.prevTime = System.currentTimeMillis();
+		
+		//t = new Timer();
 	}
 	
 	/** Gives the current checkpoint list
@@ -25,6 +32,10 @@ public class CheckPointList {
 	 **/
 	public ArrayList<CheckPoint> getCpList() {
 		return this.cpList;
+	}
+	
+	public void setTimer(ActionListener e) {
+		this.timer = new Timer(this.timerVal, e);
 	}
 	
 	/** Adds a new checkPoint, at the horizon, to the list
@@ -56,7 +67,7 @@ public class CheckPointList {
 	//Probablement pas tres efficace
 	public void changeTime() {
 		long currTime = System.currentTimeMillis();
-		this.timer -= (currTime - prevTime);
+		this.timerVal -= (currTime - prevTime);
 		this.prevTime = currTime;
 	}
 	
@@ -64,7 +75,7 @@ public class CheckPointList {
 	 * This method is used when the player reaches a checkpoint
 	 **/
 	public void reachedCP() {
-		this.timer += this.timeToAdd;
+		this.timerVal += this.timeToAdd;
 		this.timeToAdd -= timeToSub;
 	}
 }

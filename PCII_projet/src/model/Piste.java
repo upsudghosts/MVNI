@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.Point;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -228,6 +229,12 @@ public class Piste {
 	public ArrayList<CheckPoint> getCP(){
 		//System.out.println(this.cpList.getCpList().size());
 		return this.cpList.getCpList();
+	}
+	
+	
+	
+	public void setCPTimer(ActionListener e) {
+		this.cpList.setTimer(e);
 	}
 	
 	/** Sets the maximum x coordinate that a track Point can have
