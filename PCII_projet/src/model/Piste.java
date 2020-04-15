@@ -36,6 +36,7 @@ public class Piste {
 		this.traveledDist = 0;
 		
 		this.traveledSinceCP = 0;
+	
 	}
 	
 	/** Creates a track with two initial points at the bottom of the screen, and adds more points generated with the addPoint() method
@@ -248,12 +249,7 @@ public class Piste {
 	public ArrayList<Obstacle> getOL(){
 		return this.obsList;
 	}
-	
-	
-	
-	public void setCPTimer(ActionListener e) {
-		this.cpList.setTimer(e);
-	}
+
 	
 	/** Sets the maximum x coordinate that a track Point can have
 	 * @param n an integer, the maximum X

@@ -17,6 +17,8 @@ public class Vehicule {
 	
 	private String mvStat;
 	
+	private long secTl; //LEFT TO LIVE in seconds
+	
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	
 	public Vehicule() {
@@ -29,6 +31,8 @@ public class Vehicule {
 		this.isAlive = true;
 		
 		this.mvStat = "NEUTRAL";
+	
+		this.secTl = 70;
 	}
 	
 	/**Gives a point with the coordinates of the vehicle
@@ -64,6 +68,10 @@ public class Vehicule {
 	 * **/
 	public boolean getAlive() {
 		return this.isAlive;
+	}
+	
+	public long getTTL() {
+		return this.secTl;
 	}
 	
 	/**Moves the vehicle a given distance in a given direction : left, right, up or down the screen
@@ -106,6 +114,9 @@ public class Vehicule {
 		}
 	}
 	
+	public void timeDecrease(long l) {
+		if(this.secTl > 1) this.secTl -= l;
+	}
 	/** Gives the status of the movement : tells if the vehicle is going up, down, left, right or if it doesn't move
 	 * @return a String, the status of the movement
 	 **/

@@ -7,13 +7,13 @@ import view.Affichage;
 public class Effects extends Thread{
 	public static final int TPSWAIT = 80;
 	
+	private Affichage A;
 	private Vehicule V;
 	private Piste P;
 	
-	private AffichageControl AC;
 	
-	public Effects(AffichageControl ac, Piste track, Vehicule ve) {
-		this. AC = ac;
+	public Effects(Affichage a, Piste track, Vehicule ve) {
+		this.A = a;
 		this.V = ve;
 		this.P = track;
 		
@@ -26,7 +26,7 @@ public class Effects extends Thread{
 		if(V.getFlyStatus()) {
 			/**While it's on : */
 			while(V.getFlyStatus()) {
-				this.AC.modifEff();
+				this.A.incrView();
 				try {
 					Thread.sleep(TPSWAIT) ;
 				} catch (InterruptedException e) {

@@ -36,7 +36,7 @@ public class Main {
 		mainFrame.add(A.startlabel);
 
 		mainFrame.add(A.deathlabel);
-
+		
 		
 		mainFrame.pack();
 		mainFrame.setVisible(true);

@@ -48,7 +48,10 @@ public class Affichage extends JPanel{
     
     //Animation vehicule
     private int blink, green_light;
-	
+    
+    //Timer
+    private long starttime, secPassed, minPassed;
+    
     
     public Affichage(Vehicule v, Piste p) throws IOException {
     	this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -80,10 +83,14 @@ public class Affichage extends JPanel{
     	
     	this.blink = 0;
     	this.green_light = 0;
+    	
+		this.starttime = System.currentTimeMillis();
 
 		/**Initializing buttons.*/
+    	
 		this.startlabel = new JLabel("Press SPACE to Start Game");
 		this.deathlabel = new JLabel();
+		
 		
 		/**These labels and the button are meant to be seen after death, or in-game. Not before.*/
 		this.deathlabel.setVisible(false);
@@ -102,6 +109,30 @@ public class Affichage extends JPanel{
      **/
     public int getHeight() {
     	return this.HEIGHT;
+    }
+    
+    public long getStarttime() {
+    	return this.starttime;
+    }
+    
+    public long getMins() {
+    	return this.minPassed;
+    }
+    
+    public long getSec() {
+    	return this.secPassed;
+    }
+    
+    public void setStarttime() {
+    	this.starttime = System.currentTimeMillis();
+    }
+    
+    public void setMinPassed(long m) {
+    	this.minPassed = m;
+    }
+    
+    public void setSecPassed(long s) {
+    	this.secPassed = s;
     }
     
     /** Draws the track
@@ -194,13 +225,28 @@ public class Affichage extends JPanel{
     private void drawScore(Graphics g) {
     	g.setColor(Color.WHITE);
     	String speed = "speed : " + this.P.getSpeed();
-    	//g.drawString(speed, WIDTH-90, 25);
     	String dist = "Score : " + this.P.getDist();
-    	//g.drawString(dist, WIDTH-90, 45);
+
     	g.drawString(speed, 10, 25);
     	g.drawString(dist, 10, 45);
     }
     
+    /** Draws the time since beginning of the game and time left until next checkpoint
+     * @param g the Graphics on which we draw
+     **/
+    private void drawTimer(Graphics g) {
+    	g.setColor(Color.WHITE);
+    	
+    	String totTime = "Timer : " + this.minPassed + "::" + this.secPassed;
+    	
+    	long minTl = this.V.getTTL()/60;
+    	long secTl = this.V.getTTL() - minTl*60;
+    	String TimeLeft = "Game Over : " + minTl + "::" + secTl;
+    	
+    	g.drawString(totTime, WIDTH-90, 25);
+    	g.drawString(TimeLeft, WIDTH-120, 45);
+    	
+    }
     /** Draws the vehicle at the right coordinates
      * @param g the Graphics on which we draw
      **/
@@ -277,6 +323,7 @@ public class Affichage extends JPanel{
     	this.drawPiste(g);
     	this.drawBg(g);
     	this.drawScore(g);
+    	this.drawTimer(g);
     	this.drawVehicule(g);
     }
     
@@ -298,6 +345,7 @@ public class Affichage extends JPanel{
     	if(this.green_light < 3) { this.green_light ++; }
     	else { this.green_light = 0; }
     }
+
 
     /**Loads and adds all the vehicle images to the imgV ArrayList**/
     private void loadImgV() throws IOException {
@@ -329,6 +377,8 @@ public class Affichage extends JPanel{
     private void loadImgGround() throws IOException {
     	this.imgG.add(ImageIO.read(new File(this.parallax_mountains+"parallax-mountain-bg.png"))); //temporaire, uste pour tester
     }
+    
+
     private void loadImgRoad() throws IOException {
     	this.imgR.add(ImageIO.read(new File(this.road+"Toon Road Texture.png")));
     }
