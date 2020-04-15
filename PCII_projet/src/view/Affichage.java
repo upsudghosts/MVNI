@@ -42,8 +42,8 @@ public class Affichage extends JPanel{
     private Piste P;
     
     //Img Access
-    private String parallax_mountains, spaceships, effects;
-	ArrayList<BufferedImage> imgV, imgEff, imgBg, imgG; 
+    private String parallax_mountains, spaceships, effects, road;
+	ArrayList<BufferedImage> imgV, imgEff, imgBg, imgG, imgR; 
     
     //Animation vehicule
     private int blink, green_light;
@@ -63,16 +63,19 @@ public class Affichage extends JPanel{
     	this.parallax_mountains = "./assets/parallax_mountain_pack/layers/";
     	this.spaceships = "./assets/spaceships/";
     	this.effects = "./assets/effects/green-particle/";
+    	this.road = "./assets/road/";
     	
     	this.imgBg= new ArrayList<BufferedImage>();
     	this.imgEff= new ArrayList<BufferedImage>();
     	this.imgV= new ArrayList<BufferedImage>();
     	this.imgG = new ArrayList<BufferedImage>();
+    	this.imgR = new ArrayList<BufferedImage>();
     	
     	this.loadImgV();
     	this.loadImgEff();
     	this.loadImgBg();
     	this.loadImgGround();
+    	this.loadImgRoad();
     	
     	this.blink = 0;
     	this.green_light = 0;
@@ -318,6 +321,9 @@ public class Affichage extends JPanel{
     
     private void loadImgGround() throws IOException {
     	this.imgG.add(ImageIO.read(new File(this.parallax_mountains+"parallax-mountain-bg.png"))); //temporaire, uste pour tester
+    }
+    private void loadImgRoad() throws IOException {
+    	this.imgR.add(ImageIO.read(new File(this.road+"Toon Road Texture.png")));
     }
 }
 
