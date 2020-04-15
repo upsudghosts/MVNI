@@ -26,7 +26,7 @@ public class Effects extends Thread{
 		if(V.getFlyStatus()) {
 			/**While it's on : */
 			while(V.getFlyStatus()) {
-				this.A.incrView();
+				A.incrView();
 				try {
 					Thread.sleep(TPSWAIT) ;
 				} catch (InterruptedException e) {

@@ -17,39 +17,39 @@ public class Obstacle {
 	}
 	
 	public int getX() {
-		return this.x;
+		return x;
 	}
 	
 	public int getY() {
-		return this.y;
+		return y;
 	}
 	
 	public int getW() {
-		return this.w;
+		return w;
 	}
 	
 	public int getH() {
-		return this.h;
+		return h;
 	}
 	
 	/*
 	public void moveObt(int moveVal, int maxY) {
 		//The obstacles move and we remove it if needed
-		for(int i=0; i<this.  .size(); i++) {
-			CheckPoint cp = this.cpList.get(i);
+		for(int i=0; i<  .size(); i++) {
+			CheckPoint cp = cpList.get(i);
 			cp.decreaseHeight(moveVal);
 			if(cp.getHeight()>maxY) {
-				this.cpList.remove(cp);
+				cpList.remove(cp);
 			}
 		}
 	}
 	*/
 	public void decreaseHeight(int moveVal) {
-		this.y += moveVal;
+		y += moveVal;
 	}
 	
 	public boolean contact(int xV, int yV, int wV, int hV) {
-		if(xV<this.x || yV<this.y || xV+wV>this.x+this.w || yV+hV>this.y+this.h) {
+		if(xV<x || yV<y || xV+wV>x+w || yV+hV>y+h) {
 			return true;
 		}
 		return false;

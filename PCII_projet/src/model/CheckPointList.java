@@ -19,14 +19,14 @@ public class CheckPointList {
 	 * @return the checkpoint list
 	 **/
 	public ArrayList<CheckPoint> getCpList() {
-		return this.cpList;
+		return cpList;
 	}
 	
 	/** Adds a new checkPoint, at the horizon, to the list
 	 * 
 	 **/
-	public void addCP() {
-		this.cpList.add(new CheckPoint(this.horHeight, 15*1000));
+	public void addCP(int dist) {
+		cpList.add(new CheckPoint(horHeight, 20, dist));
 	}
 	
 	/** Moves the checkPoint :
@@ -36,11 +36,11 @@ public class CheckPointList {
 	 **/
 	public void moveCP(int moveVal, int maxY) {
 		//The checkpoints move and we remove it if needed
-		for(int i=0; i<this.cpList.size(); i++) {
-			CheckPoint cp = this.cpList.get(i);
+		for(int i=0; i<cpList.size(); i++) {
+			CheckPoint cp = cpList.get(i);
 			cp.decreaseHeight(moveVal);
 			if(cp.getHeight()>maxY) {
-				this.cpList.remove(cp);
+				cpList.remove(cp);
 			}
 		}
 	}

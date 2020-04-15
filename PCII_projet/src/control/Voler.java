@@ -54,29 +54,29 @@ public class Voler extends Thread {
 		if(V.getFlyStatus()) {
 			/**While it's on : */
 			while(V.getFlyStatus()) {
-				switch (this.mvStat) {
+				switch (mvStat) {
 					case LEFT:
-						this.V.move("LEFT", leftCoef);
-						this.P.trackEffect("LEFT", leftCoef);
+						V.move("LEFT", leftCoef);
+						P.trackEffect("LEFT", leftCoef);
 						break;
 					case RIGHT:
-						this.V.move("RIGHT", rightCoef);
-						this.P.trackEffect("RIGHT", rightCoef);
+						V.move("RIGHT", rightCoef);
+						P.trackEffect("RIGHT", rightCoef);
 						break;
 					case UP:
-						this.V.move("UP", upCoef);
-						this.P.trackEffect("UP", upCoef);
+						V.move("UP", upCoef);
+						P.trackEffect("UP", upCoef);
 						break;
 					case DOWN:
-						this.V.move("DOWN", downCoef);
-						this.P.trackEffect("DOWN", downCoef);
+						V.move("DOWN", downCoef);
+						P.trackEffect("DOWN", downCoef);
 						break;
 					case NEUTRAL:
-						this.V.move("NEUTRAL", 0);
+						V.move("NEUTRAL", 0);
 						break;
 				}
 				/**Refreshing view and putting thread to sleep for 50 ms to see updates on our screen.*/
-				this.A.change();
+				A.change();
 				try { Thread.sleep(TPSWAIT); }
 				catch (Exception exc) { exc.printStackTrace(); }
 			}
@@ -84,12 +84,12 @@ public class Voler extends Thread {
 	}
 	
 	public String getMoveStatus() {
-		return ""+this.mvStat+"";
+		return ""+mvStat+"";
 	}
 	
 	public void update_moveStatus(int index) {
-		if(this.V.getFlyStatus() && this.V.getAlive()) {
-			this.mvStat = moveStatus.getVal(index);
+		if(V.getFlyStatus() && V.getAlive()) {
+			mvStat = moveStatus.getVal(index);
 		}
 	}
 	

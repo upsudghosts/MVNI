@@ -17,7 +17,7 @@ public class Vehicule {
 	
 	private String mvStat;
 	
-	private long secTl; //LEFT TO LIVE in seconds
+	private long startTime, secTl; //LEFT TO LIVE in seconds
 	
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	
@@ -32,6 +32,7 @@ public class Vehicule {
 		
 		this.mvStat = "NEUTRAL";
 	
+		this.startTime = 70;
 		this.secTl = 70;
 	}
 	
@@ -39,39 +40,39 @@ public class Vehicule {
 	 * @return a Point with the coordinates of the vehicle
 	 **/
 	public Point getCoord() {
-		return new Point(this.x, this.y);
+		return new Point(x, y);
 	}
 
 	/**Gives the width of the hitbox of the vehicle
 	 * @return an int, the width of the hitbox
 	 **/
 	public int getHitWidth() {
-		return this.hitWidth;
+		return hitWidth;
 	}
 	
 	/**Gives the height of the hitbox of the vehicle
 	 * @return an int, the height of the hitbox
 	 **/
 	public int getHitHeight() {
-		return this.hitHeight;
+		return hitHeight;
 	}
 	
 	/**Gives the flying status of the vehicle
 	 * @return true if he vehicle is in flight, false otherwise
 	 **/
 	public boolean getFlyStatus() {
-		return this.inFlight;
+		return inFlight;
 	}
 	
 	/** Tells if the game is on
 	 * @return true if the vehicle is playing, false otherwise
 	 * **/
 	public boolean getAlive() {
-		return this.isAlive;
+		return isAlive;
 	}
 	
 	public long getTTL() {
-		return this.secTl;
+		return secTl;
 	}
 	
 	/**Moves the vehicle a given distance in a given direction : left, right, up or down the screen
@@ -79,35 +80,35 @@ public class Vehicule {
 	 * @param coef an int, the distance the vehicle will travel
 	 * **/
 	public void move(String mvDir, int coef) {
-		this.mvStat = mvDir;
+		mvStat = mvDir;
 		switch (mvStat) {
 			case "LEFT":
-				if(this.x  <= this.hitWidth) {
-					this.x = this.hitWidth;
+				if(x  <= hitWidth) {
+					x = hitWidth;
 					break;
 				}
-				this.x -= coef;
+				x -= coef;
 				break;
 			case "RIGHT":
-				if(this.x  >= screenSize.width - 2*this.hitWidth) {
-					this.x = screenSize.width - 2*this.hitWidth;
+				if(x  >= screenSize.width - 2*hitWidth) {
+					x = screenSize.width - 2*hitWidth;
 					break;
 				}
-				this.x += coef;
+				x += coef;
 				break;
 			case "UP":
-				if(this.y  <= (int)(screenSize.height*0.2)) {
-					this.y = (int)(screenSize.height*0.2);
+				if(y  <= (int)(screenSize.height*0.2)) {
+					y = (int)(screenSize.height*0.2);
 					break;
 				}
-				this.y -= coef;
+				y -= coef;
 				break;
 			case "DOWN":
-				if(this.y  >= screenSize.height - 4*this.hitHeight) {
-					this.y = screenSize.height - 4*this.hitHeight;
+				if(y  >= screenSize.height - 4*hitHeight) {
+					y = screenSize.height - 4*hitHeight;
 					break;
 				}
-				this.y += coef;
+				y += coef;
 				break;
 			case "NEUTRAL":
 				break;
@@ -115,37 +116,41 @@ public class Vehicule {
 	}
 	
 	public void timeDecrease(long l) {
-		if(this.secTl > 1) this.secTl -= l;
+		if(secTl > 1) secTl = startTime - l;
+	}
+	
+	public void addTime(long l) {
+		startTime = secTl + l;
 	}
 	/** Gives the status of the movement : tells if the vehicle is going up, down, left, right or if it doesn't move
 	 * @return a String, the status of the movement
 	 **/
 	public String getMoveStatus() {
-		return this.mvStat;
+		return mvStat;
 	}
 	
 	/** Starts the race : puts the vehicle in flight
 	 * 
 	 **/
 	public void startRace() {
-		this.inFlight = true;
+		inFlight = true;
 	}
 	
 	/**Stops the race : sets the statuses of the vehicle as not in flight and not alive
 	 * 
 	 **/
 	public void stopRace() {
-		this.isAlive = false;
-		this.inFlight = false;
+		isAlive = false;
+		inFlight = false;
 	}
 	
 	/** Puts the vehicle at it's initial values
 	 * 
 	 **/
 	public void restart() {
-		this.x = screenSize.width/2-this.hitWidth;
-		this.y = screenSize.height/2+this.hitHeight;
+		x = screenSize.width/2-hitWidth;
+		y = screenSize.height/2+hitHeight;
 		
-		this.inFlight = false;
+		inFlight = false;
 	}
 }

@@ -27,18 +27,18 @@ public class ControlClavier implements KeyListener{
 	* void startGame function that creates the necessary threads each time a new game starts.
 	*/
 	public void startGame(KeyEvent e) {
-		this.V.startRace();
-		//this.P.setCPTimer((KeyListener) this);
+		V.startRace();
+		//P.setCPTimer((KeyListener) this);
 		
 		/**Initializing threads.*/
-		this.Fly = new Voler(this.A, this.P, this.V);
-		this.Advance = new Avancer(this.A, this.P, this.V);
-		this.Eff = new Effects(this.A, this.P, this.V);
+		Fly = new Voler(A, P, V);
+		Advance = new Avancer(A, P, V);
+		Eff = new Effects(A, P, V);
 			
 		/**Starting said threads.*/
-		(this.Fly).start();
-		(this.Advance).start();
-		(this.Eff).start();
+		(Fly).start();
+		(Advance).start();
+		(Eff).start();
 
 	}
 		
@@ -46,8 +46,8 @@ public class ControlClavier implements KeyListener{
 	* void stoptGame function that interrupts any running threads each time a game ends.
 	*/
 	public void stopGame() {
-		this.V.stopRace();
-		(this.Fly).interrupt();
+		V.stopRace();
+		(Fly).interrupt();
 	}
 
 	@Override
@@ -60,36 +60,36 @@ public class ControlClavier implements KeyListener{
 	public void keyPressed(KeyEvent e) {
 		switch(e.getKeyCode()) {
 			case KeyEvent.VK_DOWN :
-				this.Fly.update_moveStatus(3);
+				Fly.update_moveStatus(3);
 				break;
 				
 			case KeyEvent.VK_UP :
-				this.Fly.update_moveStatus(2);
+				Fly.update_moveStatus(2);
 				break;
 				
 			case KeyEvent.VK_LEFT :
-				this.Fly.update_moveStatus(0);
+				Fly.update_moveStatus(0);
 				break;
 				
 			case KeyEvent.VK_RIGHT :
-				this.Fly.update_moveStatus(1);
+				Fly.update_moveStatus(1);
 				break;
 				
 			case KeyEvent.VK_SPACE:
-				if(!this.V.getFlyStatus() && this.V.getAlive()) {
+				if(!V.getFlyStatus() && V.getAlive()) {
 					/**Updating button and label conditions*/
-					this.A.startlabel.setText("Game Started");
+					A.startlabel.setText("Game Started");
 					/**Starting need threads*/
-					this.startGame(e);
-				}else if(!this.V.getAlive()){
-					this.A.deathlabel.setVisible(false);
-					this.A.startlabel.setVisible(true);
+					startGame(e);
+				}else if(!V.getAlive()){
+					A.deathlabel.setVisible(false);
+					A.startlabel.setVisible(true);
 						
 					/**Setting to default for the project to restart. /!\ Do not change the order /!\*/
-					this.V.restart();
+					V.restart();
 					
 					/**Repainting our work canvas.*/
-					this.A.change();
+					A.change();
 				}
 				break;
 		}
@@ -97,8 +97,8 @@ public class ControlClavier implements KeyListener{
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		this.Fly.update_moveStatus(4);
-		//System.out.println(this.V.getMoveStatus());
+		Fly.update_moveStatus(4);
+		//System.out.println(V.getMoveStatus());
 		
 	}
 
