@@ -20,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import model.CheckPoint;
+import model.Obstacle;
 import model.Piste;
 import model.Vehicule;
 
@@ -113,6 +114,7 @@ public class Affichage extends JPanel{
     	ArrayList<Point> ptL = this.P.getTrackL();
     	ArrayList<Point> ptR = this.P.getTrackR();
     	ArrayList<CheckPoint> cpL = this.P.getCP();
+    	ArrayList<Obstacle> oL = this.P.getOL();
     	
     	//TrackL
     	Point prevL = null;
@@ -178,7 +180,12 @@ public class Affichage extends JPanel{
 		g2.dispose();
 		*/
 		
-		
+		//Obstacles
+		for(Obstacle o : oL) {
+			g.setColor(Color.GRAY);
+			g.drawRect(o.getX(), o.getY(), o.getW(), o.getH());
+			g.setColor(Color.BLACK);
+		}
     }
     
     /** Draws the current speed and the distance traveled

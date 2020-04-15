@@ -22,14 +22,14 @@ public class Piste {
 
 	//private ArrayList<CheckPoint> cpList; //the checkpoint list
 	private CheckPointList cpList; //the checkpoint list (new version)
-
+	private ArrayList<Obstacle> obsList;
 
 	
 	public Piste() {
 		this.trackL = new ArrayList<Point>();
 		this.trackR= new ArrayList<Point>();
 		//this.cpList = new ArrayList<CheckPoint>();
-		
+		this.obsList = new ArrayList<Obstacle>();
 		//this.cpList.add(new CheckPoint(this.horHeight));
 		
 		this.trackSize = 0;
@@ -43,6 +43,9 @@ public class Piste {
 	 **/
 	public void createTrack() {
 		this.cpList = new CheckPointList(this.horHeight); //Creation de la liste de checkPoint
+		
+		//Test obstacle
+		this.obsList.add(new Obstacle(200, this.horHeight));
 		
 		int currX = 300;
 		int currY = this.maxY;
@@ -138,6 +141,17 @@ public class Piste {
 			this.traveledSinceCP = 0;
 			this.cpList.addCP();
 		}
+		
+		
+		//Obstacle
+		//The obstacles move and we remove it if needed
+		for(int i=0; i<this.obsList.size(); i++) {
+			Obstacle o = this.obsList.get(i);
+			o.decreaseHeight(this.MOVEVAL);
+			if(o.getH()>this.maxY) {
+				this.obsList.remove(o);
+			}
+		}
 	}
 	
 	
@@ -229,6 +243,10 @@ public class Piste {
 	public ArrayList<CheckPoint> getCP(){
 		//System.out.println(this.cpList.getCpList().size());
 		return this.cpList.getCpList();
+	}
+	
+	public ArrayList<Obstacle> getOL(){
+		return this.obsList;
 	}
 	
 	
