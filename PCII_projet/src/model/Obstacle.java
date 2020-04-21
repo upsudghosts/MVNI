@@ -8,12 +8,17 @@ public class Obstacle {
 	private int w;
 	private int h;
 	
+	//Distance to the vehicle
+	private int d;
+	
 	public Obstacle(int x, int y) {
 		this.x = x;
 		this.y = y;
 		
-		this.w = 20;
-		this.h = 15;
+		this.d = this.y-20; 
+		
+		this.w = 400;
+		this.h = 200;
 	}
 	
 	public int getX() {
@@ -48,8 +53,13 @@ public class Obstacle {
 		y += moveVal;
 	}
 	
-	public boolean contact(int xV, int yV, int wV, int hV) {
-		if(xV<x || yV<y || xV+wV>x+w || yV+hV>y+h) {
+	public boolean hitV(int xV, int yV, int wV, int hV) {
+		int maxG = Math.max(this.x, xV);
+		int minD = Math.min(this.x+this.w, xV+wV);
+		int minH = Math.min(this.y+this.h, yV+hV);
+		int maxB = Math.max(this.y, yV);
+		
+		if(maxG<minD && maxB<minH) {
 			return true;
 		}
 		return false;

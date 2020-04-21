@@ -74,6 +74,10 @@ public class Avancer extends Thread{
 	        
 			P.moveTrack();
 			
+			if(P.hitObst(V)){
+				V.stopRace();
+			}
+			
 			A.change();
 		}
 	}

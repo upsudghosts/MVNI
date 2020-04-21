@@ -194,6 +194,19 @@ public class Piste {
 		}
 	}
 	
+	/** Tests if the given vehicle hits one of the obstacles on the track
+	 * @param V the vehicle
+	 * @return true if the vehicle is hitting an obstacle, false otherwise
+	 **/
+	public boolean hitObst(Vehicule V) {
+		for(int i=0; i<this.obsList.size(); i++) {
+			if(this.obsList.get(i).hitV(V.getCoord().x, V.getCoord().y, V.getHitWidth(), V.getHitHeight())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	/** Gives the horizon height
 	 * @return an integer, the height of the horizon
 	 **/
