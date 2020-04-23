@@ -8,6 +8,7 @@ public class Vehicule {
 	
 	//Abscisse et ordonnee
 	private int x, y;
+	private int z;
 	
 	//Hitbox Dimensions
 	private int hitWidth, hitHeight;
@@ -34,6 +35,10 @@ public class Vehicule {
 	
 		this.startTime = 70;
 		this.secTl = 70;
+		
+		this.z = this.y;
+		//this.z = screenSize.height - 8*hitHeight;
+		//this.z = 5*hitHeight;
 	}
 	
 	/**Gives a point with the coordinates of the vehicle
@@ -41,6 +46,10 @@ public class Vehicule {
 	 **/
 	public Point getCoord() {
 		return new Point(x, y);
+	}
+	
+	public int getZ() {
+		return this.z;
 	}
 
 	/**Gives the width of the hitbox of the vehicle

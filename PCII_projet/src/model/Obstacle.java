@@ -8,17 +8,21 @@ public class Obstacle {
 	private int w;
 	private int h;
 	
-	//Distance to the vehicle
+	//Length of the hitbox
+	private int z;
+	
+	//Travelled distance 
 	private int d;
 	
 	public Obstacle(int x, int y) {
-		this.x = x;
-		this.y = y;
-		
-		this.d = this.y-20; 
+		this.z = 100;
+		this.d = 0; 
 		
 		this.w = 400;
 		this.h = 200;
+		
+		this.x = x+500;
+		this.y = y-this.h;
 	}
 	
 	public int getX() {
@@ -36,7 +40,7 @@ public class Obstacle {
 	public int getH() {
 		return h;
 	}
-	
+	 
 	/*
 	public void moveObt(int moveVal, int maxY) {
 		//The obstacles move and we remove it if needed
@@ -51,9 +55,17 @@ public class Obstacle {
 	*/
 	public void decreaseHeight(int moveVal) {
 		y += moveVal;
+		this.d += moveVal;
 	}
 	
-	public boolean hitV(int xV, int yV, int wV, int hV) {
+	public boolean hitV(int xV, int yV, int wV, int hV, int zV) {
+		
+		//If the obstacle is too far away from the vehicle, we know they cannot touch each other
+		
+		if(zV < this.d-this.z/2 || zV > this.d+this.z/2) {
+			return false;
+		}
+		
 		int maxG = Math.max(this.x, xV);
 		int minD = Math.min(this.x+this.w, xV+wV);
 		int minH = Math.min(this.y+this.h, yV+hV);

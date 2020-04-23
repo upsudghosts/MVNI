@@ -22,14 +22,15 @@ public class Piste {
 
 	//private ArrayList<CheckPoint> cpList; //the checkpoint list
 	private CheckPointList cpList; //the checkpoint list (new version)
-	private ArrayList<Obstacle> obsList;
+	private ArrayList<Obstacle> obsList; //the obstacle list
+	private ArrayList<Opponent> oppList;//the opponent list
 
-	
 	public Piste() {
 		this.trackL = new ArrayList<Point>();
 		this.trackR= new ArrayList<Point>();
 		//this.cpList = new ArrayList<CheckPoint>();
 		this.obsList = new ArrayList<Obstacle>();
+		this.oppList = new ArrayList<Opponent>();
 		//this.cpList.add(new CheckPoint(this.horHeight));
 		
 		this.trackSize = 0;
@@ -45,7 +46,7 @@ public class Piste {
 		cpList = new CheckPointList(horHeight); //Creation de la liste de checkPoint
 		
 		//Test obstacle
-		obsList.add(new Obstacle(200, horHeight));
+		//obsList.add(new Obstacle(200, horHeight));
 		
 		int currX = 300;
 		int currY = maxY;
@@ -143,12 +144,22 @@ public class Piste {
 		
 		
 		//Obstacle
+		this.addRandObst();
+		
 		//The obstacles move and we remove it if needed
 		for(int i=0; i<obsList.size(); i++) {
 			Obstacle o = obsList.get(i);
 			o.decreaseHeight(MOVEVAL);
 			if(o.getH()>maxY) {
 				obsList.remove(o);
+			}
+		}
+		for(int i=0; i<oppList.size(); i++) {
+			Opponent o = oppList.get(i);
+			o.decreaseHeight(MOVEVAL);
+			o.move();
+			if(o.getH()>maxY) {
+				oppList.remove(o);
 			}
 		}
 	}
@@ -200,11 +211,46 @@ public class Piste {
 	 **/
 	public boolean hitObst(Vehicule V) {
 		for(int i=0; i<this.obsList.size(); i++) {
-			if(this.obsList.get(i).hitV(V.getCoord().x, V.getCoord().y, V.getHitWidth(), V.getHitHeight())) {
+			if(this.obsList.get(i).hitV(V.getCoord().x, V.getCoord().y, V.getHitWidth(), V.getHitHeight(), V.getZ())) {
+				return true;
+			}
+		}
+		for(int i=0; i<this.oppList.size(); i++) {
+			if(this.oppList.get(i).hitV(V.getCoord().x, V.getCoord().y, V.getHitWidth(), V.getHitHeight(), V.getZ())) {
 				return true;
 			}
 		}
 		return false;
+	}
+	
+	/** Adds an obstacle on the ground with a probability 2/100 or a flying obstacle with a probability of 1/100
+	 * 
+	 **/
+	public void addRandObst() {
+		Random rand = new Random();
+		
+		/*
+		if(Math.random() >= 0.9) {
+			int x = (int) Math.random()*this.maxX;
+			this.obsList.add(new Obstacle(x, horHeight));
+		}
+		*/
+		int n = rand.nextInt(100);
+		if(n<3) {
+			//Obstacle on the ground
+			int x = rand.nextInt(maxX);
+			this.obsList.add(new Obstacle(x, horHeight));
+		}else if(n==3) {
+			//Flying obstacle
+			int x = rand.nextInt(maxX);
+			int y = rand.nextInt(horHeight);
+			this.obsList.add(new Obstacle(x, y));
+		}else if(n==4) {
+			//Opponent
+			int x = rand.nextInt(maxX);
+			Opponent o = new Opponent(x, horHeight/2);
+			this.oppList.add(o);
+		}
 	}
 	
 	/** Gives the horizon height
@@ -261,8 +307,18 @@ public class Piste {
 		return cpList.getCpList();
 	}
 	
+	/** Gives the current obstacle list
+	 * @return the obstacle list
+	 **/
 	public ArrayList<Obstacle> getOL(){
 		return obsList;
+	}
+	
+	/** Gives the current opponent list
+	 * @return the opponent list
+	 **/
+	public ArrayList<Opponent> getOpL(){
+		return oppList;
 	}
 
 	
