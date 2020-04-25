@@ -180,25 +180,64 @@ public class Piste {
 			case "LEFT":
 				pL.x += coef/10;
 				pR.x += coef/10;
+				
+				//the obstacles move
+				for(int j=0; j<this.obsList.size(); j++) {
+					this.obsList.get(j).vMoveLeft(coef/10);
+				}
+				for(int j=0; j<this.oppList.size(); j++) {
+					this.oppList.get(j).vMoveLeft(coef/10);
+				}
+				
 				break;
+				
 			case "RIGHT":
 				pL.x -= coef/10;
 				pR.x -= coef/10;
+				
+				//the obstacles move
+				for(int j=0; j<this.obsList.size(); j++) {
+					this.obsList.get(j).vMoveRight(coef/10);
+				}
+				for(int j=0; j<this.oppList.size(); j++) {
+					this.oppList.get(j).vMoveRight(coef/10);
+				}
+				
 				break;
+				
 			case "UP":
 				if(ZOOM > 0) {
 					pL.x += coef/10;
 					pR.x -= coef/10;
 					ZOOM --;
+					
+					//the obstacles move
+					for(int j=0; j<this.obsList.size(); j++) {
+						this.obsList.get(j).vMoveUp(coef/10);
+					}
+					for(int j=0; j<this.oppList.size(); j++) {
+						this.oppList.get(j).vMoveUp(coef/10);
+					}
+					
 				}
 				break;
+				
 			case "DOWN":
 				if(ZOOM < 50) {
 					pL.x -= coef/10;
 					pR.x += coef/10;
 					ZOOM ++;
+					
+					//the obstacles move
+					for(int j=0; j<this.obsList.size(); j++) {
+						this.obsList.get(j).vMoveDown(coef/10);
+					}
+					for(int j=0; j<this.oppList.size(); j++) {
+						this.oppList.get(j).vMoveDown(coef/10);
+					}
 				}
 				break;
+				
 			case "NEUTRAL":
 				break;
 			}

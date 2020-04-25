@@ -18,8 +18,8 @@ public class Obstacle {
 		this.z = 100;
 		this.d = 0; 
 		
-		this.w = 400;
-		this.h = 200;
+		this.w = 200;
+		this.h = 100;
 		
 		this.x = x+500;
 		this.y = y-this.h;
@@ -40,6 +40,22 @@ public class Obstacle {
 	public int getH() {
 		return h;
 	}
+	
+	public void setX(int x) {
+		this.x = x;
+	}
+	
+	public void setY(int y) {
+		this.y = y;
+	}
+	
+	public void setW(int w) {
+		this.w = w;
+	}
+	
+	public void setH(int h) {
+		this.h = h;
+	}
 	 
 	/*
 	public void moveObt(int moveVal, int maxY) {
@@ -56,6 +72,42 @@ public class Obstacle {
 	public void decreaseHeight(int moveVal) {
 		y += moveVal;
 		this.d += moveVal;
+		
+		//the obstacle gets bigger
+		this.y -=4;
+		this.h += 8;
+		this.x -= 4;
+		this.w += 8;
+	}
+	
+	public void vMoveLeft(int n) {
+		this.x+=n;
+	}
+	
+	public void vMoveRight(int n) {
+		this.x-=n;
+	}
+	
+	public void vMoveUp(int n) {
+		this.y+=n/2;
+		this.x += n/2;
+		//this.x+=n/4;
+		
+		//this.w-=n/2;
+		this.h-=n/2;
+		this.w-=n;
+		
+	}
+	
+	public void vMoveDown(int n) {
+		this.y-=n/2;
+		this.x -= n/2;
+		//this.x-=n/4;
+		
+		//this.w+=n/2;
+		this.h+=n/2;
+		this.w+=n;
+		//this.x -= n/2;
 	}
 	
 	public boolean hitV(int xV, int yV, int wV, int hV, int zV) {
