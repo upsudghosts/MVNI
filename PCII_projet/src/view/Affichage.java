@@ -225,7 +225,7 @@ public class Affichage extends JPanel{
     	ArrayList<Opponent> opL = P.getOpL();
     	for(Opponent o : opL) {
     		g.setColor(Color.GRAY);
-    		//g.fillRect(o.getX(), o.getY(), o.getW(), o.getH()); //pour faire la difference entre les obstacles et les adversaires pendant le test
+    		g.fillRect(o.getX(), o.getY(), o.getW(), o.getH()); //pour faire la difference entre les obstacles et les adversaires pendant le test
     		g.drawRect(o.getX(), o.getY(), o.getW(), o.getH());
     		g.setColor(Color.BLACK);
     	}
