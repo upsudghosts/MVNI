@@ -28,8 +28,7 @@ public class Voler extends Thread {
 	    public static moveStatus getVal(int i) {
 	        return list[i];
 	    }
-	};
-	private moveStatus mvStat;
+	}	private moveStatus mvStat;
 
 	/**
 	 * 

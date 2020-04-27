@@ -1,4 +1,4 @@
-import java.awt.FlowLayout;
+ import java.awt.FlowLayout;
 import java.io.IOException; 
 
 import javax.swing.JFrame;
