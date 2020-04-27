@@ -18,10 +18,11 @@ public class Obstacle {
 		this.z = 100;
 		this.d = 0; 
 		
-		this.w = 200;
-		this.h = 100;
+		this.w = 100;
+		this.h = 50;
 		
-		this.x = x+500;
+		//this.x = x+500;
+		this.x = x;
 		this.y = y-this.h;
 	}
 	
@@ -41,6 +42,10 @@ public class Obstacle {
 		return h;
 	}
 	
+	public int getD() {
+		return d;
+	}
+	
 	public void setX(int x) {
 		this.x = x;
 	}
@@ -55,6 +60,10 @@ public class Obstacle {
 	
 	public void setH(int h) {
 		this.h = h;
+	}
+	
+	public void setD(int d) {
+		this.d = d;
 	}
 	 
 	/*
@@ -74,10 +83,10 @@ public class Obstacle {
 		this.d += moveVal;
 		
 		//the obstacle gets bigger
-		this.y -=4;
-		this.h += 8;
-		this.x -= 4;
-		this.w += 8;
+		this.y -=2;
+		this.h += 4;
+		this.x -= 2;
+		this.w += 4;
 	}
 	
 	public void vMoveLeft(int n) {
@@ -110,10 +119,26 @@ public class Obstacle {
 		//this.x -= n/2;
 	}
 	
-	public boolean hitV(int xV, int yV, int wV, int hV, int zV) {
+	public void vMoveUp(int n, int w, int h) {
+		this.y+=n/2;
+		this.x += n/2;
 		
+		this.h = h;
+		this.w = w;
+		
+	}
+	
+	public void vMoveDown(int n, int w, int h) {
+		this.y-=n/2;
+		this.x -= n/2;
+		
+		this.h = h;
+		this.w = w;
+	}
+	
+	public boolean hitV(Vehicule V) {
 		//If the obstacle is too far away from the vehicle, we know they cannot touch each other
-		
+		/*
 		if(zV < this.d-this.z/2 || zV > this.d+this.z/2) {
 			return false;
 		}
@@ -122,6 +147,21 @@ public class Obstacle {
 		int minD = Math.min(this.x+this.w, xV+wV);
 		int minH = Math.min(this.y+this.h, yV+hV);
 		int maxB = Math.max(this.y, yV);
+		
+		if(maxG<minD && maxB<minH) {
+			return true;
+		}
+		return false;
+		*/
+		
+		if(V.getZ() < this.d-this.z/2 || V.getZ() > this.d+this.z/2) {
+			return false;
+		}
+		
+		int maxG = Math.max(this.x, V.getCoord().x);
+		int minD = Math.min(this.x + this.w, V.getCoord().x + V.getHitWidth());
+		int minH = Math.min(this.y + this.h, V.getCoord().y + V.getHitHeight());
+		int maxB = Math.max(this.y, V.getCoord().y);
 		
 		if(maxG<minD && maxB<minH) {
 			return true;

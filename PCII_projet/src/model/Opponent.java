@@ -14,10 +14,26 @@ public class Opponent extends Obstacle{
 
 	public Opponent(int x, int y) {
 		super(x, y);
+		this.speed = 1;
 		this.mvVal = 0;
 		this.mvStat = "NEUTRAL";
 	}
 	
+	
+	@Override
+	public void decreaseHeight(int moveVal) {
+		this.setY(this.getY() + moveVal*speed);
+		this.setD(this.getD() + moveVal*speed);
+		
+		//the obstacle gets bigger
+		this.setY(this.getY()-2);
+		this.setH(this.getY()+4);
+		this.setX(this.getY()-2);
+		this.setW(this.getY()+4);
+	}
+	
+	
+	//Voir les limites pour qu'il ne quitte pas l'ecran
 	public void move() {
 		Random ran = new Random();
 		
@@ -38,10 +54,15 @@ public class Opponent extends Obstacle{
 				this.mvStat = "NEUTRAL";
 			}
 		}
-		//mvStat = mvDir;
+		
 		n = ran.nextInt(100);
 		if(n<=5) {
 			this.mvVal = ran.nextInt(3)*10;
+		}
+		
+		n = ran.nextInt(100);
+		if(n<=5) {
+			
 		}
 		
 		//The opponent moves
@@ -68,18 +89,22 @@ public class Opponent extends Obstacle{
 				if(this.getY()  <= (int)(screenSize.height*0.2)) {
 					//y = (int)(screenSize.height*0.2);
 					this.setY((int)(screenSize.height*0.2));
+					this.setD((int)(screenSize.height*0.2));
 					break;
 				}
 				//y -= coef;
 				this.setY(this.getY()-mvVal);
+				this.setD(this.getD()-mvVal);
 				break;
 			case "DOWN":
 				if(this.getY()  >= screenSize.height - 4*this.getH()) {
 					//y = screenSize.height - 4*hitHeight;
 					this.setY(screenSize.height - 4*this.getH());
+					this.setD(screenSize.height - 4*this.getH());
 					break;
 				}
 				this.setY(this.getY()+mvVal);
+				this.setD(this.getD()+mvVal);
 				//y += coef;
 				break;
 			case "NEUTRAL":
