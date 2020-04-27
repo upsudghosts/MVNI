@@ -12,7 +12,7 @@ public class Piste {
 	private int maxX, maxY, symX;
 	
 	private Point accelPt; //Le point auquel on accelere le plus
-	private int traveledDist;
+	private int traveledDist; //score ?
 	public final int tDistUp = 1;
 	
 	private int traveledSinceCP;
@@ -22,14 +22,17 @@ public class Piste {
 
 	//private ArrayList<CheckPoint> cpList; //the checkpoint list
 	private CheckPointList cpList; //the checkpoint list (new version)
-	private ArrayList<Obstacle> obsList;
+	private ArrayList<Obstacle> obsList; //the obstacle list
+	private ArrayList<Opponent> oppList;//the opponent list
+	private int obsW;
+	private int obsH;
 
-	
 	public Piste() {
 		this.trackL = new ArrayList<Point>();
 		this.trackR= new ArrayList<Point>();
 		//this.cpList = new ArrayList<CheckPoint>();
 		this.obsList = new ArrayList<Obstacle>();
+		this.oppList = new ArrayList<Opponent>();
 		//this.cpList.add(new CheckPoint(this.horHeight));
 		
 		this.trackSize = 0;
@@ -45,7 +48,7 @@ public class Piste {
 		cpList = new CheckPointList(horHeight); //Creation de la liste de checkPoint
 		
 		//Test obstacle
-		obsList.add(new Obstacle(200, horHeight));
+		//obsList.add(new Obstacle(200, horHeight));
 		
 		int currX = 300;
 		int currY = maxY;
@@ -143,12 +146,24 @@ public class Piste {
 		
 		
 		//Obstacle
+		this.addRandObst();
+		
 		//The obstacles move and we remove it if needed
 		for(int i=0; i<obsList.size(); i++) {
 			Obstacle o = obsList.get(i);
 			o.decreaseHeight(MOVEVAL);
 			if(o.getH()>maxY) {
 				obsList.remove(o);
+			}
+		}
+		for(int i=0; i<oppList.size(); i++) {
+			Opponent o = oppList.get(i);
+			o.decreaseHeight(MOVEVAL);
+			o.move();
+			if(o.getH()>maxY) {
+				oppList.remove(o);
+				//The score gets higher when the vehicle passes an opponent
+				this.traveledDist += 500;
 			}
 		}
 	}
@@ -169,25 +184,70 @@ public class Piste {
 			case "LEFT":
 				pL.x += coef/10;
 				pR.x += coef/10;
+				
+				//the obstacles move
+				for(int j=0; j<this.obsList.size(); j++) {
+					this.obsList.get(j).vMoveLeft(coef/10);
+				}
+				for(int j=0; j<this.oppList.size(); j++) {
+					this.oppList.get(j).vMoveLeft(coef/10);
+				}
+				
 				break;
+				
 			case "RIGHT":
 				pL.x -= coef/10;
 				pR.x -= coef/10;
+				
+				//the obstacles move
+				for(int j=0; j<this.obsList.size(); j++) {
+					this.obsList.get(j).vMoveRight(coef/10);
+				}
+				for(int j=0; j<this.oppList.size(); j++) {
+					this.oppList.get(j).vMoveRight(coef/10);
+				}
+				
 				break;
+				
 			case "UP":
 				if(ZOOM > 0) {
 					pL.x += coef/10;
 					pR.x -= coef/10;
 					ZOOM --;
+					
+					//the obstacles move
+					//this.vMoveUp(coef/10);
+					for(int j=0; j<this.obsList.size(); j++) {
+						//this.obsList.get(j).vMoveUp(coef/10, this.obsW, this.obsH);
+						this.obsList.get(j).vMoveUp(coef/10);
+					}
+					for(int j=0; j<this.oppList.size(); j++) {
+						//this.oppList.get(j).vMoveUp(coef/10, this.obsW, this.obsH);
+						this.obsList.get(j).vMoveUp(coef/10);
+					}
+					
 				}
 				break;
+				
 			case "DOWN":
 				if(ZOOM < 50) {
 					pL.x -= coef/10;
 					pR.x += coef/10;
 					ZOOM ++;
+					
+					//the obstacles move
+					//this.vMoveDown(coef/10);
+					for(int j=0; j<this.obsList.size(); j++) {
+						//this.obsList.get(j).vMoveDown(coef/10, this.obsW, this.obsH);
+						this.obsList.get(j).vMoveDown(coef/10);
+					}
+					for(int j=0; j<this.oppList.size(); j++) {
+						//this.oppList.get(j).vMoveDown(coef/10, this.obsW, this.obsH);
+						this.oppList.get(j).vMoveDown(coef/10);
+					}
 				}
 				break;
+				
 			case "NEUTRAL":
 				break;
 			}
@@ -200,11 +260,59 @@ public class Piste {
 	 **/
 	public boolean hitObst(Vehicule V) {
 		for(int i=0; i<this.obsList.size(); i++) {
-			if(this.obsList.get(i).hitV(V.getCoord().x, V.getCoord().y, V.getHitWidth(), V.getHitHeight())) {
+			//if(this.obsList.get(i).hitV(V.getCoord().x, V.getCoord().y, V.getHitWidth(), V.getHitHeight(), V.getZ())) {
+			if(this.obsList.get(i).hitV(V)) {
+				return true;
+			}
+		}
+		for(int i=0; i<this.oppList.size(); i++) {
+			//if(this.oppList.get(i).hitV(V.getCoord().x, V.getCoord().y, V.getHitWidth(), V.getHitHeight(), V.getZ())) {
+			if(this.oppList.get(i).hitV(V)) {
 				return true;
 			}
 		}
 		return false;
+	}
+	
+	/** Adds an obstacle on the ground with a probability 2/100 or a flying obstacle with a probability of 1/100
+	 * 
+	 **/
+	public void addRandObst() {
+		Random rand = new Random();
+		
+		/*
+		if(Math.random() >= 0.9) {
+			int x = (int) Math.random()*this.maxX;
+			this.obsList.add(new Obstacle(x, horHeight));
+		}
+		*/
+		int n = rand.nextInt(100);
+		if(n<3) {
+			//Obstacle on the ground
+			int x = rand.nextInt(maxX);
+			this.obsList.add(new Obstacle(x, horHeight));
+		}else if(n==3) {
+			//Flying obstacle
+			int x = rand.nextInt(maxX);
+			int y = rand.nextInt(horHeight);
+			this.obsList.add(new Obstacle(x, y));
+		}else if(n==4) {
+			//Opponent
+			int x = rand.nextInt(maxX);
+			Opponent o = new Opponent(x, horHeight/2);
+			this.oppList.add(o);
+		}
+	}
+	
+	//To zoom or dezoom all the obstacles consistently
+	public void vMoveUp(int n) {
+		this.obsH -= n/2;
+		this.obsW -= n;
+	}
+	
+	public void vMoveDown(int n) {
+		this.obsH += n/2;
+		this.obsW += n;
 	}
 	
 	/** Gives the horizon height
@@ -261,8 +369,18 @@ public class Piste {
 		return cpList.getCpList();
 	}
 	
+	/** Gives the current obstacle list
+	 * @return the obstacle list
+	 **/
 	public ArrayList<Obstacle> getOL(){
 		return obsList;
+	}
+	
+	/** Gives the current opponent list
+	 * @return the opponent list
+	 **/
+	public ArrayList<Opponent> getOpL(){
+		return oppList;
 	}
 
 	

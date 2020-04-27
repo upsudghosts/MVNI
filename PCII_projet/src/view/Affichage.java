@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 
 import model.CheckPoint;
 import model.Obstacle;
+import model.Opponent;
 import model.Piste;
 import model.Vehicule;
 
@@ -145,7 +146,6 @@ public class Affichage extends JPanel{
     	ArrayList<Point> ptL = P.getTrackL();
     	ArrayList<Point> ptR = P.getTrackR();
     	ArrayList<CheckPoint> cpL = P.getCP();
-    	ArrayList<Obstacle> oL = P.getOL();
     	
     	//TrackL
     	Point prevL = null;
@@ -210,13 +210,25 @@ public class Affichage extends JPanel{
 		g2.drawImage(source, 0, 0, null);
 		g2.dispose();
 		*/
-		
-		//Obstacles
-		for(Obstacle o : oL) {
-			g.setColor(Color.GRAY);
-			g.drawRect(o.getX(), o.getY(), o.getW(), o.getH());
-			g.setColor(Color.BLACK);
-		}
+    }
+    
+    /** Draws the obstacles of the track
+     * @param g the Graphics on which we draw
+     **/
+    private void drawObstacles(Graphics g) {
+    	ArrayList<Obstacle> oL = P.getOL();
+    	for(Obstacle o : oL) {
+    		g.setColor(Color.GRAY);
+    		g.drawRect(o.getX(), o.getY(), o.getW(), o.getH());
+    		g.setColor(Color.BLACK);
+    	}
+    	ArrayList<Opponent> opL = P.getOpL();
+    	for(Opponent o : opL) {
+    		g.setColor(Color.GRAY);
+    		g.fillRect(o.getX(), o.getY(), o.getW(), o.getH()); //pour faire la difference entre les obstacles et les adversaires pendant le test
+    		g.drawRect(o.getX(), o.getY(), o.getW(), o.getH());
+    		g.setColor(Color.BLACK);
+    	}
     }
     
     /** Draws the current speed and the distance traveled
@@ -324,6 +336,7 @@ public class Affichage extends JPanel{
     	
     	drawPiste(g);
     	drawBg(g);
+    	drawObstacles(g);
     	drawScore(g);
     	drawTimer(g);
     	drawVehicule(g);
