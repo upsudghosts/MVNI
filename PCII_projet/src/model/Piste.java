@@ -1,7 +1,6 @@
 package model;
 
 import java.awt.Point;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -11,8 +10,7 @@ public class Piste {
 	private int horHeight, trackSize;
 	private int maxX, maxY, symX;
 	
-	private Point accelPt; //Le point auquel on accelere le plus
-	private int traveledDist; //score ?
+	private int traveledDist; //score 
 	public final int tDistUp = 1;
 	
 	private int traveledSinceCP;
@@ -412,20 +410,5 @@ public class Piste {
 	 **/
 	public void setMaxY(int n) {
 		maxY = n;
-	}
-	
-	/** Gives the acceleration point : the point where the ship accelerates the most
-	 * @return the acceleration Point
-	 **/
-	public Point getAccelPt() {
-		return accelPt;
-	}
-	
-	/** Sets the acceleration point by creating a new point with the given coordinates
-	 * @param x an integer, the x coordinate of the Point
-	 * @param y an integer, the y coordinate of the Point
-	 **/
-	private void setAccelPt(int x, int y) {
-		accelPt = new Point(x,y);
 	}
 }

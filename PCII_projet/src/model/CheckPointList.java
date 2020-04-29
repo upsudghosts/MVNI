@@ -1,9 +1,6 @@
 package model;
 
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
-import javax.swing.Timer;
 
 public class CheckPointList {
 	private ArrayList<CheckPoint> cpList;
