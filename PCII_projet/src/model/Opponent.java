@@ -90,7 +90,7 @@ public class Opponent extends Obstacle{
 					this.setX(this.getW());
 					//x = hitWidth;
 					break;
-				}
+				} 
 				this.setX(this.getX()-mvVal);
 				//x -= coef;
 				break;

@@ -127,7 +127,7 @@ public class Obstacle {
 		//this.w = w;
 		this.h = h;
 		this.w = w;
-	}
+	} 
 	
 	public void vMoveDown(int n, int w, int h) {
 		this.y-=n/2;

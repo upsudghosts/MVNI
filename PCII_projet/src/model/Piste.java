@@ -227,7 +227,7 @@ public class Piste {
 					for(int j=0; j<this.obsList.size(); j++) {
 						if(this.obsList.size()>0) {
 							this.obsList.get(j).vMoveUp(coef/10, this.obsW, this.obsH);
-							//this.obsList.get(j).vMoveUp(coef/10);
+							//this.obsList.get(j).vMoveUp(coef/10); 
 						}
 					}
 					for(int j=0; j<this.oppList.size(); j++) {
