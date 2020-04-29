@@ -6,6 +6,11 @@ public class CheckPoint {
 	
 	private long secToAdd; //time to add to the timer once we reach the checkpoint in seconds
 	
+	/** Constructor of the CheckPoint class
+	 * @param hor the horizon height
+	 * @param tta the time to add to the timer
+	 * @param dist the distance of the checkpoint
+	 **/
 	public CheckPoint(int hor, int tta, int dist) {
 		this.height = hor;
 		this.secToAdd = tta;
