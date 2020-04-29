@@ -25,6 +25,9 @@ public class Piste {
 	private int obsW;
 	private int obsH;
 
+	/** Constructor of the Piste class
+	 * 
+	 **/
 	public Piste() {
 		this.trackL = new ArrayList<Point>();
 		this.trackR= new ArrayList<Point>();
@@ -102,6 +105,9 @@ public class Piste {
 		if(MOVEVAL > 10) { MOVEVAL --; }
 	}
 	
+	/** Moves the track and all of its elements to the bottom of the screen to make it look like the vehicle is moving forward. 
+	 * Also removes the useless elements that are too far on the bottom.
+	 **/
 	public void moveTrack() {
 		if ( trackL.get(trackSize - 2).y < maxY) {	
 			for(int i = 0; i < trackL.size()-1; i++){
