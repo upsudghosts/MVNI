@@ -6,10 +6,12 @@ public class CheckPointList {
 	private ArrayList<CheckPoint> cpList;
 	private int horHeight;
 	
+	/** Constructor of the CheckPointList class
+	 * @param horY the height of the horizon
+	 **/
 	public CheckPointList(int horY) {
 		this.cpList = new ArrayList<CheckPoint>();
 		this.horHeight = horY;
-
 	}
 	
 	/** Gives the current checkpoint list
@@ -20,7 +22,7 @@ public class CheckPointList {
 	}
 	
 	/** Adds a new checkPoint, at the horizon, to the list
-	 * 
+	 * @param dist the distance of the CheckPoint
 	 **/
 	public void addCP(int dist) {
 		cpList.add(new CheckPoint(horHeight, 20, dist));
