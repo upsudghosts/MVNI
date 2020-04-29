@@ -169,4 +169,20 @@ public class Obstacle {
 		}
 		return false;
 	}
+	
+	public boolean hitObs(Obstacle obs) {
+		if(obs.getD() < this.d-this.z/2 || obs.getD() > this.d+this.z/2) {
+			return false;
+		}
+		
+		int maxG = Math.max(this.x, obs.getX());
+		int minD = Math.min(this.x + this.w, obs.getX() + obs.getW());
+		int minH = Math.min(this.y + this.h, obs.getY() + obs.getH());
+		int maxB = Math.max(this.y, obs.getY());
+		
+		if(maxG<minD && maxB<minH) {
+			return true;
+		}
+		return false;
+	}
 }

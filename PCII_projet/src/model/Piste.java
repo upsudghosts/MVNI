@@ -168,6 +168,24 @@ public class Piste {
 				oppList.remove(o);
 				//The score gets higher when the vehicle passes an opponent
 				this.traveledDist += 500;
+			}else {
+				//If an opponent hits something, it is destroyed
+				for(int j=0; j<obsList.size(); j++) {
+					Obstacle ob = obsList.get(j);
+					if(o.hitObs(ob)) {
+						System.out.println("O : l[" + i + "], Ob : L[" + j + "]");
+						oppList.remove(o);
+					}
+				}
+				for(int j=0; j<oppList.size(); j++) {
+					if(i!=j) {
+						Obstacle op = oppList.get(j);
+						if(o.hitObs(op)) {
+							System.out.println("O : l[" + i + "], Op : L[" + j + "]");
+							oppList.remove(o);
+						}
+					}
+				}
 			}
 		}
 	}
@@ -312,6 +330,7 @@ public class Piste {
 			this.obsList.add(new Obstacle(x, y));
 		}else if(n==4) {
 			//Opponent
+			System.out.println("Opp added");
 			int x = rand.nextInt(maxX);
 			Opponent o = new Opponent(x, horHeight/2);
 			this.oppList.add(o);
