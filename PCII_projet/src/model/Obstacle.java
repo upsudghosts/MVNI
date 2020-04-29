@@ -18,7 +18,7 @@ public class Obstacle {
 		this.z = 100;
 		this.d = 0; 
 		
-		this.w = 100;
+		this.w = 25;
 		this.h = 50;
 		
 		//this.x = x+500;
@@ -84,9 +84,9 @@ public class Obstacle {
 		
 		//the obstacle gets bigger
 		this.y -=2;
-		this.h += 4;
+		this.h += 2;
 		this.x -= 2;
-		this.w += 4;
+		this.w += 2;
 	}
 	
 	public void vMoveLeft(int n) {
@@ -123,9 +123,10 @@ public class Obstacle {
 		this.y+=n/2;
 		this.x += n/2;
 		
+		//this.h = h;
+		//this.w = w;
 		this.h = h;
 		this.w = w;
-		
 	}
 	
 	public void vMoveDown(int n, int w, int h) {

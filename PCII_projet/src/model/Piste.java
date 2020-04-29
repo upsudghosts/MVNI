@@ -35,6 +35,9 @@ public class Piste {
 		this.oppList = new ArrayList<Opponent>();
 		//this.cpList.add(new CheckPoint(this.horHeight));
 		
+		this.obsH = 0;
+		this.obsW = 0;
+		
 		this.trackSize = 0;
 		this.traveledDist = 0;
 		
@@ -149,9 +152,12 @@ public class Piste {
 		this.addRandObst();
 		
 		//The obstacles move and we remove it if needed
+		this.obsH += 2;
+		this.obsW += 2;
 		for(int i=0; i<obsList.size(); i++) {
 			Obstacle o = obsList.get(i);
 			o.decreaseHeight(MOVEVAL);
+			//o.decreaseHeight(MOVEVAL);
 			if(o.getH()>maxY) {
 				obsList.remove(o);
 			}
@@ -215,15 +221,22 @@ public class Piste {
 					pR.x -= coef/10;
 					ZOOM --;
 					
+					this.obsH -= (coef/10)/2;
+					this.obsW -= coef/10;
+					
 					//the obstacles move
 					//this.vMoveUp(coef/10);
 					for(int j=0; j<this.obsList.size(); j++) {
-						//this.obsList.get(j).vMoveUp(coef/10, this.obsW, this.obsH);
-						this.obsList.get(j).vMoveUp(coef/10);
+						if(this.obsList.size()>0) {
+							this.obsList.get(j).vMoveUp(coef/10, this.obsW, this.obsH);
+							//this.obsList.get(j).vMoveUp(coef/10);
+						}
 					}
 					for(int j=0; j<this.oppList.size(); j++) {
-						//this.oppList.get(j).vMoveUp(coef/10, this.obsW, this.obsH);
-						this.obsList.get(j).vMoveUp(coef/10);
+						if(this.obsList.size()>0) {
+							//this.obsList.get(j).vMoveUp(coef/10);
+							this.oppList.get(j).vMoveUp(coef/10, this.obsW, this.obsH);
+						}
 					}
 					
 				}
@@ -234,6 +247,9 @@ public class Piste {
 					pL.x -= coef/10;
 					pR.x += coef/10;
 					ZOOM ++;
+					
+					this.obsH += (coef/10)/2;
+					this.obsW += coef/10;
 					
 					//the obstacles move
 					//this.vMoveDown(coef/10);
