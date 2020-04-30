@@ -198,7 +198,7 @@ public class Piste {
 	
 	
 	/** Moves the track depending on the movement of the Vehicle :
-	 * Zooms in or out of the vehicle goes lower or higher and moves the track to the right (left) if the vehicle goes to the left (right) 
+	 * Zooms in or out if the vehicle goes lower or higher and moves the track to the right (left) if the vehicle goes to the left (right) 
 	 * @param mvStat a String, the direction of the vehicle, that indicates which movement the track does
 	 * @param coef an integer that indicates how big the movement is
 	 **/
