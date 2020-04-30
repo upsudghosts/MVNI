@@ -5,8 +5,8 @@ public class Obstacle {
 	private int x;
 	private int y;
 	//Width and height of the hitbox
-	private int w;
-	private int h;
+	protected int w;
+	protected int h;
 	
 	//Length of the hitbox
 	private int z;
@@ -18,8 +18,8 @@ public class Obstacle {
 		this.z = 100;
 		this.d = 0; 
 		
-		this.w = 100;
-		this.h = 50;
+		this.w = 75;
+		this.h = 150;
 		
 		//this.x = x+500;
 		this.x = x;

@@ -77,14 +77,9 @@ public class ControlClavier implements KeyListener{
 				
 			case KeyEvent.VK_SPACE:
 				if(!V.getFlyStatus() && V.getAlive()) {
-					/**Updating button and label conditions*/
-					A.startlabel.setText("Game Started");
-					/**Starting need threads*/
 					startGame(e);
+				
 				}else if(!V.getAlive()){
-					A.deathlabel.setVisible(false);
-					A.startlabel.setVisible(true);
-						
 					/**Setting to default for the project to restart. /!\ Do not change the order /!\*/
 					V.restart();
 					

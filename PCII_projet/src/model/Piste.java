@@ -74,7 +74,7 @@ public class Piste {
 		if (dir > 50 && (prevXL < maxX - 200 || prevXL <200)) {
 			currX = prevXL+50;
 		} else if (dir <= 50 && (prevXL > maxX - 200 || prevXL > 200)){
-			currX = prevXL-50;
+			currX = prevXL-30;
 		}
 		
 		trackL.add(new Point(currX, currY));
@@ -98,6 +98,7 @@ public class Piste {
 	public void speedDown() {
 		if(MOVEVAL > 10) { MOVEVAL --; }
 	}
+	
 	
 	public void moveTrack() {
 		if ( trackL.get(trackSize - 2).y < maxY) {	
@@ -256,16 +257,18 @@ public class Piste {
 	 * @param V the vehicle
 	 * @return true if the vehicle is hitting an obstacle, false otherwise
 	 **/
-	public boolean hitObst(Vehicule V) {
+	public boolean checkObst(Vehicule V) {
 		for(int i=0; i<this.obsList.size(); i++) {
 			//if(this.obsList.get(i).hitV(V.getCoord().x, V.getCoord().y, V.getHitWidth(), V.getHitHeight(), V.getZ())) {
 			if(this.obsList.get(i).hitV(V)) {
+				MOVEVAL = 10;
 				return true;
 			}
 		}
 		for(int i=0; i<this.oppList.size(); i++) {
 			//if(this.oppList.get(i).hitV(V.getCoord().x, V.getCoord().y, V.getHitWidth(), V.getHitHeight(), V.getZ())) {
 			if(this.oppList.get(i).hitV(V)) {
+				MOVEVAL = 10;
 				return true;
 			}
 		}

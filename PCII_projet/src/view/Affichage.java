@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -24,9 +25,6 @@ import model.Piste;
 import model.Vehicule;
 
 public class Affichage extends JPanel{
-	/**Needed labels and buttons for the project.*/
-	public JLabel startlabel, deathlabel; 
-
 	private static final long serialVersionUID = 1L;
 
 	//DEfault interface size
@@ -42,8 +40,8 @@ public class Affichage extends JPanel{
     private Piste P;
     
     //Img Access
-    private String parallax_mountains, spaceships, effects, road;
-	ArrayList<BufferedImage> imgV, imgEff, imgBg, imgG, imgR; 
+    private String spaceships, effects, parallax_mountains, ground, road, obstacle;
+	ArrayList<BufferedImage> imgV, imgEff, imgBg, imgG, imgR, imgObst; 
     
     //Animation vehicule
     private int blink, green_light;
@@ -51,6 +49,7 @@ public class Affichage extends JPanel{
     //Timer
     private long starttime, secPassed, minPassed;
     
+    public int fps;
     
     public Affichage(Vehicule v, Piste p) throws IOException {
     	this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -61,39 +60,19 @@ public class Affichage extends JPanel{
     	this.P.setMaxX(this.WIDTH);
     	this.P.setMaxY(this.HEIGHT);
     	
-    	this.P.createTrack();
-    	
-    	this.parallax_mountains = "./assets/parallax_mountain_pack/layers/";
-    	this.spaceships = "./assets/spaceships/";
-    	this.effects = "./assets/effects/green-particle/";
-    	this.road = "./assets/road/";
-    	
-    	this.imgBg= new ArrayList<BufferedImage>();
-    	this.imgEff= new ArrayList<BufferedImage>();
-    	this.imgV= new ArrayList<BufferedImage>();
-    	this.imgG = new ArrayList<BufferedImage>();
-    	this.imgR = new ArrayList<BufferedImage>();
-    	
+    	this.P.createTrack();  	
+  
     	this.loadImgV();
     	this.loadImgEff();
     	this.loadImgBg();
+    	this.loadImObst();
     	this.loadImgGround();
     	this.loadImgRoad();
-    	
+        
     	this.blink = 0;
     	this.green_light = 0;
     	
 		this.starttime = System.currentTimeMillis();
-
-		/**Initializing buttons.*/
-    	
-		this.startlabel = new JLabel("Press SPACE to Start Game");
-		this.deathlabel = new JLabel();
-		
-		
-		/**These labels and the button are meant to be seen after death, or in-game. Not before.*/
-		this.deathlabel.setVisible(false);
-
     }
     
     /** Gives the default width of the interface
@@ -137,9 +116,9 @@ public class Affichage extends JPanel{
     /** Draws the track
      * @param g the Graphics on which we draw
      **/
-    private void drawPiste(Graphics g) {
+    private void drawPiste(Graphics2D g2d) {
     	//Track
-    	g.drawLine(0, P.getHorizon(), WIDTH, P.getHorizon());
+    	g2d.drawLine(0, P.getHorizon(), WIDTH, P.getHorizon());
     	
     	ArrayList<Point> ptL = P.getTrackL();
     	ArrayList<Point> ptR = P.getTrackR();
@@ -149,7 +128,7 @@ public class Affichage extends JPanel{
     	Point prevL = null;
 		for(Point Temp : ptL) {
 			if(prevL != null) {
-				g.drawLine(prevL.x, prevL.y, Temp.x, Temp.y);
+				g2d.drawLine(prevL.x, prevL.y, Temp.x, Temp.y);
 			}
 			prevL = Temp;
 		}
@@ -158,14 +137,14 @@ public class Affichage extends JPanel{
 		Point prevR = null;
 		for(Point Temp : ptR) {
 			if(prevR != null) {
-				g.drawLine(prevR.x, prevR.y, Temp.x, Temp.y);
+				g2d.drawLine(prevR.x, prevR.y, Temp.x, Temp.y);
 			}
 			prevR= Temp;
 		}
 		
 		//Checkpoints
 		for(CheckPoint cp : cpL) {
-			g.drawLine(0, cp.getHeight(), WIDTH, cp.getHeight());
+			g2d.drawLine(0, cp.getHeight(), WIDTH, cp.getHeight());
 		}
 		
 		//Image
@@ -180,7 +159,7 @@ public class Affichage extends JPanel{
 			poly.addPoint(Temp.x, Temp.y);
 		}
 
-		Graphics g2 = g.create();
+		Graphics g2 = g2d.create();
 		g2.fillPolygon(poly);
 		//g2.drawString("test", 500, 500);
 		//g2.setClip(poly);
@@ -213,41 +192,50 @@ public class Affichage extends JPanel{
     /** Draws the obstacles of the track
      * @param g the Graphics on which we draw
      **/
-    private void drawObstacles(Graphics g) {
+    private void drawObstacles(Graphics2D g2d) {
+    	Image NewI;
     	ArrayList<Obstacle> oL = P.getOL();
-    	for(Obstacle o : oL) {
-    		g.setColor(Color.GRAY);
-    		g.drawRect(o.getX(), o.getY(), o.getW(), o.getH());
-    		g.setColor(Color.BLACK);
+    	for(int i = 0; i < oL.size(); i++) {
+    		Obstacle o = oL.get(i);
+    		g2d.setColor(Color.GRAY);
+    		
+    		NewI = imgObst.get(0).getScaledInstance(o.getW(), o.getH(), BufferedImage.SCALE_SMOOTH);
+        	
+    		g2d.drawImage(NewI, o.getX(), o.getY(), null);
+    	
+    		
+    		g2d.drawRect(o.getX(), o.getY(), o.getW(), o.getH());
+    		g2d.setColor(Color.BLACK);
+    		
     	}
     	ArrayList<Opponent> opL = P.getOpL();
     	for(Opponent o : opL) {
-    		g.setColor(Color.GRAY);
-    		g.fillRect(o.getX(), o.getY(), o.getW(), o.getH()); //pour faire la difference entre les obstacles et les adversaires pendant le test
-    		g.drawRect(o.getX(), o.getY(), o.getW(), o.getH());
-    		g.setColor(Color.BLACK);
+    		g2d.setColor(Color.GRAY);
+    		g2d.fillRect(o.getX(), o.getY(), o.getW(), o.getH()); //pour faire la difference entre les obstacles et les adversaires pendant le test
+    		g2d.drawRect(o.getX(), o.getY(), o.getW(), o.getH());
+    		g2d.setColor(Color.BLACK);
     	}
     }
     
     /** Draws the current speed and the distance traveled
      * @param g the Graphics on which we draw
      **/
-    private void drawScore(Graphics g) {
-    	g.setColor(Color.WHITE);
+    private void drawScore(Graphics2D g2d) {
+    	g2d.setColor(Color.WHITE);
     	String speed = "speed : " + P.getSpeed();
     	String distToCheck = "CheckPoint : " + P.toCp();
     	String dist = "Score : " + P.getDist();
 
-    	g.drawString(speed, 10, 25);
-    	g.drawString(dist, 10, 45);
-    	g.drawString(distToCheck, 10, 65);
+    	g2d.drawString(speed, 10, 25);
+    	g2d.drawString(dist, 10, 45);
+    	g2d.drawString(distToCheck, 10, 65);
     }
     
     /** Draws the time since beginning of the game and time left until next checkpoint
      * @param g the Graphics on which we draw
      **/
-    private void drawTimer(Graphics g) {
-    	g.setColor(Color.WHITE);
+    private void drawTimer(Graphics2D g2d) {
+    	g2d.setColor(Color.WHITE);
     	
     	String totTime = "Timer : " + minPassed + "::" + secPassed;
     	
@@ -255,17 +243,16 @@ public class Affichage extends JPanel{
     	long secTl = V.getTTL() - minTl*60;
     	String TimeLeft = "Game Over : " + minTl + "::" + secTl;
     	
-    	g.drawString(totTime, WIDTH-90, 25);
-    	g.drawString(TimeLeft, WIDTH-120, 45);
+    	g2d.drawString(totTime, WIDTH-90, 25);
+    	g2d.drawString(TimeLeft, WIDTH-120, 45);
     	
     }
     /** Draws the vehicle at the right coordinates
      * @param g the Graphics on which we draw
      **/
-    private void drawVehicule(Graphics g){
+    private void drawVehicule(Graphics2D g2d){
     	Image NewI;
-    	
-    	Graphics2D g2d = (Graphics2D) g;
+  
     	
     	Point vcoord = V.getCoord();
     	Point center = new Point(vcoord.x+ V.getHitWidth()/2, vcoord.y+V.getHitHeight()/2);
@@ -290,26 +277,26 @@ public class Affichage extends JPanel{
     	
         g2d.draw(rect1);
         
-        if(V.getFlyStatus()) { drawFlyEffect(g, vcoord);}
+        if(V.getFlyStatus()) { drawFlyEffect(g2d, vcoord);}
         
         
     	NewI = imgV.get(blink).getScaledInstance(V.getHitWidth(), V.getHitHeight(), BufferedImage.SCALE_SMOOTH);
     	g2d.drawImage(NewI, vcoord.x, vcoord.y, null);
         
         
-    	g.drawLine(center.x+5, center.y+5, center.x-5, center.y-5);
-    	g.drawLine(center.x-5, center.y+5, center.x+5, center.y-5);
+    	g2d.drawLine(center.x+5, center.y+5, center.x-5, center.y-5);
+    	g2d.drawLine(center.x-5, center.y+5, center.x+5, center.y-5);
     }
     
     
     /** Draws the background image
      * @param g the graphics on which we draw
      **/
-    private void drawBg(Graphics g){
+    private void drawBg(Graphics2D g2d){
     	Image NewI;
     	for(BufferedImage I : imgBg) {
     		NewI = I.getScaledInstance(WIDTH, horHeight-2, BufferedImage.SCALE_SMOOTH);
-    		g.drawImage(NewI, 0,0, null);
+    		g2d.drawImage(NewI, 0,0, null);
     	}
     }
     
@@ -317,34 +304,61 @@ public class Affichage extends JPanel{
      * @param g the Graphics on which we draw
      * @param coord the Point where we draw the image
      **/
-    private void drawFlyEffect(Graphics g, Point coord) {
+    private void drawFlyEffect(Graphics2D g2d, Point coord) {
     	Image NewI;
-    	
-    	Graphics2D g2d = (Graphics2D) g;
     	
     	NewI = imgEff.get(green_light).getScaledInstance(V.getHitWidth(), V.getHitHeight(), BufferedImage.SCALE_SMOOTH);
     	g2d.drawImage(NewI, coord.x, coord.y+V.getHitHeight()/2, null);
     }
     
-    /** Draws every element of this interface on a Graphics
+    private void drawFPS(Graphics2D g2d) {
+        // display frames per second...
+        g2d.setFont( new Font( "Courier New", Font.PLAIN, 12 ) );
+        g2d.setColor( Color.GREEN );
+        g2d.drawString( String.format( "FPS: %s", fps ), WIDTH/2, 20 );
+    }
+    
+   /** Draws every element of this interface on a Graphics
      * @param g a Graphics on which we draw
      **/
     public void paint(Graphics g) {
+        
     	paintComponent(g);
     	
-    	drawPiste(g);
-    	drawBg(g);
-    	drawObstacles(g);
-    	drawScore(g);
-    	drawTimer(g);
-    	drawVehicule(g);
+    	Graphics2D g2d = (Graphics2D) g;
+    	
+    	drawPiste(g2d);
+    	drawBg(g2d);
+    	drawObstacles(g2d);
+    	drawScore(g2d);
+    	drawTimer(g2d);
+    	drawFPS(g2d);
+    	drawVehicule(g2d);
     }
     
     /**Repaints the interface : used if there is a change
      * 
      **/
     public void change() {
+		// Variables for counting frames per seconds
+        fps = 0;
+		int frames = 0;
+        long totalTime = 0;
+        long curTime = System.currentTimeMillis();
+        long lastTime = curTime;
+    	
     	repaint();
+    	
+		 // count Frames per second...  not working
+	    lastTime = curTime;
+	    curTime = System.currentTimeMillis();
+	    totalTime += curTime - lastTime;
+	    if( totalTime > 1000 ) {
+	    	totalTime -= 1000;
+	    	fps = frames;
+	    	frames = 0;
+	    } 
+	    ++frames;
     }
     
 
@@ -362,6 +376,9 @@ public class Affichage extends JPanel{
 
     /**Loads and adds all the vehicle images to the imgV ArrayList**/
     private void loadImgV() throws IOException {
+    	this.spaceships = "./assets/spaceships/";
+    	this.imgV= new ArrayList<BufferedImage>();
+    	
      	imgV.add(ImageIO.read(new File(spaceships+"colored-ufo.png")));
     	imgV.add(ImageIO.read(new File(spaceships+"colored-ufo-2.png")));
     	imgV.add(ImageIO.read(new File(spaceships+"colored-ufo-3.png")));
@@ -370,6 +387,9 @@ public class Affichage extends JPanel{
     
     /**Loads and adds all the images representing flying effects to the imgEff ArrayList**/
     private void loadImgEff() throws IOException {
+    	this.effects = "./assets/effects/green-particle/";
+    	this.imgEff= new ArrayList<BufferedImage>();
+    	
     	imgEff.add(ImageIO.read(new File(effects+"1.png")));
     	imgEff.add(ImageIO.read(new File(effects+"2.png")));
     	imgEff.add(ImageIO.read(new File(effects+"3.png")));
@@ -379,6 +399,9 @@ public class Affichage extends JPanel{
 
     /** Loads and adds all the elements of the background image to the imgBg ArrayList **/
     private void loadImgBg() throws IOException {
+    	this.parallax_mountains = "./assets/parallax_mountain_pack/layers/";
+    	this.imgBg= new ArrayList<BufferedImage>();
+    	
     	imgBg.add(ImageIO.read(new File(parallax_mountains+"parallax-mountain-bg.png")));
     	imgBg.add(ImageIO.read(new File(parallax_mountains+"parallax-mountain-montain-far.png")));
     	imgBg.add(ImageIO.read(new File(parallax_mountains+"parallax-mountain-mountains.png")));
@@ -388,12 +411,24 @@ public class Affichage extends JPanel{
     }
     
     private void loadImgGround() throws IOException {
-    	imgG.add(ImageIO.read(new File(parallax_mountains+"parallax-mountain-bg.png"))); //temporaire, uste pour tester
-    }
-    
+    	this.ground = "./assets/ground/";
+    	this.imgG = new ArrayList<BufferedImage>();
+    	
+    	//imgG.add(ImageIO.read(new File(ground+".png"))); //temporaire, uste pour tester
+    } 
 
     private void loadImgRoad() throws IOException {
+    	this.road = "./assets/road/";
+    	this.imgR = new ArrayList<BufferedImage>();
+    	
     	imgR.add(ImageIO.read(new File(road+"Toon Road Texture.png")));
+    }
+    
+    private void loadImObst() throws IOException {
+    	this.obstacle = "./assets/obstacles/";
+    	this.imgObst = new ArrayList<BufferedImage>();
+    	
+    	imgObst.add(ImageIO.read(new File(obstacle + "pine.png")));
     }
 }
 
