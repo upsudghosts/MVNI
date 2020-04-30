@@ -12,6 +12,10 @@ public class Opponent extends Obstacle{
 	
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
+	/** Constructor of the Opponent class
+	 * @param x the abscissa at the higher left corner of the opponent
+	 * @param y the ordinate at the higher left corner of the opponent
+	 **/
 	public Opponent(int x, int y) {
 		super(x, y);
 		this.w = 150;
@@ -21,11 +25,11 @@ public class Opponent extends Obstacle{
 		this.mvStat = "NEUTRAL";
 	}
 	
-	
+	/*
 	@Override
 	public void decreaseHeight(int moveVal) {
-		this.setY(this.getY() + moveVal*speed);
-		this.setD(this.getD() + moveVal*speed);
+		this.setY(this.getY() + moveVal);
+		this.setD(this.getD() + moveVal);
 		
 		//the obstacle gets bigger
 		this.setY(this.getY()-2);
@@ -33,9 +37,31 @@ public class Opponent extends Obstacle{
 		this.setX(this.getY()-2);
 		this.setW(this.getY()+4);
 	}
+	*/
+	/** Moves the obstacle to the bottom from a given value
+	 * @param moveVal the value that we want to move the obstacle
+	 **/
+	@Override
+	public void decreaseHeight(int moveVal) {
+		int y = this.getY() + moveVal*speed;
+		int d = this.getD() + moveVal*speed;
+		
+		//the obstacle gets bigger
+		y -=2;
+		int h = this.getH() + 2;
+		int x = this.getX() - 2;
+		int w = this.getW() + 2;
+
+		this.setD(d);
+		this.setX(x);
+		this.setY(y);
+		this.setW(w);
+		this.setH(h);
+	}
 	
-	
-	//Voir les limites pour qu'il ne quitte pas l'ecran
+	/** Lets the opponent change the movement of the obstacle randomly
+	 * Has a chance to change the value of its movement on the plane of the screen, the direction of its movement, and its speed
+	 **/
 	public void move() {
 		Random ran = new Random();
 		
@@ -64,7 +90,8 @@ public class Opponent extends Obstacle{
 		
 		n = ran.nextInt(100);
 		if(n<=5) {
-			
+			int s = ran.nextInt(20);
+			this.speed = (110-s)/100;
 		}
 		
 		//The opponent moves
@@ -74,7 +101,7 @@ public class Opponent extends Obstacle{
 					this.setX(this.getW());
 					//x = hitWidth;
 					break;
-				}
+				} 
 				this.setX(this.getX()-mvVal);
 				//x -= coef;
 				break;
@@ -113,5 +140,5 @@ public class Opponent extends Obstacle{
 				break;
 		}
 	}
-
+	
 }
