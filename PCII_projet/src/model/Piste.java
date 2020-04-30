@@ -276,12 +276,12 @@ public class Piste {
 					//the obstacles move
 					//this.vMoveDown(coef/10);
 					for(int j=0; j<this.obsList.size(); j++) {
-						//this.obsList.get(j).vMoveDown(coef/10, this.obsW, this.obsH);
-						this.obsList.get(j).vMoveDown(coef/10);
+						this.obsList.get(j).vMoveDown(coef/10, this.obsW, this.obsH);
+						//this.obsList.get(j).vMoveDown(coef/10);
 					}
 					for(int j=0; j<this.oppList.size(); j++) {
-						//this.oppList.get(j).vMoveDown(coef/10, this.obsW, this.obsH);
-						this.oppList.get(j).vMoveDown(coef/10);
+						this.oppList.get(j).vMoveDown(coef/10, this.obsW, this.obsH);
+						//this.oppList.get(j).vMoveDown(coef/10);
 					}
 				}
 				break;
