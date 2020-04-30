@@ -22,6 +22,9 @@ public class Vehicule {
 	
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	
+	/** Constructor of the Vehicule class
+	 * 
+	 **/
 	public Vehicule() {
 		this.x = screenSize.width/2-this.hitWidth;
 		this.y = screenSize.height/2+this.hitHeight;
@@ -48,6 +51,9 @@ public class Vehicule {
 		return new Point(x, y);
 	}
 	
+	/** Gives the distance of the vehicle
+	 * @return an integer, the z-axis value of the vehicle
+	 **/
 	public int getZ() {
 		return this.z;
 	}
@@ -80,6 +86,9 @@ public class Vehicule {
 		return isAlive;
 	}
 	
+	/** Gives the remaining time to live of the vehicle 
+	 * @return the time in milliseconds
+	 **/
 	public long getTTL() {
 		return secTl;
 	}
@@ -124,13 +133,20 @@ public class Vehicule {
 		}
 	}
 	
+	/** Reduces the time of the start timer if it is higher than 1ms
+	 * @param l the time we remove
+	 **/
 	public void timeDecrease(long l) {
 		if(secTl > 1) secTl = startTime - l;
 	}
 	
+	/** Adds time to the start timer
+	 * @param l the time we add
+	 **/
 	public void addTime(long l) {
 		startTime = secTl + l;
 	}
+	
 	/** Gives the status of the movement : tells if the vehicle is going up, down, left, right or if it doesn't move
 	 * @return a String, the status of the movement
 	 **/
