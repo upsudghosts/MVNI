@@ -113,7 +113,7 @@ public class Obstacle {
 	}
 	*/
 	
-	/** Moves the obstacle from a given value
+	/** Moves the obstacle to the bottom from a given value
 	 * @param moveVal the value that we want to move the obstacle
 	 **/
 	public void decreaseHeight(int moveVal) {

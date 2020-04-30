@@ -12,6 +12,10 @@ public class Opponent extends Obstacle{
 	
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
+	/** Constructor of the Opponent class
+	 * @param x the abscissa at the higher left corner of the opponent
+	 * @param y the ordinate at the higher left corner of the opponent
+	 **/
 	public Opponent(int x, int y) {
 		super(x, y);
 		this.speed = 1;
@@ -32,6 +36,9 @@ public class Opponent extends Obstacle{
 		this.setW(this.getY()+4);
 	}
 	*/
+	/** Moves the obstacle to the bottom from a given value
+	 * @param moveVal the value that we want to move the obstacle
+	 **/
 	@Override
 	public void decreaseHeight(int moveVal) {
 		int y = this.getY() + moveVal*speed;
@@ -50,7 +57,9 @@ public class Opponent extends Obstacle{
 		this.setH(h);
 	}
 	
-	//Voir les limites pour qu'il ne quitte pas l'ecran
+	/** Lets the opponent change the movement of the obstacle randomly
+	 * Has a chance to change the value of its movement on the plane of the screen, the direction of its movement, and its speed
+	 **/
 	public void move() {
 		Random ran = new Random();
 		
