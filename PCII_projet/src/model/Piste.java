@@ -25,9 +25,6 @@ public class Piste {
 	private int obsW;
 	private int obsH;
 
-	/** Constructor of the Piste class
-	 * 
-	 **/
 	public Piste() {
 		this.trackL = new ArrayList<Point>();
 		this.trackR= new ArrayList<Point>();
@@ -35,9 +32,6 @@ public class Piste {
 		this.obsList = new ArrayList<Obstacle>();
 		this.oppList = new ArrayList<Opponent>();
 		//this.cpList.add(new CheckPoint(this.horHeight));
-		
-		this.obsH = 0;
-		this.obsW = 0;
 		
 		this.trackSize = 0;
 		this.traveledDist = 0;
@@ -80,7 +74,7 @@ public class Piste {
 		if (dir > 50 && (prevXL < maxX - 200 || prevXL <200)) {
 			currX = prevXL+50;
 		} else if (dir <= 50 && (prevXL > maxX - 200 || prevXL > 200)){
-			currX = prevXL-50;
+			currX = prevXL-30;
 		}
 		
 		trackL.add(new Point(currX, currY));
@@ -105,9 +99,7 @@ public class Piste {
 		if(MOVEVAL > 10) { MOVEVAL --; }
 	}
 	
-	/** Moves the track and all of its elements to the bottom of the screen to make it look like the vehicle is moving forward. 
-	 * Also removes the useless elements that are too far on the bottom.
-	 **/
+	
 	public void moveTrack() {
 		if ( trackL.get(trackSize - 2).y < maxY) {	
 			for(int i = 0; i < trackL.size()-1; i++){
@@ -156,12 +148,9 @@ public class Piste {
 		this.addRandObst();
 		
 		//The obstacles move and we remove it if needed
-		this.obsH += 2;
-		this.obsW += 2;
 		for(int i=0; i<obsList.size(); i++) {
 			Obstacle o = obsList.get(i);
 			o.decreaseHeight(MOVEVAL);
-			//o.decreaseHeight(MOVEVAL);
 			if(o.getH()>maxY) {
 				obsList.remove(o);
 			}
@@ -174,31 +163,13 @@ public class Piste {
 				oppList.remove(o);
 				//The score gets higher when the vehicle passes an opponent
 				this.traveledDist += 500;
-			}else {
-				//If an opponent hits something, it is destroyed
-				for(int j=0; j<obsList.size(); j++) {
-					Obstacle ob = obsList.get(j);
-					if(o.hitObs(ob)) {
-						System.out.println("O : l[" + i + "], Ob : L[" + j + "]");
-						oppList.remove(o);
-					}
-				}
-				for(int j=0; j<oppList.size(); j++) {
-					if(i!=j) {
-						Obstacle op = oppList.get(j);
-						if(o.hitObs(op)) {
-							System.out.println("O : l[" + i + "], Op : L[" + j + "]");
-							oppList.remove(o);
-						}
-					}
-				}
 			}
 		}
 	}
 	
 	
 	/** Moves the track depending on the movement of the Vehicle :
-	 * Zooms in or out if the vehicle goes lower or higher and moves the track to the right (left) if the vehicle goes to the left (right) 
+	 * Zooms in or out of the vehicle goes lower or higher and moves the track to the right (left) if the vehicle goes to the left (right) 
 	 * @param mvStat a String, the direction of the vehicle, that indicates which movement the track does
 	 * @param coef an integer that indicates how big the movement is
 	 **/
@@ -243,22 +214,15 @@ public class Piste {
 					pR.x -= coef/10;
 					ZOOM --;
 					
-					this.obsH -= (coef/10)/2;
-					this.obsW -= coef/10;
-					
 					//the obstacles move
 					//this.vMoveUp(coef/10);
 					for(int j=0; j<this.obsList.size(); j++) {
-						if(this.obsList.size()>0) {
-							this.obsList.get(j).vMoveUp(coef/10, this.obsW, this.obsH);
-							//this.obsList.get(j).vMoveUp(coef/10); 
-						}
+						//this.obsList.get(j).vMoveUp(coef/10, this.obsW, this.obsH);
+						this.obsList.get(j).vMoveUp(coef/10);
 					}
 					for(int j=0; j<this.oppList.size(); j++) {
-						if(this.obsList.size()>0) {
-							//this.obsList.get(j).vMoveUp(coef/10);
-							this.oppList.get(j).vMoveUp(coef/10, this.obsW, this.obsH);
-						}
+						//this.oppList.get(j).vMoveUp(coef/10, this.obsW, this.obsH);
+						this.obsList.get(j).vMoveUp(coef/10);
 					}
 					
 				}
@@ -269,9 +233,6 @@ public class Piste {
 					pL.x -= coef/10;
 					pR.x += coef/10;
 					ZOOM ++;
-					
-					this.obsH += (coef/10)/2;
-					this.obsW += coef/10;
 					
 					//the obstacles move
 					//this.vMoveDown(coef/10);
@@ -296,16 +257,18 @@ public class Piste {
 	 * @param V the vehicle
 	 * @return true if the vehicle is hitting an obstacle, false otherwise
 	 **/
-	public boolean hitObst(Vehicule V) {
+	public boolean checkObst(Vehicule V) {
 		for(int i=0; i<this.obsList.size(); i++) {
 			//if(this.obsList.get(i).hitV(V.getCoord().x, V.getCoord().y, V.getHitWidth(), V.getHitHeight(), V.getZ())) {
 			if(this.obsList.get(i).hitV(V)) {
+				MOVEVAL = 10;
 				return true;
 			}
 		}
 		for(int i=0; i<this.oppList.size(); i++) {
 			//if(this.oppList.get(i).hitV(V.getCoord().x, V.getCoord().y, V.getHitWidth(), V.getHitHeight(), V.getZ())) {
 			if(this.oppList.get(i).hitV(V)) {
+				MOVEVAL = 10;
 				return true;
 			}
 		}
@@ -336,7 +299,6 @@ public class Piste {
 			this.obsList.add(new Obstacle(x, y));
 		}else if(n==4) {
 			//Opponent
-			System.out.println("Opp added");
 			int x = rand.nextInt(maxX);
 			Opponent o = new Opponent(x, horHeight/2);
 			this.oppList.add(o);

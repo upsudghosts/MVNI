@@ -2,6 +2,8 @@
 import java.io.IOException; 
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import control.ControlClavier;
 import model.Piste;
 import model.Vehicule;
@@ -27,20 +29,15 @@ public class Main {
 		ControlClavier controlClavier = new ControlClavier(A, V, P);
 		
 		mainFrame.addKeyListener(controlClavier);
-
 		
 		mainFrame.add(A);
-		
-		/**Adding labels and buttons in correct order.*/ 
-		
-		mainFrame.add(A.startlabel);
-
-		mainFrame.add(A.deathlabel);
-		
 		
 		mainFrame.pack();
 		mainFrame.setVisible(true);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		JOptionPane.showMessageDialog(null, "Press space to start game.");
+		
 	}
 
 }

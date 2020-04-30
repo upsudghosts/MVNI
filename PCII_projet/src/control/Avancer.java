@@ -39,7 +39,7 @@ public class Avancer extends Thread{
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			
+	        
 			Point coordV = V.getCoord();
 			
 			CheckPoint cp = checkPassed();
@@ -74,10 +74,8 @@ public class Avancer extends Thread{
 	        
 			P.moveTrack();
 			
-			if(P.hitObst(V)){
-				V.stopRace();
-			}
-			
+			P.checkObst(V);
+		
 			A.change();
 		}
 	}

@@ -40,8 +40,6 @@ public class Vehicule {
 		this.secTl = 70;
 		
 		this.z = this.y;
-		//this.z = screenSize.height - 8*hitHeight;
-		//this.z = 5*hitHeight;
 	}
 	
 	/**Gives a point with the coordinates of the vehicle
