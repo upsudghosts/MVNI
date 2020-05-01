@@ -18,7 +18,7 @@ public class Vehicule {
 	
 	private String mvStat;
 	
-	private long startTime, secTl; //LEFT TO LIVE in seconds
+	private long startTime, secTl, secPassed; //LEFT TO LIVE in seconds
 	
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	
@@ -36,8 +36,8 @@ public class Vehicule {
 		
 		this.mvStat = "NEUTRAL";
 	
-		this.startTime = 25;
-		this.secTl = 25;
+		this.startTime = -25;
+		this.secTl = -25;
 		
 		this.z = this.y;
 	}
@@ -135,7 +135,8 @@ public class Vehicule {
 	 * @param l the time we remove
 	 **/
 	public void timeDecrease(long l) {
-		if(secTl > 1) secTl = startTime - l;
+		if(secTl >= 1) secTl = startTime - l;
+		if(secTl == 0) stopRace();
 	}
 	
 	/** Adds time to the start timer
@@ -174,7 +175,15 @@ public class Vehicule {
 	public void restart() {
 		x = screenSize.width/2-hitWidth;
 		y = screenSize.height/2+hitHeight;
+
+		this.inFlight = false;
+		this.isAlive = true;
 		
-		inFlight = false;
+		this.mvStat = "NEUTRAL";
+	
+		this.startTime = 0;
+		this.secTl = 0;
+		
+		this.z = this.y;
 	}
 }

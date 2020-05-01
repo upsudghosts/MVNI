@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
 
+import javax.swing.JOptionPane;
+
 import model.CheckPoint;
 import model.Piste;
 import model.Vehicule;
@@ -17,14 +19,15 @@ public class Avancer extends Thread{
 
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	
-	long affTimePassed, cpTimePassed, veTimePassed;
+	long affTimePassed, veTimePassed, cpTimePassed;
 	
 	public Avancer (Affichage a, Piste track, Vehicule ve) {
 		this.P = track;
 		this.V = ve;
 		this.A = a;
 		
-		this.cpTimePassed = 0; 
+		this.cpTimePassed = System.currentTimeMillis(); 
+		
 	}
 	
 	@Override
@@ -42,9 +45,6 @@ public class Avancer extends Thread{
 	        
 			Point coordV = V.getCoord();
 			
-			if(P.getDist() % 5000 == 0) {
-				V.addTime(20);
-			}
 			
 			if (coordV.y > screenSize.height/2 && coordV.y < screenSize.height - 3*V.getHitHeight() &&
 				coordV.x > P.getTrackL().get(1).x && coordV.x < P.getTrackR().get(1).x) {
@@ -57,10 +57,17 @@ public class Avancer extends Thread{
 				//System.out.println("Speed Down");
 			}
 			
+			
+			if(P.getDist()%5000 >= 0 && P.getDist()%5000 <= 40) {
+				cpTimePassed = System.currentTimeMillis();
+				System.out.println("Passed");
+				V.addTime(15);
+			}
+			
 	        affTimePassed = System.currentTimeMillis()-A.getStarttime();
-	        veTimePassed = affTimePassed - cpTimePassed;
+	        veTimePassed = System.currentTimeMillis()-cpTimePassed;
 	        
-	        A.setSecPassed(affTimePassed/1000);	     
+	        A.setSecPassed(affTimePassed/1000);	
 	        V.timeDecrease(veTimePassed/1000);
 
 	        
@@ -78,5 +85,11 @@ public class Avancer extends Thread{
 		
 			A.change();
 		}
+		
+		JOptionPane.showMessageDialog(null, 
+				"GAME OVER \n" +
+				"Space to retry \n" +
+				"Escape to quit"
+			 );
 	}
 }

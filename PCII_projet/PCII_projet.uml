@@ -4,7 +4,7 @@
     <eAnnotations xmi:id="_UfDEYIscEeqC4q-6vJG--A" source="http://ns.yatta.de/umllab">
       <contents xmi:type="ecore:EAnnotation" xmi:id="_UfDEYYscEeqC4q-6vJG--A" source="codegen">
         <details xmi:id="_UfDrcIscEeqC4q-6vJG--A" key="codegenDirectory" value="/PCII_projet/src"/>
-        <details xmi:id="_U6LhMIscEeqC4q-6vJG--A" key="AssociatedSourceCode" value="/PCII_projet/src/Main.java;2816730656/1;/PCII_projet/src/control/Avancer.java;3142790471/1;/PCII_projet/src/control/ControlClavier.java;3652947331/1;/PCII_projet/src/control/Effects.java;348062097/1;/PCII_projet/src/control/Voler.java;3110415738/1;/PCII_projet/src/model/CheckPoint.java;54002242/1;/PCII_projet/src/model/CheckPointList.java;929168106/1;/PCII_projet/src/model/Obstacle.java;340705076/1;/PCII_projet/src/model/Opponent.java;4177436281/1;/PCII_projet/src/model/Piste.java;381620258/1;/PCII_projet/src/model/Vehicule.java;1025972168/1;/PCII_projet/src/view/Affichage.java;2258756677/1;"/>
+        <details xmi:id="_U6LhMIscEeqC4q-6vJG--A" key="AssociatedSourceCode" value="/PCII_projet/src/Main.java;3897322896/1;/PCII_projet/src/control/Avancer.java;1817861350/1;/PCII_projet/src/control/ControlClavier.java;462709741/1;/PCII_projet/src/control/Effects.java;348062097/1;/PCII_projet/src/control/Voler.java;3110415738/1;/PCII_projet/src/model/CheckPoint.java;2487051103/1;/PCII_projet/src/model/CheckPointList.java;800576813/1;/PCII_projet/src/model/Obstacle.java;340705076/1;/PCII_projet/src/model/Opponent.java;1254568306/1;/PCII_projet/src/model/Piste.java;4019136557/1;/PCII_projet/src/model/Vehicule.java;1837363875/1;/PCII_projet/src/view/Affichage.java;361151768/1;"/>
       </contents>
     </eAnnotations>
     <elementImport xmi:id="_UuX50IscEeqC4q-6vJG--A">
@@ -104,7 +104,9 @@
           <ownedParameter xmi:id="_Uz1ooYscEeqC4q-6vJG--A" name="a" type="_UwahMIscEeqC4q-6vJG--A"/>
           <ownedParameter xmi:id="_Uz1oooscEeqC4q-6vJG--A" name="track" type="_UwJbcIscEeqC4q-6vJG--A"/>
           <ownedParameter xmi:id="_Uz1oo4scEeqC4q-6vJG--A" name="ve" type="_UwRXQIscEeqC4q-6vJG--A"/>
-          <ownedParameter xmi:id="_Uz1opIscEeqC4q-6vJG--A" type="_UvnP8IscEeqC4q-6vJG--A" direction="return"/>
+          <ownedParameter xmi:id="_Uz1opIscEeqC4q-6vJG--A" type="_UvnP8IscEeqC4q-6vJG--A" direction="return">
+            <name xsi:nil="true"/>
+          </ownedParameter>
           <language>java</language>
           <body>this.P = track;
 		this.V = ve;
@@ -128,26 +130,27 @@
 	        
 			Point coordV = V.getCoord();
 			
-			CheckPoint cp = checkPassed();
-			if(cp != null) {
-				setCpTimePassed();
-				V.addTime(cp.getSecToAdd());
+			if(P.getDist() % 5000 == 0) {
+				V.addTime(20);
 			}
 			
-			if (coordV.y > screenSize.height/2 &amp;&amp; coordV.y &lt; screenSize.height - 3*V.getHitHeight()) {
+			if (coordV.y > screenSize.height/2 &amp;&amp; coordV.y &lt; screenSize.height - 3*V.getHitHeight() &amp;&amp;
+				coordV.x > P.getTrackL().get(1).x &amp;&amp; coordV.x &lt; P.getTrackR().get(1).x) {
 				P.speedUp();
 				//System.out.println(&quot;Speed Up&quot;);
 			}
-			else if (coordV.y &lt; screenSize.height/2) {
+			else {
 				P.speedDown();
+				if (P.getSpeed() == 10) V.move(&quot;DOWN&quot;, 2);;
 				//System.out.println(&quot;Speed Down&quot;);
 			}
 			
 	        affTimePassed = System.currentTimeMillis()-A.getStarttime();
 	        veTimePassed = affTimePassed - cpTimePassed;
 	        
-	        A.setSecPassed(affTimePassed/1000);	     
-	        V.timeDecrease(veTimePassed/1000);
+	        A.setSecPassed(affTimePassed/1000);	
+	        V.setSecPassed(veTimePassed/1000);
+	        V.timeDecrease();
 
 	        
 	        if(A.getSec()== 60)
@@ -166,28 +169,7 @@
 		}
 	</body>
         </ownedBehavior>
-        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_Uz1oposcEeqC4q-6vJG--A" name="checkPassed" specification="_UvpFIIscEeqC4q-6vJG--A">
-          <ownedParameter xmi:id="_Uz1op4scEeqC4q-6vJG--A" type="_Uv6K4IscEeqC4q-6vJG--A" direction="return"/>
-          <language>java</language>
-          <body>if(!P.getCP().isEmpty()) {
-			CheckPoint cp = P.getCP().get(0);
-			if(cp.getDist() == P.getDist()) {
-				return cp;
-			}
-		}
-		return null;
-	</body>
-        </ownedBehavior>
-        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_Uz1oqIscEeqC4q-6vJG--A" name="setCpTimePassed" specification="_UvpFIYscEeqC4q-6vJG--A">
-          <language>java</language>
-          <body>cpTimePassed = affTimePassed;
-	</body>
-        </ownedBehavior>
         <ownedOperation xmi:id="_Uvn3AIscEeqC4q-6vJG--A" name="run" method="_Uz1opYscEeqC4q-6vJG--A"/>
-        <ownedOperation xmi:id="_UvpFIIscEeqC4q-6vJG--A" name="checkPassed" visibility="private" method="_Uz1oposcEeqC4q-6vJG--A">
-          <ownedParameter xmi:id="_UyiBF4scEeqC4q-6vJG--A" type="_Uv6K4IscEeqC4q-6vJG--A" direction="return"/>
-        </ownedOperation>
-        <ownedOperation xmi:id="_UvpFIYscEeqC4q-6vJG--A" name="setCpTimePassed" visibility="private" method="_Uz1oqIscEeqC4q-6vJG--A"/>
         <ownedOperation xmi:id="_UyiBEIscEeqC4q-6vJG--A" name="Avancer" method="_Uz1ooIscEeqC4q-6vJG--A">
           <eAnnotations xmi:id="_UyiBFIscEeqC4q-6vJG--A" source="http://www.eclipse.org/uml2/2.0.0/UML">
             <details xmi:id="_UyiBFYscEeqC4q-6vJG--A" key="create"/>
@@ -210,7 +192,9 @@
           <ownedParameter xmi:id="_Uz1oqoscEeqC4q-6vJG--A" name="a" type="_UwahMIscEeqC4q-6vJG--A"/>
           <ownedParameter xmi:id="_Uz1oq4scEeqC4q-6vJG--A" name="v" type="_UwRXQIscEeqC4q-6vJG--A"/>
           <ownedParameter xmi:id="_Uz1orIscEeqC4q-6vJG--A" name="p" type="_UwJbcIscEeqC4q-6vJG--A"/>
-          <ownedParameter xmi:id="_Uz1orYscEeqC4q-6vJG--A" type="_Uvq6UIscEeqC4q-6vJG--A" direction="return"/>
+          <ownedParameter xmi:id="_Uz1orYscEeqC4q-6vJG--A" type="_Uvq6UIscEeqC4q-6vJG--A" direction="return">
+            <name xsi:nil="true"/>
+          </ownedParameter>
           <language>java</language>
           <body>this.A = a;
 		this.V = v;
@@ -247,18 +231,22 @@
           <body>switch(e.getKeyCode()) {
 			case KeyEvent.VK_DOWN :
 				Fly.update_moveStatus(3);
+				A.set_bg_parallax(&quot;NEUTRAL&quot;);
 				break;
 				
 			case KeyEvent.VK_UP :
 				Fly.update_moveStatus(2);
+				A.set_bg_parallax(&quot;NEUTRAL&quot;);
 				break;
 				
 			case KeyEvent.VK_LEFT :
 				Fly.update_moveStatus(0);
+				A.set_bg_parallax(&quot;LEFT&quot;);
 				break;
 				
 			case KeyEvent.VK_RIGHT :
 				Fly.update_moveStatus(1);
+				A.set_bg_parallax(&quot;RIGHT&quot;);
 				break;
 				
 			case KeyEvent.VK_SPACE:
@@ -273,6 +261,9 @@
 					A.change();
 				}
 				break;
+			case KeyEvent.VK_H:
+				A.showHitbox();
+				break;
 		}
 	</body>
         </ownedBehavior>
@@ -285,7 +276,7 @@
 	</body>
         </ownedBehavior>
         <ownedOperation xmi:id="_UvtWkIscEeqC4q-6vJG--A" name="stopGame" method="_Uz2PsIscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0GuY4scEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_dfa9EYs6EeqC4q-6vJG--A">
             <body>void stoptGame function that interrupts any running threads each time a game ends.</body>
           </ownedComment>
         </ownedOperation>
@@ -299,7 +290,7 @@
           <ownedParameter xmi:id="_Uyj2RoscEeqC4q-6vJG--A" type="_Uvq6UIscEeqC4q-6vJG--A" direction="return"/>
         </ownedOperation>
         <ownedOperation xmi:id="_UzEzoIscEeqC4q-6vJG--A" name="startGame" method="_Uz1oroscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0GuYoscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_dfa9EIs6EeqC4q-6vJG--A">
             <body>void startGame function that creates the necessary threads each time a new game starts.</body>
           </ownedComment>
           <ownedParameter xmi:id="_UzEzoYscEeqC4q-6vJG--A" name="e" type="_UyjPMIscEeqC4q-6vJG--A"/>
@@ -556,29 +547,9 @@
         <ownedAttribute xmi:id="_UzfqYIscEeqC4q-6vJG--A" name="height" isReadOnly="true">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="_UzgRcoscEeqC4q-6vJG--A" name="secToAdd" isReadOnly="true">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
-        </ownedAttribute>
         <ownedAttribute xmi:id="_U0IjkIscEeqC4q-6vJG--A" name="dist">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
         </ownedAttribute>
-        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_Uz4E4YscEeqC4q-6vJG--A" name="CheckPoint" specification="_Uv7ZAIscEeqC4q-6vJG--A">
-          <ownedParameter xmi:id="_Uz4E4oscEeqC4q-6vJG--A" name="hor">
-            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
-          </ownedParameter>
-          <ownedParameter xmi:id="_Uz4E44scEeqC4q-6vJG--A" name="tta">
-            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
-          </ownedParameter>
-          <ownedParameter xmi:id="_Uz4E5IscEeqC4q-6vJG--A" name="dist">
-            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
-          </ownedParameter>
-          <ownedParameter xmi:id="_Uz4E5YscEeqC4q-6vJG--A" type="_Uv6K4IscEeqC4q-6vJG--A" direction="return"/>
-          <language>java</language>
-          <body>this.height = hor;
-		this.secToAdd = tta;
-		this.dist =  dist;
-	</body>
-        </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_Uz4E5oscEeqC4q-6vJG--A" name="decreaseHeight" specification="_Uv8AEIscEeqC4q-6vJG--A">
           <ownedParameter xmi:id="_Uz4E54scEeqC4q-6vJG--A" name="n">
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
@@ -589,36 +560,30 @@
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_Uz4E6IscEeqC4q-6vJG--A" name="getDist" specification="_Uv8AEoscEeqC4q-6vJG--A">
           <ownedParameter xmi:id="_Uz4E6YscEeqC4q-6vJG--A" direction="return">
+            <name xsi:nil="true"/>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
           </ownedParameter>
           <language>java</language>
           <body>return dist;
 	</body>
         </ownedBehavior>
-        <ownedOperation xmi:id="_Uv7ZAIscEeqC4q-6vJG--A" name="CheckPoint" method="_Uz4E4YscEeqC4q-6vJG--A">
-          <eAnnotations xmi:id="_Uv7ZBIscEeqC4q-6vJG--A" source="http://www.eclipse.org/uml2/2.0.0/UML">
-            <details xmi:id="_Uv7ZBYscEeqC4q-6vJG--A" key="create"/>
-          </eAnnotations>
-          <ownedComment xmi:id="_U0Ijk4scEeqC4q-6vJG--A">
-            <body>Constructor of the CheckPoint class
-	 * @param hor the horizon height
-	 * @param tta the time to add to the timer
-	 * @param dist the distance of the checkpoint
-	 *</body>
-          </ownedComment>
-          <ownedParameter xmi:id="_Uv7ZAYscEeqC4q-6vJG--A" name="hor">
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_UaRIsYs1EeqC4q-6vJG--A" name="CheckPoint" specification="_UaQhoIs1EeqC4q-6vJG--A">
+          <ownedParameter xmi:id="_UaRIsos1EeqC4q-6vJG--A" name="hor">
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
           </ownedParameter>
-          <ownedParameter xmi:id="_Uv7ZAoscEeqC4q-6vJG--A" name="tta">
+          <ownedParameter xmi:id="_UaRIs4s1EeqC4q-6vJG--A" name="dist">
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
           </ownedParameter>
-          <ownedParameter xmi:id="_Uv7ZA4scEeqC4q-6vJG--A" name="dist">
-            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <ownedParameter xmi:id="_UaRItIs1EeqC4q-6vJG--A" type="_Uv6K4IscEeqC4q-6vJG--A" direction="return">
+            <name xsi:nil="true"/>
           </ownedParameter>
-          <ownedParameter xmi:id="_Uv7ZBoscEeqC4q-6vJG--A" type="_Uv6K4IscEeqC4q-6vJG--A" direction="return"/>
-        </ownedOperation>
+          <language>java</language>
+          <body>this.height = hor;
+		this.dist =  dist;
+	</body>
+        </ownedBehavior>
         <ownedOperation xmi:id="_Uv8AEIscEeqC4q-6vJG--A" name="decreaseHeight" method="_Uz4E5oscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0IjlIscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_VQSKsYs1EeqC4q-6vJG--A">
             <body>Lowers the CheckPoint by increasing the value of the height variable*</body>
           </ownedComment>
           <ownedParameter xmi:id="_Uv8AEYscEeqC4q-6vJG--A" name="n">
@@ -626,7 +591,7 @@
           </ownedParameter>
         </ownedOperation>
         <ownedOperation xmi:id="_Uv8AEoscEeqC4q-6vJG--A" name="getDist" method="_Uz4E6IscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0IjlYscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_VQSKsos1EeqC4q-6vJG--A">
             <body>Gives the distances of the checkpoint
 	 * @return an int, the distance
 	 *</body>
@@ -634,6 +599,25 @@
           <ownedParameter xmi:id="_Uv8AE4scEeqC4q-6vJG--A" direction="return">
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
           </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:id="_UaQhoIs1EeqC4q-6vJG--A" name="CheckPoint" method="_UaRIsYs1EeqC4q-6vJG--A">
+          <eAnnotations xmi:id="_UaQhpIs1EeqC4q-6vJG--A" source="http://www.eclipse.org/uml2/2.0.0/UML">
+            <details xmi:id="_UaQhpYs1EeqC4q-6vJG--A" key="create"/>
+          </eAnnotations>
+          <ownedComment xmi:id="_VQSKsIs1EeqC4q-6vJG--A">
+            <body>Constructor of the CheckPoint class
+	 * @param hor the horizon height
+	 * @param tta the time to add to the timer
+	 * @param dist the distance of the checkpoint
+	 *</body>
+          </ownedComment>
+          <ownedParameter xmi:id="_UaQhoYs1EeqC4q-6vJG--A" name="hor">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="_UaQhoos1EeqC4q-6vJG--A" name="dist">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="_UaQho4s1EeqC4q-6vJG--A" type="_Uv6K4IscEeqC4q-6vJG--A" direction="return"/>
         </ownedOperation>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_Uv8nIIscEeqC4q-6vJG--A" name="CheckPointList">
@@ -645,7 +629,9 @@
           <ownedParameter xmi:id="_Uz4r8YscEeqC4q-6vJG--A" name="horY">
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
           </ownedParameter>
-          <ownedParameter xmi:id="_Uz4r8oscEeqC4q-6vJG--A" type="_Uv8nIIscEeqC4q-6vJG--A" direction="return"/>
+          <ownedParameter xmi:id="_Uz4r8oscEeqC4q-6vJG--A" type="_Uv8nIIscEeqC4q-6vJG--A" direction="return">
+            <name xsi:nil="true"/>
+          </ownedParameter>
           <language>java</language>
           <body>this.cpList = new ArrayList&lt;CheckPoint>();&#xD;
 		this.horHeight = horY;&#xD;
@@ -656,7 +642,7 @@
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
           </ownedParameter>
           <language>java</language>
-          <body>cpList.add(new CheckPoint(horHeight, 20, dist));&#xD;
+          <body>cpList.add(new CheckPoint(horHeight, dist));&#xD;
 	</body>
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_Uz4r9YscEeqC4q-6vJG--A" name="moveCP" specification="_Uv91Q4scEeqC4q-6vJG--A">
@@ -681,7 +667,7 @@
           <eAnnotations xmi:id="_Uv9OMoscEeqC4q-6vJG--A" source="http://www.eclipse.org/uml2/2.0.0/UML">
             <details xmi:id="_Uv9OM4scEeqC4q-6vJG--A" key="create"/>
           </eAnnotations>
-          <ownedComment xmi:id="_U0IjloscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_WmK_kIs1EeqC4q-6vJG--A">
             <body>Constructor of the CheckPointList class&#xD;
 	 * @param horY the height of the horizon&#xD;
 	 *</body>
@@ -692,7 +678,7 @@
           <ownedParameter xmi:id="_Uv91QIscEeqC4q-6vJG--A" type="_Uv8nIIscEeqC4q-6vJG--A" direction="return"/>
         </ownedOperation>
         <ownedOperation xmi:id="_Uv91QYscEeqC4q-6vJG--A" name="addCP" method="_Uz4r84scEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0Ijl4scEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_WmK_kYs1EeqC4q-6vJG--A">
             <body>Adds a new checkPoint, at the horizon, to the list&#xD;
 	 * @param dist the distance of the CheckPoint&#xD;
 	 *</body>
@@ -702,7 +688,7 @@
           </ownedParameter>
         </ownedOperation>
         <ownedOperation xmi:id="_Uv91Q4scEeqC4q-6vJG--A" name="moveCP" method="_Uz4r9YscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0JKoIscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_WmK_kos1EeqC4q-6vJG--A">
             <body>Moves the checkPoint :&#xD;
 	 * Lowers the visible height of every checkpoint by a given value and removes checkpoints that go too low&#xD;
 	 * @param moveVal, an integer. The height of every checkpoint decreases by it.&#xD;
@@ -1155,7 +1141,9 @@
           <ownedParameter xmi:id="_Uz56FYscEeqC4q-6vJG--A" name="y">
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
           </ownedParameter>
-          <ownedParameter xmi:id="_Uz56FoscEeqC4q-6vJG--A" type="_UwGYIIscEeqC4q-6vJG--A" direction="return"/>
+          <ownedParameter xmi:id="_Uz56FoscEeqC4q-6vJG--A" type="_UwGYIIscEeqC4q-6vJG--A" direction="return">
+            <name xsi:nil="true"/>
+          </ownedParameter>
           <language>java</language>
           <body>super(x, y);&#xD;
 		this.w = 150;&#xD;
@@ -1266,11 +1254,19 @@
 		}&#xD;
 	</body>
         </ownedBehavior>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_40_ucYs3EeqC4q-6vJG--A" name="getMoveStatus" specification="_40_HYIs3EeqC4q-6vJG--A">
+          <ownedParameter xmi:id="_40_ucos3EeqC4q-6vJG--A" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <language>java</language>
+          <body>return mvStat;&#xD;
+	</body>
+        </ownedBehavior>
         <ownedOperation xmi:id="_UwG_MIscEeqC4q-6vJG--A" name="Opponent" method="_Uz56E4scEeqC4q-6vJG--A">
           <eAnnotations xmi:id="_UwG_M4scEeqC4q-6vJG--A" source="http://www.eclipse.org/uml2/2.0.0/UML">
             <details xmi:id="_UwG_NIscEeqC4q-6vJG--A" key="create"/>
           </eAnnotations>
-          <ownedComment xmi:id="_U0JKsIscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_40_uc4s3EeqC4q-6vJG--A">
             <body>Constructor of the Opponent class&#xD;
 	 * @param x the abscissa at the higher left corner of the opponent&#xD;
 	 * @param y the ordinate at the higher left corner of the opponent&#xD;
@@ -1290,11 +1286,21 @@
           </ownedParameter>
         </ownedOperation>
         <ownedOperation xmi:id="_UwINUoscEeqC4q-6vJG--A" name="move" method="_Uz56GYscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0JxsIscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_40_udIs3EeqC4q-6vJG--A">
             <body>Lets the opponent change the movement of the obstacle randomly&#xD;
 	 * Has a chance to change the value of its movement on the plane of the screen, the direction of its movement, and its speed&#xD;
 	 *</body>
           </ownedComment>
+        </ownedOperation>
+        <ownedOperation xmi:id="_40_HYIs3EeqC4q-6vJG--A" name="getMoveStatus" method="_40_ucYs3EeqC4q-6vJG--A">
+          <ownedComment xmi:id="_40_udYs3EeqC4q-6vJG--A">
+            <body>Gives the status of the movement : tells if the vehicle is going up, down, left, right or if it doesn't move&#xD;
+	 * @return a String, the status of the movement&#xD;
+	 *</body>
+          </ownedComment>
+          <ownedParameter xmi:id="_40_ucIs3EeqC4q-6vJG--A" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
         </ownedOperation>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_UwJbcIscEeqC4q-6vJG--A" name="Piste">
@@ -1346,8 +1352,13 @@
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
         </ownedAttribute>
         <ownedAttribute xmi:id="_U0KYx4scEeqC4q-6vJG--A" name="trackR" type="_Uyp84IscEeqC4q-6vJG--A" association="_U0d6xIscEeqC4q-6vJG--A"/>
+        <ownedAttribute xmi:id="_25tN0Is0EeqC4q-6vJG--A" name="score" visibility="private">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </ownedAttribute>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_Uz7vQIscEeqC4q-6vJG--A" name="Piste" specification="_UwKpkIscEeqC4q-6vJG--A">
-          <ownedParameter xmi:id="_Uz7vQYscEeqC4q-6vJG--A" type="_UwJbcIscEeqC4q-6vJG--A" direction="return"/>
+          <ownedParameter xmi:id="_Uz7vQYscEeqC4q-6vJG--A" type="_UwJbcIscEeqC4q-6vJG--A" direction="return">
+            <name xsi:nil="true"/>
+          </ownedParameter>
           <language>java</language>
           <body>this.trackL = new ArrayList&lt;Point>();
 		this.trackR= new ArrayList&lt;Point>();
@@ -1357,7 +1368,8 @@
 		//this.cpList.add(new CheckPoint(this.horHeight));
 		
 		this.trackSize = 0;
-		this.traveledDist = 0;
+		this.traveledDist = 1;
+		this.score = 0;
 		
 		this.traveledSinceCP = 0;
 	</body>
@@ -1435,6 +1447,7 @@
 			trackSize --;
 		}
 		traveledDist += tDistUp * MOVEVAL;
+		score = traveledDist;
 		traveledSinceCP += tDistUp * MOVEVAL;
 		//The checkpoints move and we remove it if needed
 		/*
@@ -1477,7 +1490,7 @@
 			if(o.getH()>maxY) {
 				oppList.remove(o);
 				//The score gets higher when the vehicle passes an opponent
-				this.traveledDist += 500;
+				this.score += 10;
 			}
 		}
 	</body>
@@ -1572,6 +1585,7 @@
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_Uz8WWIscEeqC4q-6vJG--A" name="checkObst" specification="_UyuOUIscEeqC4q-6vJG--A">
           <ownedParameter xmi:id="_Uz8WWYscEeqC4q-6vJG--A" name="V" type="_UwRXQIscEeqC4q-6vJG--A"/>
           <ownedParameter xmi:id="_Uz8WWoscEeqC4q-6vJG--A" direction="return">
+            <name xsi:nil="true"/>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
           </ownedParameter>
           <language>java</language>
@@ -1640,6 +1654,7 @@
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_Uz89YoscEeqC4q-6vJG--A" name="getHorizon" specification="_UwMewoscEeqC4q-6vJG--A">
           <ownedParameter xmi:id="_Uz89Y4scEeqC4q-6vJG--A" direction="return">
+            <name xsi:nil="true"/>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
           </ownedParameter>
           <language>java</language>
@@ -1648,6 +1663,7 @@
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_Uz89ZIscEeqC4q-6vJG--A" name="getSpeed" specification="_UwMexIscEeqC4q-6vJG--A">
           <ownedParameter xmi:id="_Uz89ZYscEeqC4q-6vJG--A" direction="return">
+            <name xsi:nil="true"/>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
           </ownedParameter>
           <language>java</language>
@@ -1656,6 +1672,7 @@
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_Uz89ZoscEeqC4q-6vJG--A" name="getDist" specification="_UwMexoscEeqC4q-6vJG--A">
           <ownedParameter xmi:id="_Uz89Z4scEeqC4q-6vJG--A" direction="return">
+            <name xsi:nil="true"/>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
           </ownedParameter>
           <language>java</language>
@@ -1664,6 +1681,7 @@
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_Uz89aIscEeqC4q-6vJG--A" name="toCp" specification="_UwMeyIscEeqC4q-6vJG--A">
           <ownedParameter xmi:id="_Uz89aYscEeqC4q-6vJG--A" direction="return">
+            <name xsi:nil="true"/>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
           </ownedParameter>
           <language>java</language>
@@ -1679,26 +1697,34 @@
 	</body>
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_Uz89bIscEeqC4q-6vJG--A" name="getTrackR" specification="_UwNF04scEeqC4q-6vJG--A">
-          <ownedParameter xmi:id="_Uz89bYscEeqC4q-6vJG--A" type="_Uyp84IscEeqC4q-6vJG--A" direction="return"/>
+          <ownedParameter xmi:id="_Uz89bYscEeqC4q-6vJG--A" type="_Uyp84IscEeqC4q-6vJG--A" direction="return">
+            <name xsi:nil="true"/>
+          </ownedParameter>
           <language>java</language>
           <body>return trackR;
 	</body>
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_Uz89boscEeqC4q-6vJG--A" name="getCP" specification="_UwNs4IscEeqC4q-6vJG--A">
-          <ownedParameter xmi:id="_Uz89b4scEeqC4q-6vJG--A" type="_Uyp84IscEeqC4q-6vJG--A" direction="return"/>
+          <ownedParameter xmi:id="_Uz89b4scEeqC4q-6vJG--A" type="_Uyp84IscEeqC4q-6vJG--A" direction="return">
+            <name xsi:nil="true"/>
+          </ownedParameter>
           <language>java</language>
           <body>//System.out.println(cpList.getCpList().size());
 		return cpList.getCpList();
 	</body>
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_Uz9kcIscEeqC4q-6vJG--A" name="getOL" specification="_UwNs4oscEeqC4q-6vJG--A">
-          <ownedParameter xmi:id="_Uz9kcYscEeqC4q-6vJG--A" type="_Uyp84IscEeqC4q-6vJG--A" direction="return"/>
+          <ownedParameter xmi:id="_Uz9kcYscEeqC4q-6vJG--A" type="_Uyp84IscEeqC4q-6vJG--A" direction="return">
+            <name xsi:nil="true"/>
+          </ownedParameter>
           <language>java</language>
           <body>return obsList;
 	</body>
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_Uz9kcoscEeqC4q-6vJG--A" name="getOpL" specification="_UwOT8YscEeqC4q-6vJG--A">
-          <ownedParameter xmi:id="_Uz9kc4scEeqC4q-6vJG--A" type="_Uyp84IscEeqC4q-6vJG--A" direction="return"/>
+          <ownedParameter xmi:id="_Uz9kc4scEeqC4q-6vJG--A" type="_Uyp84IscEeqC4q-6vJG--A" direction="return">
+            <name xsi:nil="true"/>
+          </ownedParameter>
           <language>java</language>
           <body>return oppList;
 	</body>
@@ -1719,6 +1745,15 @@
           <body>maxY = n;
 	</body>
         </ownedBehavior>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_BPf88Is1EeqC4q-6vJG--A" name="getScore" specification="_BPc5oIs1EeqC4q-6vJG--A">
+          <ownedParameter xmi:id="_BPf88Ys1EeqC4q-6vJG--A" direction="return">
+            <name xsi:nil="true"/>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          </ownedParameter>
+          <language>java</language>
+          <body>return score;
+	</body>
+        </ownedBehavior>
         <ownedOperation xmi:id="_UwKpkIscEeqC4q-6vJG--A" name="Piste" method="_Uz7vQIscEeqC4q-6vJG--A">
           <eAnnotations xmi:id="_UwKpkYscEeqC4q-6vJG--A" source="http://www.eclipse.org/uml2/2.0.0/UML">
             <details xmi:id="_UwKpkoscEeqC4q-6vJG--A" key="create"/>
@@ -1726,28 +1761,28 @@
           <ownedParameter xmi:id="_UwKpk4scEeqC4q-6vJG--A" type="_UwJbcIscEeqC4q-6vJG--A" direction="return"/>
         </ownedOperation>
         <ownedOperation xmi:id="_UwLQoIscEeqC4q-6vJG--A" name="createTrack" method="_Uz8WUIscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0K_0oscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_b1aroIs1EeqC4q-6vJG--A">
             <body>Creates a track with two initial points at the bottom of the screen, and adds more points generated with the addPoint() method
 	 * Also creates the CheckPointList and gives it the value of the horizon
 	 *</body>
           </ownedComment>
         </ownedOperation>
         <ownedOperation xmi:id="_UwLQoYscEeqC4q-6vJG--A" name="addPoint" method="_Uz8WUYscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0K_04scEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_b1aroYs1EeqC4q-6vJG--A">
             <body>Adds a new Point at the horizon height to each part of the track.
 	 * The point added to the left track has a random x and the point added to the right track is on its right
 	 *</body>
           </ownedComment>
         </ownedOperation>
         <ownedOperation xmi:id="_UwLQooscEeqC4q-6vJG--A" name="speedUp" method="_Uz8WUoscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0K_1IscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_b1aroos1EeqC4q-6vJG--A">
             <body>Increases the speed by 2 if the current speed is not higher than 35 
 	 * 
 	 *</body>
           </ownedComment>
         </ownedOperation>
         <ownedOperation xmi:id="_UwLQo4scEeqC4q-6vJG--A" name="speedDown" method="_Uz8WU4scEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0K_1YscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_b1aro4s1EeqC4q-6vJG--A">
             <body>Decreases the speed by 1 if the current speed is not lower than 10 
 	 * 
 	 *</body>
@@ -1755,7 +1790,7 @@
         </ownedOperation>
         <ownedOperation xmi:id="_UwLQpIscEeqC4q-6vJG--A" name="moveTrack" method="_Uz8WVIscEeqC4q-6vJG--A"/>
         <ownedOperation xmi:id="_UwL3sIscEeqC4q-6vJG--A" name="trackEffect" method="_Uz8WVYscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0K_1oscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_b1arpIs1EeqC4q-6vJG--A">
             <body>Moves the track depending on the movement of the Vehicle :
 	 * Zooms in or out of the vehicle goes lower or higher and moves the track to the right (left) if the vehicle goes to the left (right) 
 	 * @param mvStat a String, the direction of the vehicle, that indicates which movement the track does
@@ -1770,9 +1805,8 @@
           </ownedParameter>
         </ownedOperation>
         <ownedOperation xmi:id="_UwL3s4scEeqC4q-6vJG--A" name="addRandObst" method="_Uz8WW4scEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0K_2IscEeqC4q-6vJG--A">
-            <body>Adds an obstacle on the ground with a probability 2/100 or a flying obstacle with a probability of 1/100
-	 * 
+          <ownedComment xmi:id="_b1arpos1EeqC4q-6vJG--A">
+            <body>Adds an obstacle on the ground with a probability 2/100 or a flying obstacle with a probability of 1/100.
 	 *</body>
           </ownedComment>
         </ownedOperation>
@@ -1787,7 +1821,7 @@
           </ownedParameter>
         </ownedOperation>
         <ownedOperation xmi:id="_UwMewoscEeqC4q-6vJG--A" name="getHorizon" method="_Uz89YoscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0K_2YscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_b1arp4s1EeqC4q-6vJG--A">
             <body>Gives the horizon height
 	 * @return an integer, the height of the horizon
 	 *</body>
@@ -1797,7 +1831,7 @@
           </ownedParameter>
         </ownedOperation>
         <ownedOperation xmi:id="_UwMexIscEeqC4q-6vJG--A" name="getSpeed" method="_Uz89ZIscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0K_2oscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_b1arqIs1EeqC4q-6vJG--A">
             <body>Gives the current speed at whitch the track moves
 	 * @return an integer, the current speed
 	 *</body>
@@ -1807,7 +1841,7 @@
           </ownedParameter>
         </ownedOperation>
         <ownedOperation xmi:id="_UwMexoscEeqC4q-6vJG--A" name="getDist" method="_Uz89ZoscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0K_24scEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_b1arqYs1EeqC4q-6vJG--A">
             <body>Gives the current distance traveled by the Vehicle
 	 * @return an integer,  the distance travelled
 	 *</body>
@@ -1822,7 +1856,7 @@
           </ownedParameter>
         </ownedOperation>
         <ownedOperation xmi:id="_UwNF0YscEeqC4q-6vJG--A" name="setHorizon" method="_Uz89aoscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0K_3IscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_b1arq4s1EeqC4q-6vJG--A">
             <body>Sets the height of the horizon
 	 * @param n an integer, the new height of the horizon
 	 *</body>
@@ -1832,7 +1866,7 @@
           </ownedParameter>
         </ownedOperation>
         <ownedOperation xmi:id="_UwNF04scEeqC4q-6vJG--A" name="getTrackR" method="_Uz89bIscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0K_3YscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_b1arrIs1EeqC4q-6vJG--A">
             <body>Gives the list of point forming the right part of the track
 	 * @return the list of Point forming the right part of the track
 	 *</body>
@@ -1840,7 +1874,7 @@
           <ownedParameter xmi:id="_UzK6QIscEeqC4q-6vJG--A" type="_Uyp84IscEeqC4q-6vJG--A" direction="return"/>
         </ownedOperation>
         <ownedOperation xmi:id="_UwNs4IscEeqC4q-6vJG--A" name="getCP" method="_Uz89boscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0K_3oscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_b1arrYs1EeqC4q-6vJG--A">
             <body>Gives the current checkpoint list
 	 * @return the checkpoint list
 	 *</body>
@@ -1848,7 +1882,7 @@
           <ownedParameter xmi:id="_UzK6QYscEeqC4q-6vJG--A" type="_Uyp84IscEeqC4q-6vJG--A" direction="return"/>
         </ownedOperation>
         <ownedOperation xmi:id="_UwNs4oscEeqC4q-6vJG--A" name="getOL" method="_Uz9kcIscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0K_34scEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_b1arros1EeqC4q-6vJG--A">
             <body>Gives the current obstacle list
 	 * @return the obstacle list
 	 *</body>
@@ -1856,7 +1890,7 @@
           <ownedParameter xmi:id="_UzK6QoscEeqC4q-6vJG--A" type="_Uyp84IscEeqC4q-6vJG--A" direction="return"/>
         </ownedOperation>
         <ownedOperation xmi:id="_UwOT8YscEeqC4q-6vJG--A" name="getOpL" method="_Uz9kcoscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0K_4IscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_b1arr4s1EeqC4q-6vJG--A">
             <body>Gives the current opponent list
 	 * @return the opponent list
 	 *</body>
@@ -1864,7 +1898,7 @@
           <ownedParameter xmi:id="_UzK6Q4scEeqC4q-6vJG--A" type="_Uyp84IscEeqC4q-6vJG--A" direction="return"/>
         </ownedOperation>
         <ownedOperation xmi:id="_UwO7AIscEeqC4q-6vJG--A" name="setMaxX" method="_Uz9kdIscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0K_4YscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_b1arsIs1EeqC4q-6vJG--A">
             <body>Sets the maximum x coordinate that a track Point can have
 	 * @param n an integer, the maximum X
 	 *</body>
@@ -1874,7 +1908,7 @@
           </ownedParameter>
         </ownedOperation>
         <ownedOperation xmi:id="_UwO7AoscEeqC4q-6vJG--A" name="setMaxY" method="_Uz9kdoscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0K_4oscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_b1arsYs1EeqC4q-6vJG--A">
             <body>Sets the maximum Y coordinate that a track Point can have
 	 * @param n an integer, the maximum height
 	 *</body>
@@ -1884,7 +1918,7 @@
           </ownedParameter>
         </ownedOperation>
         <ownedOperation xmi:id="_UyuOUIscEeqC4q-6vJG--A" name="checkObst" method="_Uz8WWIscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0K_14scEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_b1arpYs1EeqC4q-6vJG--A">
             <body>Tests if the given vehicle hits one of the obstacles on the track
 	 * @param V the vehicle
 	 * @return true if the vehicle is hitting an obstacle, false otherwise
@@ -1893,6 +1927,16 @@
           <ownedParameter xmi:id="_UyuOUYscEeqC4q-6vJG--A" name="V" type="_UwRXQIscEeqC4q-6vJG--A"/>
           <ownedParameter xmi:id="_UyuOUoscEeqC4q-6vJG--A" direction="return">
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:id="_BPc5oIs1EeqC4q-6vJG--A" name="getScore" method="_BPf88Is1EeqC4q-6vJG--A">
+          <ownedComment xmi:id="_b1arqos1EeqC4q-6vJG--A">
+            <body>Gives the score
+	 * @return an integer,  the score
+	 *</body>
+          </ownedComment>
+          <ownedParameter xmi:id="_BPeu0Is1EeqC4q-6vJG--A" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
           </ownedParameter>
         </ownedOperation>
       </packagedElement>
@@ -1930,8 +1974,16 @@
         <ownedAttribute xmi:id="_U0MN8oscEeqC4q-6vJG--A" name="secTl" visibility="private">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
         </ownedAttribute>
+        <ownedAttribute xmi:id="_IdZUIIuPEeqC4q-6vJG--A" name="secPassed" visibility="private">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_jPhS0IuPEeqC4q-6vJG--A" name="secGained" visibility="private">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
+        </ownedAttribute>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_Uz-ykIscEeqC4q-6vJG--A" name="Vehicule" specification="_UwTMcIscEeqC4q-6vJG--A">
-          <ownedParameter xmi:id="_Uz-ykYscEeqC4q-6vJG--A" type="_UwRXQIscEeqC4q-6vJG--A" direction="return"/>
+          <ownedParameter xmi:id="_Uz-ykYscEeqC4q-6vJG--A" type="_UwRXQIscEeqC4q-6vJG--A" direction="return">
+            <name xsi:nil="true"/>
+          </ownedParameter>
           <language>java</language>
           <body>this.x = screenSize.width/2-this.hitWidth;
 		this.y = screenSize.height/2+this.hitHeight;
@@ -1943,20 +1995,23 @@
 		
 		this.mvStat = &quot;NEUTRAL&quot;;
 	
-		this.startTime = 70;
-		this.secTl = 70;
+		this.startTime = 25;
+		this.secTl = 25;
 		
 		this.z = this.y;
 	</body>
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_Uz-ykoscEeqC4q-6vJG--A" name="getCoord" specification="_UwTzg4scEeqC4q-6vJG--A">
-          <ownedParameter xmi:id="_Uz-yk4scEeqC4q-6vJG--A" type="_Uygy8oscEeqC4q-6vJG--A" direction="return"/>
+          <ownedParameter xmi:id="_Uz-yk4scEeqC4q-6vJG--A" type="_Uygy8oscEeqC4q-6vJG--A" direction="return">
+            <name xsi:nil="true"/>
+          </ownedParameter>
           <language>java</language>
           <body>return new Point(x, y);
 	</body>
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_Uz-ylIscEeqC4q-6vJG--A" name="getHitWidth" specification="_UwUakIscEeqC4q-6vJG--A">
           <ownedParameter xmi:id="_Uz-ylYscEeqC4q-6vJG--A" direction="return">
+            <name xsi:nil="true"/>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
           </ownedParameter>
           <language>java</language>
@@ -1965,6 +2020,7 @@
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_Uz-yloscEeqC4q-6vJG--A" name="getHitHeight" specification="_UwUakoscEeqC4q-6vJG--A">
           <ownedParameter xmi:id="_Uz-yl4scEeqC4q-6vJG--A" direction="return">
+            <name xsi:nil="true"/>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
           </ownedParameter>
           <language>java</language>
@@ -1973,6 +2029,7 @@
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_Uz-ymIscEeqC4q-6vJG--A" name="getFlyStatus" specification="_UwVBoYscEeqC4q-6vJG--A">
           <ownedParameter xmi:id="_Uz-ymYscEeqC4q-6vJG--A" direction="return">
+            <name xsi:nil="true"/>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
           </ownedParameter>
           <language>java</language>
@@ -1981,6 +2038,7 @@
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_Uz-ymoscEeqC4q-6vJG--A" name="getAlive" specification="_UwVBo4scEeqC4q-6vJG--A">
           <ownedParameter xmi:id="_Uz-ym4scEeqC4q-6vJG--A" direction="return">
+            <name xsi:nil="true"/>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
           </ownedParameter>
           <language>java</language>
@@ -1989,6 +2047,7 @@
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_Uz_ZoIscEeqC4q-6vJG--A" name="getTTL" specification="_UwVosIscEeqC4q-6vJG--A">
           <ownedParameter xmi:id="_Uz_ZoYscEeqC4q-6vJG--A" direction="return">
+            <name xsi:nil="true"/>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
           </ownedParameter>
           <language>java</language>
@@ -2038,24 +2097,19 @@
 		}
 	</body>
         </ownedBehavior>
-        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_Uz_ZpYscEeqC4q-6vJG--A" name="timeDecrease" specification="_UwW20IscEeqC4q-6vJG--A">
-          <ownedParameter xmi:id="_Uz_ZposcEeqC4q-6vJG--A" name="l">
-            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
-          </ownedParameter>
-          <language>java</language>
-          <body>if(secTl > 1) secTl = startTime - l;
-	</body>
-        </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_Uz_Zp4scEeqC4q-6vJG--A" name="addTime" specification="_UwXd4IscEeqC4q-6vJG--A">
           <ownedParameter xmi:id="_Uz_ZqIscEeqC4q-6vJG--A" name="l">
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
           </ownedParameter>
           <language>java</language>
-          <body>startTime = secTl + l;
+          <body>secGained += secPassed;
+		startTime = secTl + l;
+		secTl += l;
 	</body>
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_Uz_ZqYscEeqC4q-6vJG--A" name="getMoveStatus" specification="_UwYE8IscEeqC4q-6vJG--A">
           <ownedParameter xmi:id="_Uz_ZqoscEeqC4q-6vJG--A" direction="return">
+            <name xsi:nil="true"/>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
           </ownedParameter>
           <language>java</language>
@@ -2081,11 +2135,25 @@
 		inFlight = false;
 	</body>
         </ownedBehavior>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_PkhH0IuPEeqC4q-6vJG--A" name="timeDecrease" specification="_PkeEgIuPEeqC4q-6vJG--A">
+          <language>java</language>
+          <body>//if(secTl > 1) 
+		secTl = startTime - secPassed;
+	</body>
+        </ownedBehavior>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_KOgP8IuQEeqC4q-6vJG--A" name="setSecPassed" specification="_KOfB0IuQEeqC4q-6vJG--A">
+          <ownedParameter xmi:id="_KOgP8YuQEeqC4q-6vJG--A" name="l">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
+          </ownedParameter>
+          <language>java</language>
+          <body>this.secPassed = l - secGained;
+	</body>
+        </ownedBehavior>
         <ownedOperation xmi:id="_UwTMcIscEeqC4q-6vJG--A" name="Vehicule" method="_Uz-ykIscEeqC4q-6vJG--A">
           <eAnnotations xmi:id="_UwTzgIscEeqC4q-6vJG--A" source="http://www.eclipse.org/uml2/2.0.0/UML">
             <details xmi:id="_UwTzgYscEeqC4q-6vJG--A" key="create"/>
           </eAnnotations>
-          <ownedComment xmi:id="_U0MN9YscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_PIQNIIuQEeqC4q-6vJG--A">
             <body>Constructor of the Vehicule class
 	 * 
 	 *</body>
@@ -2093,7 +2161,7 @@
           <ownedParameter xmi:id="_UwTzgoscEeqC4q-6vJG--A" type="_UwRXQIscEeqC4q-6vJG--A" direction="return"/>
         </ownedOperation>
         <ownedOperation xmi:id="_UwTzg4scEeqC4q-6vJG--A" name="getCoord" method="_Uz-ykoscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0MN9oscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_PIQNIYuQEeqC4q-6vJG--A">
             <body>Gives a point with the coordinates of the vehicle
 	 * @return a Point with the coordinates of the vehicle
 	 *</body>
@@ -2101,7 +2169,7 @@
           <ownedParameter xmi:id="_UzMIYIscEeqC4q-6vJG--A" type="_Uygy8oscEeqC4q-6vJG--A" direction="return"/>
         </ownedOperation>
         <ownedOperation xmi:id="_UwUakIscEeqC4q-6vJG--A" name="getHitWidth" method="_Uz-ylIscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0MN94scEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_PIQNIouQEeqC4q-6vJG--A">
             <body>Gives the width of the hitbox of the vehicle
 	 * @return an int, the width of the hitbox
 	 *</body>
@@ -2111,7 +2179,7 @@
           </ownedParameter>
         </ownedOperation>
         <ownedOperation xmi:id="_UwUakoscEeqC4q-6vJG--A" name="getHitHeight" method="_Uz-yloscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0MN-IscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_PIQNI4uQEeqC4q-6vJG--A">
             <body>Gives the height of the hitbox of the vehicle
 	 * @return an int, the height of the hitbox
 	 *</body>
@@ -2121,7 +2189,7 @@
           </ownedParameter>
         </ownedOperation>
         <ownedOperation xmi:id="_UwVBoYscEeqC4q-6vJG--A" name="getFlyStatus" method="_Uz-ymIscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0MN-YscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_PIQNJIuQEeqC4q-6vJG--A">
             <body>Gives the flying status of the vehicle
 	 * @return true if he vehicle is in flight, false otherwise
 	 *</body>
@@ -2131,7 +2199,7 @@
           </ownedParameter>
         </ownedOperation>
         <ownedOperation xmi:id="_UwVBo4scEeqC4q-6vJG--A" name="getAlive" method="_Uz-ymoscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0MN-oscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_PIQNJYuQEeqC4q-6vJG--A">
             <body>Tells if the game is on
 	 * @return true if the vehicle is playing, false otherwise
 	 * *</body>
@@ -2141,7 +2209,7 @@
           </ownedParameter>
         </ownedOperation>
         <ownedOperation xmi:id="_UwVosIscEeqC4q-6vJG--A" name="getTTL" method="_Uz_ZoIscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0MN-4scEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_PIQNJouQEeqC4q-6vJG--A">
             <body>Gives the remaining time to live of the vehicle 
 	 * @return the time in milliseconds
 	 *</body>
@@ -2151,7 +2219,7 @@
           </ownedParameter>
         </ownedOperation>
         <ownedOperation xmi:id="_UwVososcEeqC4q-6vJG--A" name="move" method="_Uz_ZooscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0MN_IscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_PIQNJ4uQEeqC4q-6vJG--A">
             <body>Moves the vehicle a given distance in a given direction : left, right, up or down the screen
 	 * @param mvDir a String, the direction where the vehicle will go
 	 * @param coef an int, the distance the vehicle will travel
@@ -2164,18 +2232,8 @@
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
           </ownedParameter>
         </ownedOperation>
-        <ownedOperation xmi:id="_UwW20IscEeqC4q-6vJG--A" name="timeDecrease" method="_Uz_ZpYscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0MN_YscEeqC4q-6vJG--A">
-            <body>Reduces the time of the start timer if it is higher than 1ms
-	 * @param l the time we remove
-	 *</body>
-          </ownedComment>
-          <ownedParameter xmi:id="_UwW20YscEeqC4q-6vJG--A" name="l">
-            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
-          </ownedParameter>
-        </ownedOperation>
         <ownedOperation xmi:id="_UwXd4IscEeqC4q-6vJG--A" name="addTime" method="_Uz_Zp4scEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0MN_oscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_PIQNKYuQEeqC4q-6vJG--A">
             <body>Adds time to the start timer
 	 * @param l the time we add
 	 *</body>
@@ -2185,7 +2243,7 @@
           </ownedParameter>
         </ownedOperation>
         <ownedOperation xmi:id="_UwYE8IscEeqC4q-6vJG--A" name="getMoveStatus" method="_Uz_ZqYscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0MN_4scEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_PIQNKouQEeqC4q-6vJG--A">
             <body>Gives the status of the movement : tells if the vehicle is going up, down, left, right or if it doesn't move
 	 * @return a String, the status of the movement
 	 *</body>
@@ -2195,25 +2253,37 @@
           </ownedParameter>
         </ownedOperation>
         <ownedOperation xmi:id="_UwYE8oscEeqC4q-6vJG--A" name="startRace" method="_Uz_Zq4scEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0MOAIscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_PIQNK4uQEeqC4q-6vJG--A">
             <body>Starts the race : puts the vehicle in flight
 	 * 
 	 *</body>
           </ownedComment>
         </ownedOperation>
         <ownedOperation xmi:id="_UwYsAIscEeqC4q-6vJG--A" name="stopRace" method="_Uz_ZrIscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0MOAYscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_PIQNLIuQEeqC4q-6vJG--A">
             <body>Stops the race : sets the statuses of the vehicle as not in flight and not alive
 	 * 
 	 *</body>
           </ownedComment>
         </ownedOperation>
         <ownedOperation xmi:id="_UwYsAYscEeqC4q-6vJG--A" name="restart" method="_Uz_ZrYscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0MOAoscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_PIQNLYuQEeqC4q-6vJG--A">
             <body>Puts the vehicle at it's initial values
 	 * 
 	 *</body>
           </ownedComment>
+        </ownedOperation>
+        <ownedOperation xmi:id="_PkeEgIuPEeqC4q-6vJG--A" name="timeDecrease" method="_PkhH0IuPEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_PIQNKIuQEeqC4q-6vJG--A">
+            <body>Reduces the time of the start timer if it is higher than 1ms
+	 * @param l the time we remove
+	 *</body>
+          </ownedComment>
+        </ownedOperation>
+        <ownedOperation xmi:id="_KOfB0IuQEeqC4q-6vJG--A" name="setSecPassed" method="_KOgP8IuQEeqC4q-6vJG--A">
+          <ownedParameter xmi:id="_KOfB0YuQEeqC4q-6vJG--A" name="l">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
+          </ownedParameter>
         </ownedOperation>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_U0aQY4scEeqC4q-6vJG--A" name="" memberEnd="_U0aQZIscEeqC4q-6vJG--A _Uzg4gIscEeqC4q-6vJG--A">
@@ -2261,7 +2331,7 @@
         </ownedAttribute>
         <ownedAttribute xmi:id="_Uzu69IscEeqC4q-6vJG--A" name="horHeight" visibility="private" isLeaf="true" isReadOnly="true">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
-          <defaultValue xmi:type="uml:LiteralString" xmi:id="_Uzu69YscEeqC4q-6vJG--A" value="(int) (this.HEIGHT*0.3)"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_Uzu69YscEeqC4q-6vJG--A" value="(int) (this.HEIGHT*0.17)"/>
         </ownedAttribute>
         <ownedAttribute xmi:id="_Uzu694scEeqC4q-6vJG--A" name="V" visibility="private" type="_UwRXQIscEeqC4q-6vJG--A" association="_U0dTsYscEeqC4q-6vJG--A"/>
         <ownedAttribute xmi:id="_UzviAYscEeqC4q-6vJG--A" name="P" visibility="private" type="_UwJbcIscEeqC4q-6vJG--A" association="_U0dTtIscEeqC4q-6vJG--A"/>
@@ -2269,14 +2339,8 @@
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         </ownedAttribute>
         <ownedAttribute xmi:id="_UzwJEYscEeqC4q-6vJG--A" name="imgV" visibility="package" type="_Uyp84IscEeqC4q-6vJG--A" association="_U0d6wYscEeqC4q-6vJG--A"/>
-        <ownedAttribute xmi:id="_UzxXMIscEeqC4q-6vJG--A" name="blink" visibility="private">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
-        </ownedAttribute>
         <ownedAttribute xmi:id="_UzxXM4scEeqC4q-6vJG--A" name="starttime">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="_UzylUIscEeqC4q-6vJG--A" name="fps">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
         </ownedAttribute>
         <ownedAttribute xmi:id="_U0M1AIscEeqC4q-6vJG--A" name="effects" visibility="private">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
@@ -2287,32 +2351,40 @@
         <ownedAttribute xmi:id="_U0M1BoscEeqC4q-6vJG--A" name="ground" visibility="private">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="_U0NcEIscEeqC4q-6vJG--A" name="road" visibility="private">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        </ownedAttribute>
         <ownedAttribute xmi:id="_U0NcE4scEeqC4q-6vJG--A" name="obstacle" visibility="private">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         </ownedAttribute>
         <ownedAttribute xmi:id="_U0NcFoscEeqC4q-6vJG--A" name="imgEff" visibility="package" type="_Uyp84IscEeqC4q-6vJG--A" association="_U0eh0YscEeqC4q-6vJG--A"/>
         <ownedAttribute xmi:id="_U0ODIIscEeqC4q-6vJG--A" name="imgBg" visibility="package" type="_Uyp84IscEeqC4q-6vJG--A" association="_U0eh1IscEeqC4q-6vJG--A"/>
         <ownedAttribute xmi:id="_U0ODI4scEeqC4q-6vJG--A" name="imgG" visibility="package" type="_Uyp84IscEeqC4q-6vJG--A" association="_U0fI4YscEeqC4q-6vJG--A"/>
-        <ownedAttribute xmi:id="_U0ODJoscEeqC4q-6vJG--A" name="imgR" visibility="package" type="_Uyp84IscEeqC4q-6vJG--A" association="_U0fI5IscEeqC4q-6vJG--A"/>
         <ownedAttribute xmi:id="_U0ODKYscEeqC4q-6vJG--A" name="imgObst" visibility="package" type="_Uyp84IscEeqC4q-6vJG--A" association="_U0fv8YscEeqC4q-6vJG--A"/>
-        <ownedAttribute xmi:id="_U0OqMYscEeqC4q-6vJG--A" name="green_light" visibility="private">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
-        </ownedAttribute>
         <ownedAttribute xmi:id="_U0OqNIscEeqC4q-6vJG--A" name="secPassed">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
         </ownedAttribute>
         <ownedAttribute xmi:id="_U0OqN4scEeqC4q-6vJG--A" name="minPassed">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
         </ownedAttribute>
+        <ownedAttribute xmi:id="_jgDWsIsiEeqC4q-6vJG--A" name="green_light" visibility="private">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_vzAYQIsxEeqC4q-6vJG--A" name="showHitbox" visibility="private">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_FhYFAIs5EeqC4q-6vJG--A" name="mvBg" visibility="private">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_FhYsEIs5EeqC4q-6vJG--A" value="*"/>
+        </ownedAttribute>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_U0Anw4scEeqC4q-6vJG--A" name="Affichage" specification="_Uy2xMIscEeqC4q-6vJG--A">
           <ownedParameter xmi:id="_U0AnxIscEeqC4q-6vJG--A" name="v" type="_UwRXQIscEeqC4q-6vJG--A"/>
           <ownedParameter xmi:id="_U0AnxYscEeqC4q-6vJG--A" name="p" type="_UwJbcIscEeqC4q-6vJG--A"/>
-          <ownedParameter xmi:id="_U0AnxoscEeqC4q-6vJG--A" type="_UwahMIscEeqC4q-6vJG--A" direction="return"/>
+          <ownedParameter xmi:id="_U0AnxoscEeqC4q-6vJG--A" type="_UwahMIscEeqC4q-6vJG--A" direction="return">
+            <name xsi:nil="true"/>
+          </ownedParameter>
           <language>java</language>
-          <body>this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+          <body>this.mvBg = new int[]{0, 0, 0, 0};
+ 	
+ 	this.showHitbox = false;
+ 	this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
  	this.V = v;
  	this.P = p;
  	
@@ -2327,9 +2399,7 @@
  	this.loadImgBg();
  	this.loadImObst();
  	this.loadImgGround();
- 	this.loadImgRoad();
      
- 	this.blink = 0;
  	this.green_light = 0;
  	
 		this.starttime = System.currentTimeMillis();
@@ -2337,6 +2407,7 @@
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_U0Anx4scEeqC4q-6vJG--A" name="getWidth" specification="_UwcWYIscEeqC4q-6vJG--A">
           <ownedParameter xmi:id="_U0AnyIscEeqC4q-6vJG--A" direction="return">
+            <name xsi:nil="true"/>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
           </ownedParameter>
           <language>java</language>
@@ -2345,6 +2416,7 @@
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_U0BO0IscEeqC4q-6vJG--A" name="getHeight" specification="_UwcWYoscEeqC4q-6vJG--A">
           <ownedParameter xmi:id="_U0BO0YscEeqC4q-6vJG--A" direction="return">
+            <name xsi:nil="true"/>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
           </ownedParameter>
           <language>java</language>
@@ -2353,6 +2425,7 @@
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_U0BO0oscEeqC4q-6vJG--A" name="getMins" specification="_Uwc9cYscEeqC4q-6vJG--A">
           <ownedParameter xmi:id="_U0BO04scEeqC4q-6vJG--A" direction="return">
+            <name xsi:nil="true"/>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
           </ownedParameter>
           <language>java</language>
@@ -2361,6 +2434,7 @@
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_U0BO1IscEeqC4q-6vJG--A" name="getSec" specification="_Uwc9c4scEeqC4q-6vJG--A">
           <ownedParameter xmi:id="_U0BO1YscEeqC4q-6vJG--A" direction="return">
+            <name xsi:nil="true"/>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
           </ownedParameter>
           <language>java</language>
@@ -2372,7 +2446,7 @@
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
           </ownedParameter>
           <language>java</language>
-          <body>minPassed = m;
+          <body>minPassed += m;
  </body>
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_U0BO2IscEeqC4q-6vJG--A" name="setSecPassed" specification="_UwdkgIscEeqC4q-6vJG--A">
@@ -2393,11 +2467,31 @@
  	ArrayList&lt;Point> ptR = P.getTrackR();
  	ArrayList&lt;CheckPoint> cpL = P.getCP();
  	
+ 	//Image
+ 	Polygon poly = new Polygon();
+
+ 	for(int i=0; i&lt;ptL.size(); i++) {
+ 		Point TempL = ptL.get(i);
+ 		poly.addPoint(TempL.x, TempL.y);
+ 	}
+ 	for(int i=ptL.size()-1; i>=0; i--) {
+ 		Point Temp = ptR.get(i);
+ 		poly.addPoint(Temp.x, Temp.y);
+ 	}
+ 			
+ 	g2d.fillPolygon(poly);
+ 			
  	//TrackL
  	Point prevL = null;
 		for(Point Temp : ptL) {
 			if(prevL != null) {
 				g2d.drawLine(prevL.x, prevL.y, Temp.x, Temp.y);
+				if(showHitbox) {
+					//Acceleration zone left delimiter
+					g2d.setColor(Color.RED);
+					g2d.drawLine(Temp.x, HEIGHT, Temp.x, Temp.y);
+					g2d.setColor(Color.BLACK);
+				}
 			}
 			prevL = Temp;
 		}
@@ -2407,6 +2501,13 @@
 		for(Point Temp : ptR) {
 			if(prevR != null) {
 				g2d.drawLine(prevR.x, prevR.y, Temp.x, Temp.y);
+				if(showHitbox) {
+					//Acceleration zone RIGHT delimiter
+					g2d.setColor(Color.RED);
+					g2d.drawLine(Temp.x, HEIGHT, Temp.x, Temp.y);
+					g2d.setColor(Color.BLACK);
+				}
+			
 			}
 			prevR= Temp;
 		}
@@ -2416,24 +2517,8 @@
 			g2d.drawLine(0, cp.getHeight(), WIDTH, cp.getHeight());
 		}
 		
-		//Image
-		Polygon poly = new Polygon();
-
-		for(int i=0; i&lt;ptL.size(); i++) {
-			Point TempL = ptL.get(i);
-			poly.addPoint(TempL.x, TempL.y);
-		}
-		for(int i=ptL.size()-1; i>=0; i--) {
-			Point Temp = ptR.get(i);
-			poly.addPoint(Temp.x, Temp.y);
-		}
-
-		Graphics g2 = g2d.create();
-		g2.fillPolygon(poly);
-		//g2.drawString(&quot;test&quot;, 500, 500);
-		//g2.setClip(poly);
-		//Image NewI = imgG.get(0);
- 	//g2.drawImage(NewI, 0, 0, null);
+		
+		
 		
 		/*
 		BufferedImage source = imgG.get(0);
@@ -2461,26 +2546,49 @@
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_U0BO3IscEeqC4q-6vJG--A" name="drawObstacles" specification="_UzOkoIscEeqC4q-6vJG--A">
           <ownedParameter xmi:id="_U0BO3YscEeqC4q-6vJG--A" name="g2d" type="_Uy0U8YscEeqC4q-6vJG--A"/>
           <language>java</language>
-          <body>Image NewI;
- 	ArrayList&lt;Obstacle> oL = P.getOL();
- 	//NewI = imgObst.get(0).getScaledInstance(o.getW(), o.getH(), BufferedImage.SCALE_SMOOTH);
+          <body>ArrayList&lt;Obstacle> oL = P.getOL();
+ 
  	for(int i = 0; i &lt; oL.size(); i++) {
  		Obstacle o = oL.get(i);
  		g2d.setColor(Color.GRAY);
- 		
- 	    
- 		//g2d.drawImage(NewI, o.getX(), o.getY(), null);
- 		
- 		g2d.drawRect(o.getX(), o.getY(), o.getW(), o.getH());
- 		g2d.setColor(Color.BLACK);
+
+ 		g2d.drawImage(
+ 				imgObst.get(0),
+ 				o.getX(), o.getY(),
+ 				o.getW(), o.getH(),
+ 				null);
+ 		if(this.showHitbox) {
+	    		g2d.drawRect(o.getX(), o.getY(), o.getW(), o.getH());
+	    		g2d.setColor(Color.BLACK);
+ 		}
  		
  	}
  	ArrayList&lt;Opponent> opL = P.getOpL();
  	for(Opponent o : opL) {
- 		g2d.setColor(Color.GRAY);
- 		g2d.fillRect(o.getX(), o.getY(), o.getW(), o.getH()); //pour faire la difference entre les obstacles et les adversaires pendant le test
- 		g2d.drawRect(o.getX(), o.getY(), o.getW(), o.getH());
- 		g2d.setColor(Color.BLACK);
+ 		switch(o.getMoveStatus()) {
+	    	case &quot;LEFT&quot;:
+				g2d.rotate(Math.toRadians(-20), o.getX() + o.getW()/4, o.getY());
+				break;
+			case &quot;RIGHT&quot;:
+				g2d.rotate(Math.toRadians(20), o.getX() + o.getW() - (o.getW()/4), o.getY());
+				break;
+			case &quot;UP&quot;:
+				break;
+			case &quot;DOWN&quot;:
+				break;
+			case &quot;NEUTRAL&quot;:
+				break;
+ 	}
+ 		g2d.drawImage(
+ 				imgV.get(1),
+ 				o.getX(), o.getY(),
+ 				o.getW(), o.getH(),
+ 				null);
+ 		if(this.showHitbox) {
+ 			g2d.setColor(Color.GRAY);
+	    		g2d.drawRect(o.getX(), o.getY(), o.getW(), o.getH());
+	    		g2d.setColor(Color.BLACK);
+ 		}
  	}
  </body>
         </ownedBehavior>
@@ -2488,9 +2596,9 @@
           <ownedParameter xmi:id="_U0B14YscEeqC4q-6vJG--A" name="g2d" type="_Uy0U8YscEeqC4q-6vJG--A"/>
           <language>java</language>
           <body>g2d.setColor(Color.WHITE);
- 	String speed = &quot;speed : &quot; + P.getSpeed();
- 	String distToCheck = &quot;CheckPoint : &quot; + P.toCp();
- 	String dist = &quot;Score : &quot; + P.getDist();
+ 	String speed = &quot;speed : &quot; + P.getSpeed() * 10 + &quot; km/h&quot;;
+ 	String distToCheck = &quot;CheckPoint : &quot; + P.toCp() + &quot; m&quot;;
+ 	String dist = &quot;Score : &quot; + P.getScore();
 
  	g2d.drawString(speed, 10, 25);
  	g2d.drawString(dist, 10, 45);
@@ -2502,64 +2610,78 @@
           <language>java</language>
           <body>g2d.setColor(Color.WHITE);
  	
- 	String totTime = &quot;Timer : &quot; + minPassed + &quot;::&quot; + secPassed;
+ 	String totTime = &quot;Timer : &quot; + minPassed + &quot;m &quot; + secPassed + &quot;s&quot;;
  	
  	long minTl = V.getTTL()/60;
  	long secTl = V.getTTL() - minTl*60;
- 	String TimeLeft = &quot;Game Over : &quot; + minTl + &quot;::&quot; + secTl;
+ 	String TimeLeft = &quot;Game Over : &quot; + minTl + &quot;m &quot; + secTl + &quot;s&quot;;
  	
  	g2d.drawString(totTime, WIDTH-90, 25);
- 	g2d.drawString(TimeLeft, WIDTH-120, 45);
+ 	g2d.drawString(TimeLeft, WIDTH-129, 45);
  	
  </body>
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_U0B15IscEeqC4q-6vJG--A" name="drawVehicule" specification="_UzPLsoscEeqC4q-6vJG--A">
           <ownedParameter xmi:id="_U0B15YscEeqC4q-6vJG--A" name="g2d" type="_Uy0U8YscEeqC4q-6vJG--A"/>
           <language>java</language>
-          <body>Image NewI;
-  
- 	
- 	Point vcoord = V.getCoord();
+          <body>Point vcoord = V.getCoord();
  	Point center = new Point(vcoord.x+ V.getHitWidth()/2, vcoord.y+V.getHitHeight()/2);
  	
  	Rectangle rect1 = new Rectangle(vcoord.x, vcoord.y, V.getHitWidth(), V.getHitHeight());
  	
  	switch(V.getMoveStatus()) {
 	    	case &quot;LEFT&quot;:
-				g2d.rotate(Math.toRadians(-45), rect1.x+rect1.width/4, rect1.y);
+				g2d.rotate(Math.toRadians(-20), rect1.x+rect1.width/4, rect1.y);
 				break;
 			case &quot;RIGHT&quot;:
-				g2d.rotate(Math.toRadians(45),rect1.x+rect1.width-(rect1.width/4), rect1.y);
+				g2d.rotate(Math.toRadians(20),rect1.x+rect1.width-(rect1.width/4), rect1.y);
 				break;
 			case &quot;UP&quot;:
 				break;
 			case &quot;DOWN&quot;:
-				
 				break;
 			case &quot;NEUTRAL&quot;:
 				break;
  	}
- 	
-     g2d.draw(rect1);
-     
+ 	    
      if(V.getFlyStatus()) { drawFlyEffect(g2d, vcoord);}
      
-     
- 	NewI = imgV.get(blink).getScaledInstance(V.getHitWidth(), V.getHitHeight(), BufferedImage.SCALE_SMOOTH);
- 	g2d.drawImage(NewI, vcoord.x, vcoord.y, null);
-     
-     
- 	g2d.drawLine(center.x+5, center.y+5, center.x-5, center.y-5);
- 	g2d.drawLine(center.x-5, center.y+5, center.x+5, center.y-5);
+ 	g2d.drawImage(
+ 			imgV.get(0),
+ 			vcoord.x, vcoord.y,
+ 			V.getHitWidth(), V.getHitHeight(),
+ 			null);
+ 	
+ 	if(this.showHitbox) {
+ 		g2d.draw(rect1);
+    	 
+     	g2d.drawLine(center.x+5, center.y+5, center.x-5, center.y-5);
+     	g2d.drawLine(center.x-5, center.y+5, center.x+5, center.y-5);
+ 	}
+ 	
  </body>
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_U0B15oscEeqC4q-6vJG--A" name="drawBg" specification="_UzPLtIscEeqC4q-6vJG--A">
           <ownedParameter xmi:id="_U0B154scEeqC4q-6vJG--A" name="g2d" type="_Uy0U8YscEeqC4q-6vJG--A"/>
           <language>java</language>
-          <body>Image NewI;
- 	for(BufferedImage I : imgBg) {
- 		NewI = I.getScaledInstance(WIDTH, horHeight-2, BufferedImage.SCALE_SMOOTH);
- 		g2d.drawImage(NewI, 0,0, null);
+          <body>for(int i = 0; i &lt; imgBg.size(); i++){
+ 		BufferedImage I = imgBg.get(i);
+ 		if (i == 0) {
+ 			g2d.drawImage(
+     				I, 
+     				0,0,
+     				WIDTH, horHeight-2, 
+     				null);
+ 		} else {
+ 			int imageW = I.getWidth();
+ 			// Tile the image to fill our area.
+ 	        for (int x = 0; x &lt; WIDTH; x += imageW) {
+ 	        	g2d.drawImage(
+ 	        			I, 
+ 	        			x + mvBg[i-1], 0,
+ 	        			this);
+ 	        }
+ 		}
  	}
  </body>
         </ownedBehavior>
@@ -2567,19 +2689,11 @@
           <ownedParameter xmi:id="_U0B16YscEeqC4q-6vJG--A" name="g2d" type="_Uy0U8YscEeqC4q-6vJG--A"/>
           <ownedParameter xmi:id="_U0B16oscEeqC4q-6vJG--A" name="coord" type="_Uygy8oscEeqC4q-6vJG--A"/>
           <language>java</language>
-          <body>Image NewI;
- 	
- 	NewI = imgEff.get(green_light).getScaledInstance(V.getHitWidth(), V.getHitHeight(), BufferedImage.SCALE_SMOOTH);
- 	g2d.drawImage(NewI, coord.x, coord.y+V.getHitHeight()/2, null);
- </body>
-        </ownedBehavior>
-        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_U0B164scEeqC4q-6vJG--A" name="drawFPS" specification="_UzPyw4scEeqC4q-6vJG--A">
-          <ownedParameter xmi:id="_U0B17IscEeqC4q-6vJG--A" name="g2d" type="_Uy0U8YscEeqC4q-6vJG--A"/>
-          <language>java</language>
-          <body>// display frames per second...
-     g2d.setFont( new Font( &quot;Courier New&quot;, Font.PLAIN, 12 ) );
-     g2d.setColor( Color.GREEN );
-     g2d.drawString( String.format( &quot;FPS: %s&quot;, fps ), WIDTH/2, 20 );
+          <body>g2d.drawImage(
+ 			imgEff.get(green_light), 
+ 			coord.x, coord.y+V.getHitHeight()/2, 
+ 			V.getHitWidth(), V.getHitHeight(),
+ 			null);
  </body>
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_U0B17YscEeqC4q-6vJG--A" name="paint" specification="_UzPyxYscEeqC4q-6vJG--A">
@@ -2588,45 +2702,26 @@
           <body>paintComponent(g);
  	
  	Graphics2D g2d = (Graphics2D) g;
+ 	Graphics2D temp;
+ 	temp = (Graphics2D) g2d.create();
  	
+ 	drawGround(g2d);
  	drawPiste(g2d);
  	drawBg(g2d);
- 	drawObstacles(g2d);
+ 	drawObstacles(temp);
  	drawScore(g2d);
  	drawTimer(g2d);
- 	drawFPS(g2d);
  	drawVehicule(g2d);
  </body>
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_U0B174scEeqC4q-6vJG--A" name="change" specification="_UweLkIscEeqC4q-6vJG--A">
           <language>java</language>
-          <body>// Variables for counting frames per seconds
-     fps = 0;
-		int frames = 0;
-     long totalTime = 0;
-     long curTime = System.currentTimeMillis();
-     long lastTime = curTime;
- 	
- 	repaint();
- 	
-		 // count Frames per second...  not working
-	    lastTime = curTime;
-	    curTime = System.currentTimeMillis();
-	    totalTime += curTime - lastTime;
-	    if( totalTime > 1000 ) {
-	    	totalTime -= 1000;
-	    	fps = frames;
-	    	frames = 0;
-	    } 
-	    ++frames;
+          <body>repaint();
  </body>
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_U0B18IscEeqC4q-6vJG--A" name="incrView" specification="_UweLkYscEeqC4q-6vJG--A">
           <language>java</language>
-          <body>if(blink &lt; 2) { blink++; } 
- 	else { blink = 0;}
- 	
- 	if(green_light &lt; 3) { green_light ++; }
+          <body>if(green_light &lt; 3) { green_light ++; }
  	else { green_light = 0; }
  </body>
         </ownedBehavior>
@@ -2636,8 +2731,8 @@
  	this.imgV= new ArrayList&lt;BufferedImage>();
  	
   	imgV.add(ImageIO.read(new File(spaceships+&quot;colored-ufo.png&quot;)));
- 	imgV.add(ImageIO.read(new File(spaceships+&quot;colored-ufo-2.png&quot;)));
- 	imgV.add(ImageIO.read(new File(spaceships+&quot;colored-ufo-3.png&quot;)));
+  	imgV.add(ImageIO.read(new File(spaceships+&quot;ennemy-ufo.png&quot;)));
+
  </body>
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_U0Cc8YscEeqC4q-6vJG--A" name="loadImgEff" specification="_UweyoIscEeqC4q-6vJG--A">
@@ -2670,15 +2765,7 @@
           <body>this.ground = &quot;./assets/ground/&quot;;
  	this.imgG = new ArrayList&lt;BufferedImage>();
  	
- 	//imgG.add(ImageIO.read(new File(ground+&quot;.png&quot;))); //temporaire, uste pour tester
- </body>
-        </ownedBehavior>
-        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_U0Cc9IscEeqC4q-6vJG--A" name="loadImgRoad" specification="_UwfZsIscEeqC4q-6vJG--A">
-          <language>java</language>
-          <body>this.road = &quot;./assets/road/&quot;;
- 	this.imgR = new ArrayList&lt;BufferedImage>();
- 	
- 	imgR.add(ImageIO.read(new File(road+&quot;Toon Road Texture.png&quot;)));
+ 	imgG.add(ImageIO.read(new File(ground+&quot;grass.png&quot;)));
  </body>
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_U0Cc9YscEeqC4q-6vJG--A" name="loadImObst" specification="_UwfZsYscEeqC4q-6vJG--A">
@@ -2689,8 +2776,53 @@
  	imgObst.add(ImageIO.read(new File(obstacle + &quot;pine.png&quot;)));
  </body>
         </ownedBehavior>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-DBQUIsoEeqC4q-6vJG--A" name="drawGround" specification="_-C-NAIsoEeqC4q-6vJG--A">
+          <ownedParameter xmi:id="_-DBQUYsoEeqC4q-6vJG--A" name="g2d" type="_Uy0U8YscEeqC4q-6vJG--A"/>
+          <language>java</language>
+          <body>BufferedImage I = imgG.get(0);
+ 	
+ 	g2d.drawImage(
+				I, 
+				0, horHeight,
+				WIDTH, HEIGHT - horHeight,
+				null);
+ </body>
+        </ownedBehavior>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_MJNY0IsyEeqC4q-6vJG--A" name="showHitbox" specification="_MJK8kIsyEeqC4q-6vJG--A">
+          <language>java</language>
+          <body>if(this.showHitbox) this.showHitbox = false;
+ 	else this.showHitbox = true;
+ </body>
+        </ownedBehavior>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_BM3GYIs6EeqC4q-6vJG--A" name="set_bg_parallax" specification="_BM2fUIs6EeqC4q-6vJG--A">
+          <ownedParameter xmi:id="_BM3GYYs6EeqC4q-6vJG--A" name="dir">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <language>java</language>
+          <body>switch(dir) {
+ 		case &quot;LEFT&quot;:
+ 			mvBg [0] += 1;
+ 			mvBg [1] += 2;
+ 			mvBg [2] += 4;
+ 			mvBg [3] += 6;
+ 			break;
+ 		case &quot;RIGHT&quot;:
+ 			mvBg [0] -= 1;
+ 			mvBg [1] -= 2;
+ 			mvBg [2] -= 4;
+ 			mvBg [3] -= 6;
+ 			break;
+ 		case &quot;NEUTRAL&quot;:
+ 			mvBg [0] = 0;
+ 			mvBg [1] = 0;
+ 			mvBg [2] = 0;
+ 			mvBg [3] = 0;
+ 			break;
+ 	}
+ </body>
+        </ownedBehavior>
         <ownedOperation xmi:id="_UwcWYIscEeqC4q-6vJG--A" name="getWidth" method="_U0Anx4scEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0PRQoscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_Zg5qsIuKEeqC4q-6vJG--A">
             <body>Gives the default width of the interface
      * @return an int, the width of the interface
      *</body>
@@ -2700,7 +2832,7 @@
           </ownedParameter>
         </ownedOperation>
         <ownedOperation xmi:id="_UwcWYoscEeqC4q-6vJG--A" name="getHeight" method="_U0BO0IscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0PRQ4scEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_Zg5qsYuKEeqC4q-6vJG--A">
             <body>Gives the default heigth of the interface
      * @return an int, the height of the interface
      *</body>
@@ -2730,36 +2862,31 @@
           </ownedParameter>
         </ownedOperation>
         <ownedOperation xmi:id="_UweLkIscEeqC4q-6vJG--A" name="change" method="_U0B174scEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0PRTIscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_Zg5quouKEeqC4q-6vJG--A">
             <body>Repaints the interface : used if there is a change
      * 
      *</body>
           </ownedComment>
         </ownedOperation>
         <ownedOperation xmi:id="_UweLkYscEeqC4q-6vJG--A" name="incrView" method="_U0B18IscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0PRTYscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_Zg5qu4uKEeqC4q-6vJG--A">
             <body>of the vehicle and effect images to animate them
      * 
      *</body>
           </ownedComment>
         </ownedOperation>
-        <ownedOperation xmi:id="_UweLkoscEeqC4q-6vJG--A" name="loadImgV" visibility="private" method="_U0Cc8IscEeqC4q-6vJG--A" raisedException="_Uyfk0YscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0PRToscEeqC4q-6vJG--A">
-            <body>Loads and adds all the vehicle images to the imgV ArrayList*</body>
-          </ownedComment>
-        </ownedOperation>
+        <ownedOperation xmi:id="_UweLkoscEeqC4q-6vJG--A" name="loadImgV" visibility="private" method="_U0Cc8IscEeqC4q-6vJG--A" raisedException="_Uyfk0YscEeqC4q-6vJG--A"/>
         <ownedOperation xmi:id="_UweyoIscEeqC4q-6vJG--A" name="loadImgEff" visibility="private" method="_U0Cc8YscEeqC4q-6vJG--A" raisedException="_Uyfk0YscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0PRT4scEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_Zg5qvYuKEeqC4q-6vJG--A">
             <body>Loads and adds all the images representing flying effects to the imgEff ArrayList*</body>
           </ownedComment>
         </ownedOperation>
         <ownedOperation xmi:id="_UweyoYscEeqC4q-6vJG--A" name="loadImgBg" visibility="private" method="_U0Cc8oscEeqC4q-6vJG--A" raisedException="_Uyfk0YscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0PRUIscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_Zg5qvouKEeqC4q-6vJG--A">
             <body>Loads and adds all the elements of the background image to the imgBg ArrayList *</body>
           </ownedComment>
         </ownedOperation>
         <ownedOperation xmi:id="_UweyooscEeqC4q-6vJG--A" name="loadImgGround" visibility="private" method="_U0Cc84scEeqC4q-6vJG--A" raisedException="_Uyfk0YscEeqC4q-6vJG--A"/>
-        <ownedOperation xmi:id="_UwfZsIscEeqC4q-6vJG--A" name="loadImgRoad" visibility="private" method="_U0Cc9IscEeqC4q-6vJG--A" raisedException="_Uyfk0YscEeqC4q-6vJG--A"/>
         <ownedOperation xmi:id="_UwfZsYscEeqC4q-6vJG--A" name="loadImObst" visibility="private" method="_U0Cc9YscEeqC4q-6vJG--A" raisedException="_Uyfk0YscEeqC4q-6vJG--A"/>
         <ownedOperation xmi:id="_Uy2xMIscEeqC4q-6vJG--A" name="Affichage" method="_U0Anw4scEeqC4q-6vJG--A" raisedException="_Uyfk0YscEeqC4q-6vJG--A">
           <eAnnotations xmi:id="_Uy3YQoscEeqC4q-6vJG--A" source="http://www.eclipse.org/uml2/2.0.0/UML">
@@ -2770,7 +2897,7 @@
           <ownedParameter xmi:id="_Uy3YRIscEeqC4q-6vJG--A" type="_UwahMIscEeqC4q-6vJG--A" direction="return"/>
         </ownedOperation>
         <ownedOperation xmi:id="_UzN9kIscEeqC4q-6vJG--A" name="drawPiste" visibility="private" method="_U0BO2oscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0PRRIscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_Zg5qsouKEeqC4q-6vJG--A">
             <body>Draws the track
      * @param g the Graphics on which we draw
      *</body>
@@ -2778,7 +2905,7 @@
           <ownedParameter xmi:id="_UzN9kYscEeqC4q-6vJG--A" name="g2d" type="_Uy0U8YscEeqC4q-6vJG--A"/>
         </ownedOperation>
         <ownedOperation xmi:id="_UzOkoIscEeqC4q-6vJG--A" name="drawObstacles" visibility="private" method="_U0BO3IscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0PRRYscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_Zg5qs4uKEeqC4q-6vJG--A">
             <body>Draws the obstacles of the track
      * @param g the Graphics on which we draw
      *</body>
@@ -2786,7 +2913,7 @@
           <ownedParameter xmi:id="_UzOkoYscEeqC4q-6vJG--A" name="g2d" type="_Uy0U8YscEeqC4q-6vJG--A"/>
         </ownedOperation>
         <ownedOperation xmi:id="_UzOkooscEeqC4q-6vJG--A" name="drawScore" visibility="private" method="_U0B14IscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0PRRoscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_Zg5qtIuKEeqC4q-6vJG--A">
             <body>Draws the current speed and the distance traveled
      * @param g the Graphics on which we draw
      *</body>
@@ -2794,7 +2921,7 @@
           <ownedParameter xmi:id="_UzOko4scEeqC4q-6vJG--A" name="g2d" type="_Uy0U8YscEeqC4q-6vJG--A"/>
         </ownedOperation>
         <ownedOperation xmi:id="_UzPLsIscEeqC4q-6vJG--A" name="drawTimer" visibility="private" method="_U0B14oscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0PRR4scEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_Zg5qtYuKEeqC4q-6vJG--A">
             <body>Draws the time since beginning of the game and time left until next checkpoint
      * @param g the Graphics on which we draw
      *</body>
@@ -2802,7 +2929,7 @@
           <ownedParameter xmi:id="_UzPLsYscEeqC4q-6vJG--A" name="g2d" type="_Uy0U8YscEeqC4q-6vJG--A"/>
         </ownedOperation>
         <ownedOperation xmi:id="_UzPLsoscEeqC4q-6vJG--A" name="drawVehicule" visibility="private" method="_U0B15IscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0PRSIscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_Zg5qtouKEeqC4q-6vJG--A">
             <body>Draws the vehicle at the right coordinates
      * @param g the Graphics on which we draw
      *</body>
@@ -2810,7 +2937,7 @@
           <ownedParameter xmi:id="_UzPLs4scEeqC4q-6vJG--A" name="g2d" type="_Uy0U8YscEeqC4q-6vJG--A"/>
         </ownedOperation>
         <ownedOperation xmi:id="_UzPLtIscEeqC4q-6vJG--A" name="drawBg" visibility="private" method="_U0B15oscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0PRSYscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_Zg5qt4uKEeqC4q-6vJG--A">
             <body>Draws the background image
      * @param g the graphics on which we draw
      *</body>
@@ -2818,7 +2945,7 @@
           <ownedParameter xmi:id="_UzPLtYscEeqC4q-6vJG--A" name="g2d" type="_Uy0U8YscEeqC4q-6vJG--A"/>
         </ownedOperation>
         <ownedOperation xmi:id="_UzPywIscEeqC4q-6vJG--A" name="drawFlyEffect" visibility="private" method="_U0B16IscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0PRSoscEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_Zg5quIuKEeqC4q-6vJG--A">
             <body>Draws an image representing effects where the vehicle is flying
      * @param g the Graphics on which we draw
      * @param coord the Point where we draw the image
@@ -2827,16 +2954,26 @@
           <ownedParameter xmi:id="_UzPywYscEeqC4q-6vJG--A" name="g2d" type="_Uy0U8YscEeqC4q-6vJG--A"/>
           <ownedParameter xmi:id="_UzPywoscEeqC4q-6vJG--A" name="coord" type="_Uygy8oscEeqC4q-6vJG--A"/>
         </ownedOperation>
-        <ownedOperation xmi:id="_UzPyw4scEeqC4q-6vJG--A" name="drawFPS" visibility="private" method="_U0B164scEeqC4q-6vJG--A">
-          <ownedParameter xmi:id="_UzPyxIscEeqC4q-6vJG--A" name="g2d" type="_Uy0U8YscEeqC4q-6vJG--A"/>
-        </ownedOperation>
         <ownedOperation xmi:id="_UzPyxYscEeqC4q-6vJG--A" name="paint" method="_U0B17YscEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_U0PRS4scEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_Zg5quYuKEeqC4q-6vJG--A">
             <body>Draws every element of this interface on a Graphics
      * @param g a Graphics on which we draw
      *</body>
           </ownedComment>
           <ownedParameter xmi:id="_UzPyxoscEeqC4q-6vJG--A" name="g" type="_Uyzt4YscEeqC4q-6vJG--A"/>
+        </ownedOperation>
+        <ownedOperation xmi:id="_-C-NAIsoEeqC4q-6vJG--A" name="drawGround" visibility="private" method="_-DBQUIsoEeqC4q-6vJG--A">
+          <ownedParameter xmi:id="_-C-NAYsoEeqC4q-6vJG--A" name="g2d" type="_Uy0U8YscEeqC4q-6vJG--A"/>
+        </ownedOperation>
+        <ownedOperation xmi:id="_MJK8kIsyEeqC4q-6vJG--A" name="showHitbox" method="_MJNY0IsyEeqC4q-6vJG--A">
+          <ownedComment xmi:id="_Zg5qvIuKEeqC4q-6vJG--A">
+            <body>Loads and adds all the vehicle images to the imgV ArrayList*</body>
+          </ownedComment>
+        </ownedOperation>
+        <ownedOperation xmi:id="_BM2fUIs6EeqC4q-6vJG--A" name="set_bg_parallax" method="_BM3GYIs6EeqC4q-6vJG--A">
+          <ownedParameter xmi:id="_BM2fUYs6EeqC4q-6vJG--A" name="dir">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
         </ownedOperation>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_U0cspIscEeqC4q-6vJG--A" name="" memberEnd="_U0cspYscEeqC4q-6vJG--A _UzuT4YscEeqC4q-6vJG--A">
@@ -2859,9 +2996,6 @@
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_U0fI4YscEeqC4q-6vJG--A" name="" memberEnd="_U0fI4oscEeqC4q-6vJG--A _U0ODI4scEeqC4q-6vJG--A">
         <ownedEnd xmi:id="_U0fI4oscEeqC4q-6vJG--A" name="" type="_UwahMIscEeqC4q-6vJG--A" association="_U0fI4YscEeqC4q-6vJG--A"/>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="_U0fI5IscEeqC4q-6vJG--A" name="" memberEnd="_U0fI5YscEeqC4q-6vJG--A _U0ODJoscEeqC4q-6vJG--A">
-        <ownedEnd xmi:id="_U0fI5YscEeqC4q-6vJG--A" name="" type="_UwahMIscEeqC4q-6vJG--A" association="_U0fI5IscEeqC4q-6vJG--A"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_U0fv8YscEeqC4q-6vJG--A" name="" memberEnd="_U0fv8oscEeqC4q-6vJG--A _U0ODKYscEeqC4q-6vJG--A">
         <ownedEnd xmi:id="_U0fv8oscEeqC4q-6vJG--A" name="" type="_UwahMIscEeqC4q-6vJG--A" association="_U0fv8YscEeqC4q-6vJG--A"/>
@@ -2898,7 +3032,10 @@
 		mainFrame.setVisible(true);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		JOptionPane.showMessageDialog(null, &quot;Press space to start game.&quot;);
+		JOptionPane.showMessageDialog(null, 
+										&quot;Space : Start game \n&quot; +
+										&quot;H : Toggle Hitboxes&quot;
+									 );
 		
 	</body>
       </ownedBehavior>
@@ -3046,7 +3183,7 @@
   <UMLLabProfile:MultiDeclaration xmi:id="_Uzses4scEeqC4q-6vJG--A" base_Property="_UzsesoscEeqC4q-6vJG--A" siblings="_U0Lm5oscEeqC4q-6vJG--A" root="true"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_UzsetIscEeqC4q-6vJG--A" base_Element="_UzsesoscEeqC4q-6vJG--A"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_UztFwIscEeqC4q-6vJG--A" base_Element="_UzsetYscEeqC4q-6vJG--A"/>
-  <UMLLabProfile:MultiDeclaration xmi:id="_UztFwoscEeqC4q-6vJG--A" base_Property="_UztFwYscEeqC4q-6vJG--A" siblings="_U0MN8oscEeqC4q-6vJG--A" root="true"/>
+  <UMLLabProfile:MultiDeclaration xmi:id="_UztFwoscEeqC4q-6vJG--A" base_Property="_UztFwYscEeqC4q-6vJG--A" siblings="_U0MN8oscEeqC4q-6vJG--A _IdZUIIuPEeqC4q-6vJG--A _jPhS0IuPEeqC4q-6vJG--A" root="true"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_UztFw4scEeqC4q-6vJG--A" base_Element="_UztFwYscEeqC4q-6vJG--A"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_UztFxoscEeqC4q-6vJG--A" base_Element="_UztFxIscEeqC4q-6vJG--A"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_UzuT44scEeqC4q-6vJG--A" base_Element="_UzuT4YscEeqC4q-6vJG--A"/>
@@ -3055,13 +3192,11 @@
   <UMLLabProfile:LegacyStyledElement xmi:id="_Uzu69oscEeqC4q-6vJG--A" base_Element="_Uzu69IscEeqC4q-6vJG--A"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_UzviAIscEeqC4q-6vJG--A" base_Element="_Uzu694scEeqC4q-6vJG--A"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_UzviAoscEeqC4q-6vJG--A" base_Element="_UzviAYscEeqC4q-6vJG--A"/>
-  <UMLLabProfile:MultiDeclaration xmi:id="_UzviBIscEeqC4q-6vJG--A" base_Property="_UzviA4scEeqC4q-6vJG--A" siblings="_U0M1AIscEeqC4q-6vJG--A _U0M1A4scEeqC4q-6vJG--A _U0M1BoscEeqC4q-6vJG--A _U0NcEIscEeqC4q-6vJG--A _U0NcE4scEeqC4q-6vJG--A" root="true"/>
+  <UMLLabProfile:MultiDeclaration xmi:id="_UzviBIscEeqC4q-6vJG--A" base_Property="_UzviA4scEeqC4q-6vJG--A" siblings="_U0M1AIscEeqC4q-6vJG--A _U0M1A4scEeqC4q-6vJG--A _U0M1BoscEeqC4q-6vJG--A _U0NcE4scEeqC4q-6vJG--A" root="true"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_UzwJEIscEeqC4q-6vJG--A" base_Element="_UzviA4scEeqC4q-6vJG--A"/>
   <UMLLabProfile:Generics xmi:id="_UzwwIIscEeqC4q-6vJG--A" genericsValue="BufferedImage" base_Element="_UzwJEYscEeqC4q-6vJG--A"/>
-  <UMLLabProfile:MultiDeclaration xmi:id="_UzwwIYscEeqC4q-6vJG--A" base_Property="_UzwJEYscEeqC4q-6vJG--A" siblings="_U0NcFoscEeqC4q-6vJG--A _U0ODIIscEeqC4q-6vJG--A _U0ODI4scEeqC4q-6vJG--A _U0ODJoscEeqC4q-6vJG--A _U0ODKYscEeqC4q-6vJG--A" root="true"/>
+  <UMLLabProfile:MultiDeclaration xmi:id="_UzwwIYscEeqC4q-6vJG--A" base_Property="_UzwJEYscEeqC4q-6vJG--A" siblings="_U0NcFoscEeqC4q-6vJG--A _U0ODIIscEeqC4q-6vJG--A _U0ODI4scEeqC4q-6vJG--A _U0ODKYscEeqC4q-6vJG--A" root="true"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_UzwwIoscEeqC4q-6vJG--A" base_Element="_UzwJEYscEeqC4q-6vJG--A"/>
-  <UMLLabProfile:MultiDeclaration xmi:id="_UzxXMYscEeqC4q-6vJG--A" base_Property="_UzxXMIscEeqC4q-6vJG--A" siblings="_U0OqMYscEeqC4q-6vJG--A" root="true"/>
-  <UMLLabProfile:LegacyStyledElement xmi:id="_UzxXMoscEeqC4q-6vJG--A" base_Element="_UzxXMIscEeqC4q-6vJG--A"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_Uzx-QIscEeqC4q-6vJG--A" base_Element="_UzxXM4scEeqC4q-6vJG--A">
     <associatedElement xmi:type="uml:Operation" xmi:id="_Uzx-QoscEeqC4q-6vJG--A" name="getStarttime" method="_U0AnwIscEeqC4q-6vJG--A">
       <ownedParameter xmi:id="_Uzx-RIscEeqC4q-6vJG--A" direction="return">
@@ -3071,7 +3206,6 @@
     <associatedElement xmi:type="uml:Operation" xmi:id="_Uzx-Q4scEeqC4q-6vJG--A" name="setStarttime" method="_U0AnwoscEeqC4q-6vJG--A"/>
   </UMLLabProfile:LegacyStyledElement>
   <UMLLabProfile:MultiDeclaration xmi:id="_Uzx-QYscEeqC4q-6vJG--A" base_Property="_UzxXM4scEeqC4q-6vJG--A" siblings="_U0OqNIscEeqC4q-6vJG--A _U0OqN4scEeqC4q-6vJG--A" root="true"/>
-  <UMLLabProfile:LegacyStyledElement xmi:id="_UzylUYscEeqC4q-6vJG--A" base_Element="_UzylUIscEeqC4q-6vJG--A"/>
   <uml:OpaqueBehavior xmi:id="_Uz2Pu4scEeqC4q-6vJG--A" name="getVal" specification="_Uv15cIscEeqC4q-6vJG--A">
     <ownedParameter xmi:id="_Uz22wIscEeqC4q-6vJG--A" name="i">
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
@@ -3083,6 +3217,7 @@
   </uml:OpaqueBehavior>
   <uml:OpaqueBehavior xmi:id="_Uz3d0IscEeqC4q-6vJG--A" name="getHeight" specification="_UzgRcIscEeqC4q-6vJG--A">
     <ownedParameter xmi:id="_Uz4E4IscEeqC4q-6vJG--A" direction="return">
+      <name xsi:nil="true"/>
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
     </ownedParameter>
     <language>java</language>
@@ -3090,13 +3225,16 @@
 	</body>
   </uml:OpaqueBehavior>
   <uml:OpaqueBehavior xmi:id="_Uz7IMIscEeqC4q-6vJG--A" name="getTrackL" specification="_Uzo0UoscEeqC4q-6vJG--A">
-    <ownedParameter xmi:id="_Uz7IMYscEeqC4q-6vJG--A" type="_Uyp84IscEeqC4q-6vJG--A" direction="return"/>
+    <ownedParameter xmi:id="_Uz7IMYscEeqC4q-6vJG--A" type="_Uyp84IscEeqC4q-6vJG--A" direction="return">
+      <name xsi:nil="true"/>
+    </ownedParameter>
     <language>java</language>
     <body>return trackL;
 	</body>
   </uml:OpaqueBehavior>
   <uml:OpaqueBehavior xmi:id="_U0AnwIscEeqC4q-6vJG--A" name="getStarttime" specification="_Uzx-QoscEeqC4q-6vJG--A">
     <ownedParameter xmi:id="_U0AnwYscEeqC4q-6vJG--A" direction="return">
+      <name xsi:nil="true"/>
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
     </ownedParameter>
     <language>java</language>
@@ -3144,8 +3282,6 @@
   <UMLLabProfile:LegacyStyledElement xmi:id="_U0M1BYscEeqC4q-6vJG--A" base_Element="_U0M1A4scEeqC4q-6vJG--A"/>
   <UMLLabProfile:MultiDeclaration xmi:id="_U0M1B4scEeqC4q-6vJG--A" base_Property="_U0M1BoscEeqC4q-6vJG--A"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_U0M1CIscEeqC4q-6vJG--A" base_Element="_U0M1BoscEeqC4q-6vJG--A"/>
-  <UMLLabProfile:MultiDeclaration xmi:id="_U0NcEYscEeqC4q-6vJG--A" base_Property="_U0NcEIscEeqC4q-6vJG--A"/>
-  <UMLLabProfile:LegacyStyledElement xmi:id="_U0NcEoscEeqC4q-6vJG--A" base_Element="_U0NcEIscEeqC4q-6vJG--A"/>
   <UMLLabProfile:MultiDeclaration xmi:id="_U0NcFIscEeqC4q-6vJG--A" base_Property="_U0NcE4scEeqC4q-6vJG--A"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_U0NcFYscEeqC4q-6vJG--A" base_Element="_U0NcE4scEeqC4q-6vJG--A"/>
   <UMLLabProfile:MultiDeclaration xmi:id="_U0NcF4scEeqC4q-6vJG--A" base_Property="_U0NcFoscEeqC4q-6vJG--A"/>
@@ -3154,12 +3290,8 @@
   <UMLLabProfile:LegacyStyledElement xmi:id="_U0ODIoscEeqC4q-6vJG--A" base_Element="_U0ODIIscEeqC4q-6vJG--A"/>
   <UMLLabProfile:MultiDeclaration xmi:id="_U0ODJIscEeqC4q-6vJG--A" base_Property="_U0ODI4scEeqC4q-6vJG--A"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_U0ODJYscEeqC4q-6vJG--A" base_Element="_U0ODI4scEeqC4q-6vJG--A"/>
-  <UMLLabProfile:MultiDeclaration xmi:id="_U0ODJ4scEeqC4q-6vJG--A" base_Property="_U0ODJoscEeqC4q-6vJG--A"/>
-  <UMLLabProfile:LegacyStyledElement xmi:id="_U0ODKIscEeqC4q-6vJG--A" base_Element="_U0ODJoscEeqC4q-6vJG--A"/>
   <UMLLabProfile:MultiDeclaration xmi:id="_U0ODKoscEeqC4q-6vJG--A" base_Property="_U0ODKYscEeqC4q-6vJG--A"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_U0OqMIscEeqC4q-6vJG--A" base_Element="_U0ODKYscEeqC4q-6vJG--A"/>
-  <UMLLabProfile:MultiDeclaration xmi:id="_U0OqMoscEeqC4q-6vJG--A" base_Property="_U0OqMYscEeqC4q-6vJG--A"/>
-  <UMLLabProfile:LegacyStyledElement xmi:id="_U0OqM4scEeqC4q-6vJG--A" base_Element="_U0OqMYscEeqC4q-6vJG--A"/>
   <UMLLabProfile:MultiDeclaration xmi:id="_U0OqNYscEeqC4q-6vJG--A" base_Property="_U0OqNIscEeqC4q-6vJG--A"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_U0OqNoscEeqC4q-6vJG--A" base_Element="_U0OqNIscEeqC4q-6vJG--A"/>
   <UMLLabProfile:MultiDeclaration xmi:id="_U0PRQIscEeqC4q-6vJG--A" base_Property="_U0OqN4scEeqC4q-6vJG--A"/>
@@ -3195,6 +3327,16 @@
   <UMLLabProfile:Reference xmi:id="_U0eh04scEeqC4q-6vJG--A" base_Element="_U0eh0YscEeqC4q-6vJG--A"/>
   <UMLLabProfile:Reference xmi:id="_U0fI4IscEeqC4q-6vJG--A" base_Element="_U0eh1IscEeqC4q-6vJG--A"/>
   <UMLLabProfile:Reference xmi:id="_U0fI44scEeqC4q-6vJG--A" base_Element="_U0fI4YscEeqC4q-6vJG--A"/>
-  <UMLLabProfile:Reference xmi:id="_U0fv8IscEeqC4q-6vJG--A" base_Element="_U0fI5IscEeqC4q-6vJG--A"/>
   <UMLLabProfile:Reference xmi:id="_U0fv84scEeqC4q-6vJG--A" base_Element="_U0fv8YscEeqC4q-6vJG--A"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="_jgD9wIsiEeqC4q-6vJG--A" base_Element="_jgDWsIsiEeqC4q-6vJG--A"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="_vzAYQYsxEeqC4q-6vJG--A" base_Element="_vzAYQIsxEeqC4q-6vJG--A"/>
+  <UMLLabProfile:MultiDeclaration xmi:id="_25oVUIs0EeqC4q-6vJG--A" base_Property="_UzmYEYscEeqC4q-6vJG--A" siblings="_25tN0Is0EeqC4q-6vJG--A" root="true"/>
+  <UMLLabProfile:MultiDeclaration xmi:id="_25tN0Ys0EeqC4q-6vJG--A" base_Property="_25tN0Is0EeqC4q-6vJG--A"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="_25tN0os0EeqC4q-6vJG--A" base_Element="_25tN0Is0EeqC4q-6vJG--A"/>
+  <UMLLabProfile:Array xmi:id="_FhYsEYs5EeqC4q-6vJG--A" base_Element="_FhYFAIs5EeqC4q-6vJG--A"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="_FhYsEos5EeqC4q-6vJG--A" base_Element="_FhYFAIs5EeqC4q-6vJG--A"/>
+  <UMLLabProfile:MultiDeclaration xmi:id="_IdZ7MIuPEeqC4q-6vJG--A" base_Property="_IdZUIIuPEeqC4q-6vJG--A"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="_IdaiQIuPEeqC4q-6vJG--A" base_Element="_IdZUIIuPEeqC4q-6vJG--A"/>
+  <UMLLabProfile:MultiDeclaration xmi:id="_jPh54IuPEeqC4q-6vJG--A" base_Property="_jPhS0IuPEeqC4q-6vJG--A"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="_jPh54YuPEeqC4q-6vJG--A" base_Element="_jPhS0IuPEeqC4q-6vJG--A"/>
 </xmi:XMI>

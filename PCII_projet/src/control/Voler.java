@@ -57,10 +57,12 @@ public class Voler extends Thread {
 					case LEFT:
 						V.move("LEFT", leftCoef);
 						P.trackEffect("LEFT", leftCoef);
+						A.set_bg_parallax("LEFT");
 						break;
 					case RIGHT:
 						V.move("RIGHT", rightCoef);
 						P.trackEffect("RIGHT", rightCoef);
+						A.set_bg_parallax("RIGHT");
 						break;
 					case UP:
 						V.move("UP", upCoef);

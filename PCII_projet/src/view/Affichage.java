@@ -43,8 +43,7 @@ public class Affichage extends JPanel{
     
     //Img Access
     private String spaceships, effects, parallax_mountains, ground, obstacle;
-	ArrayList<BufferedImage> imgV, imgEff, imgBg, imgG, imgObst; 
-    
+	private ArrayList<BufferedImage> imgV, imgEff, imgBg, imgG, imgObst; 
     //Animation vehicule
     private int green_light;
     
@@ -55,7 +54,7 @@ public class Affichage extends JPanel{
     
     public Affichage(Vehicule v, Piste p) throws IOException {
     	this.mvBg = new int[]{0, 0, 0, 0};
-    	
+
     	this.showHitbox = false;
     	this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
     	this.V = v;
@@ -281,8 +280,8 @@ public class Affichage extends JPanel{
     	long secTl = V.getTTL() - minTl*60;
     	String TimeLeft = "Game Over : " + minTl + "m " + secTl + "s";
     	
-    	g2d.drawString(totTime, WIDTH-90, 25);
-    	g2d.drawString(TimeLeft, WIDTH-129, 45);
+    	g2d.drawString(totTime, WIDTH-130, 25);
+    	g2d.drawString(TimeLeft, WIDTH-200, 45);
     	
     }
     
@@ -342,11 +341,11 @@ public class Affichage extends JPanel{
     		} else {
     			int imageW = I.getWidth();
     			// Tile the image to fill our area.
-    	        for (int x = 0; x < WIDTH; x += imageW) {
-    	        	g2d.drawImage(
-    	        			I, 
-    	        			x + mvBg[i-1], 0,
-    	        			this);
+    	        for (int x = -10*WIDTH; x < 10*WIDTH; x += imageW) {
+	    	        g2d.drawImage(
+	    	        		I, 
+	    	        		x + mvBg[i-1], 0,
+	    	        		this);
     	        }
     		}
     	}
@@ -359,8 +358,8 @@ public class Affichage extends JPanel{
     	
     	g2d.drawImage(
 				I, 
-				0, horHeight,
-				WIDTH, HEIGHT - horHeight,
+				0, horHeight ,
+				WIDTH, HEIGHT - horHeight - V.getCoord().y/6,
 				null);
     }
     
@@ -388,6 +387,8 @@ public class Affichage extends JPanel{
     	Graphics2D g2d = (Graphics2D) g;
     	Graphics2D temp;
     	temp = (Graphics2D) g2d.create();
+    	
+    	g2d.setFont(new Font("TimesRoman", Font.PLAIN, 20)); 
     	
     	drawGround(g2d);
     	drawPiste(g2d);
@@ -426,20 +427,14 @@ public class Affichage extends JPanel{
     		case "LEFT":
     			mvBg [0] += 1;
     			mvBg [1] += 2;
-    			mvBg [2] += 4;
-    			mvBg [3] += 6;
+    			mvBg [2] += 3;
+    			mvBg [3] += 4;
     			break;
     		case "RIGHT":
     			mvBg [0] -= 1;
     			mvBg [1] -= 2;
-    			mvBg [2] -= 4;
-    			mvBg [3] -= 6;
-    			break;
-    		case "NEUTRAL":
-    			mvBg [0] = 0;
-    			mvBg [1] = 0;
-    			mvBg [2] = 0;
-    			mvBg [3] = 0;
+    			mvBg [2] -= 3;
+    			mvBg [3] -= 4;
     			break;
     	}
     }
@@ -491,6 +486,16 @@ public class Affichage extends JPanel{
     	this.imgObst = new ArrayList<BufferedImage>();
     	
     	imgObst.add(ImageIO.read(new File(obstacle + "pine.png")));
+    }
+    
+    public void restart() {
+    	this.mvBg = new int[]{0, 0, 0, 0};
+    	
+    	this.showHitbox = false;
+    	this.green_light = 0;
+    	
+		this.starttime = System.currentTimeMillis();
+    	this.P.createTrack();
     }
 }
 
