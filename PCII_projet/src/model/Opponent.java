@@ -47,10 +47,10 @@ public class Opponent extends Obstacle{
 		int d = this.getD() + moveVal*speed;
 		
 		//the obstacle gets bigger
-		y -=2;
-		int h = this.getH() + 2;
-		int x = this.getX() - 2;
-		int w = this.getW() + 2;
+		y -=2*speed;
+		int h = this.getH() + 2*speed;
+		int x = this.getX() - 2*speed;
+		int w = this.getW() + 2*speed;
 
 		this.setD(d);
 		this.setX(x);
@@ -117,27 +117,37 @@ public class Opponent extends Obstacle{
 			case "UP":
 				if(this.getY()  <= (int)(screenSize.height*0.2)) {
 					//y = (int)(screenSize.height*0.2);
-					/*
+					
 					this.setY((int)(screenSize.height*0.2));
 					this.setD((int)(screenSize.height*0.2));
-					*/
-					this.vMoveRight((int)(screenSize.height*0.2));
+					
+					
 					break;
 				}
+				//System.out.println("mvVal : " + mvVal);
+				//System.out.println("w1 : " + this.getW());
+				this.vMoveUp(mvVal);
+				//System.out.println("w2 : " + this.getW());
 				//y -= coef;
+				/*
 				this.setY(this.getY()-mvVal);
 				this.setD(this.getD()-mvVal);
+				*/
 				break;
 			case "DOWN":
 				if(this.getY()  >= screenSize.height - 4*this.getH()) {
 					//y = screenSize.height - 4*hitHeight;
+					
 					this.setY(screenSize.height - 4*this.getH());
 					this.setD(screenSize.height - 4*this.getH());
+					
+					
 					break;
 				}
 				this.setY(this.getY()+mvVal);
 				this.setD(this.getD()+mvVal);
 				//y += coef;
+				//this.vMoveDown(mvVal);
 				break;
 			case "NEUTRAL":
 				break;
