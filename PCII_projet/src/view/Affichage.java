@@ -226,6 +226,7 @@ public class Affichage extends JPanel{
     	}
     	ArrayList<Opponent> opL = P.getOpL();
     	for(Opponent o : opL) {
+    		/*
     		switch(o.getMoveStatus()) {
 	    	case "LEFT":
 				g2d.rotate(Math.toRadians(-20), o.getX() + o.getW()/4, o.getY());
@@ -239,7 +240,8 @@ public class Affichage extends JPanel{
 				break;
 			case "NEUTRAL":
 				break;
-    	}
+    		}
+    		*/
     		g2d.drawImage(
     				imgV.get(1),
     				o.getX(), o.getY(),

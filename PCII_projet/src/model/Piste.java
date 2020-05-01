@@ -153,7 +153,7 @@ public class Piste {
 		for(int i=0; i<obsList.size(); i++) {
 			Obstacle o = obsList.get(i);
 			o.decreaseHeight(MOVEVAL);
-			if(o.getH()>maxY) {
+			if(o.getH()>=maxY) {
 				obsList.remove(o);
 			}
 		}
@@ -161,7 +161,7 @@ public class Piste {
 			Opponent o = oppList.get(i);
 			o.decreaseHeight(MOVEVAL);
 			o.move();
-			if(o.getH()>maxY) {
+			if(o.getH()>=maxY) {
 				oppList.remove(o);
 				//The score gets higher when the vehicle passes an opponent
 				this.score += 10;
@@ -295,11 +295,6 @@ public class Piste {
 			int x = rand.nextInt(maxX);
 			this.obsList.add(new Obstacle(x, horHeight));
 		}else if(n==3) {
-			//Flying obstacle
-			int x = rand.nextInt(maxX);
-			int y = rand.nextInt(horHeight);
-			this.obsList.add(new Obstacle(x, y));
-		}else if(n==4) {
 			//Opponent
 			int x = rand.nextInt(maxX);
 			Opponent o = new Opponent(x, horHeight/2);

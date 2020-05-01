@@ -23,7 +23,7 @@ public class Obstacle {
 		this.d = 0; 
 		
 
-		this.w = 25;
+		this.w = 30;
 		this.h = 50;
 		
 		//this.x = x+500;
@@ -122,10 +122,24 @@ public class Obstacle {
 		this.d += moveVal;
 		
 		//the obstacle gets bigger
-		this.y -=2;
+		/*
+		this.y -= 2;
 		this.h += 2;
 		this.x -= 2;
 		this.w += 2;
+		*/
+		if(!(this.h>200) && !(this.w>200)) {
+			/*
+			this.y -= 2;
+			this.h += this.h*2/60;
+			this.x -= 2;
+			this.w += this.w*2/60;
+			*/
+			this.y -= 2;
+			this.h += 2;
+			this.x -= 2;
+			this.w += 2;
+		}
 	}
 	
 	/** Moves the obstacle to the left from a given value
@@ -151,9 +165,15 @@ public class Obstacle {
 		//this.x+=n/4;
 		
 		//this.w-=n/2;
-		this.h-=n/2;
-		this.w-=n;
 		
+		
+		if(!(this.h<15) && !(this.w<15)) {
+			this.h-=n/2;
+			this.w-=n;
+			
+			//this.h+=n/2;
+			//this.w+=n;
+		}
 	}
 	
 	/** Moves down the obstacle from a given value
@@ -168,6 +188,11 @@ public class Obstacle {
 		this.h+=n/2;
 		this.w+=n;
 		//this.x -= n/2;
+		
+		if(this.h>200 || this.w>200) {
+			this.h-=n/2;
+			this.w-=n;
+		}
 	}
 	
 	/** Zooms out the obstacle to represent the vehicle going higher by reducing the height and width of the obstacle
