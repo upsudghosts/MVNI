@@ -279,8 +279,8 @@ public class Affichage extends JPanel{
     	long secTl = V.getTTL() - minTl*60;
     	String TimeLeft = "Game Over : " + minTl + "m " + secTl + "s";
     	
-    	g2d.drawString(totTime, WIDTH-90, 25);
-    	g2d.drawString(TimeLeft, WIDTH-129, 45);
+    	g2d.drawString(totTime, WIDTH-110, 25);
+    	g2d.drawString(TimeLeft, WIDTH/2, HEIGHT /2);
     	
     }
     
@@ -387,6 +387,8 @@ public class Affichage extends JPanel{
     	Graphics2D temp;
     	temp = (Graphics2D) g2d.create();
     	
+    	g2d.setFont(new Font("TimesRoman", Font.PLAIN, 20)); 
+    	
     	drawGround(g2d);
     	drawPiste(g2d);
     	drawBg(g2d);
@@ -489,6 +491,16 @@ public class Affichage extends JPanel{
     	this.imgObst = new ArrayList<BufferedImage>();
     	
     	imgObst.add(ImageIO.read(new File(obstacle + "pine.png")));
+    }
+    
+    public void restart() {
+    	this.mvBg = new int[]{0, 0, 0, 0};
+    	
+    	this.showHitbox = false;
+    	this.green_light = 0;
+    	
+		this.starttime = System.currentTimeMillis();
+    	this.P.createTrack();
     }
 }
 

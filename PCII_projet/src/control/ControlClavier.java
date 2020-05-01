@@ -83,12 +83,15 @@ public class ControlClavier implements KeyListener{
 				if(!V.getFlyStatus() && V.getAlive()) {
 					startGame(e);
 				
-				}else if(!V.getAlive()){
-					/**Setting to default for the project to restart. /!\ Do not change the order /!\*/
+				}else if(!V.getAlive()){	
 					V.restart();
+					P.restart();
+					A.restart();
 					
 					/**Repainting our work canvas.*/
 					A.change();
+			
+					startGame(e);
 				}
 				break;
 			case KeyEvent.VK_H:

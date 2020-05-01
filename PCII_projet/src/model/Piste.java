@@ -11,7 +11,6 @@ public class Piste {
 	private int maxX, maxY, symX;
 	
 	private int traveledDist, score; //score 
-	public final int tDistUp = 1;
 	
 	private int traveledSinceCP;
 	private static final int DISTTOCP = 5000;
@@ -34,7 +33,7 @@ public class Piste {
 		//this.cpList.add(new CheckPoint(this.horHeight));
 		
 		this.trackSize = 0;
-		this.traveledDist = 1;
+		this.traveledDist = 0;
 		this.score = 0;
 		
 		this.traveledSinceCP = 0;
@@ -90,7 +89,7 @@ public class Piste {
 	 * 
 	 **/
 	public void speedUp() {
-		if (MOVEVAL < 35) { MOVEVAL += 2;}
+		if (MOVEVAL < 40) { MOVEVAL += 2;}
 	}
 	
 	/** Decreases the speed by 1 if the current speed is not lower than 10 
@@ -120,9 +119,12 @@ public class Piste {
 			trackR.remove(0);
 			trackSize --;
 		}
-		traveledDist += tDistUp * MOVEVAL;
+		
+		
+		traveledDist +=  MOVEVAL;
+		
 		score = traveledDist;
-		traveledSinceCP += tDistUp * MOVEVAL;
+		traveledSinceCP +=  MOVEVAL;
 		//The checkpoints move and we remove it if needed
 		/*
 		for(int i=0; i<cpList.size(); i++) {
@@ -406,5 +408,20 @@ public class Piste {
 	 **/
 	public void setMaxY(int n) {
 		maxY = n;
+	}
+	
+	public void restart() {
+		this.trackL = new ArrayList<Point>();
+		this.trackR= new ArrayList<Point>();
+		//this.cpList = new ArrayList<CheckPoint>();
+		this.obsList = new ArrayList<Obstacle>();
+		this.oppList = new ArrayList<Opponent>();
+		//this.cpList.add(new CheckPoint(this.horHeight));
+		
+		this.trackSize = 0;
+		this.traveledDist = 0;
+		this.score = 0;
+		
+		this.traveledSinceCP = 0;
 	}
 }

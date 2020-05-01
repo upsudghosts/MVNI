@@ -1,4 +1,6 @@
  import java.awt.FlowLayout;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.IOException; 
 
 import javax.swing.JFrame;
@@ -11,6 +13,11 @@ import view.Affichage;
 
 public class Main { 
 
+	private static Vehicule V;
+	private static Piste P;
+	private static Affichage A;
+	private static ControlClavier controlClavier;
+	
 	public static void main(String[] args) throws IOException {
 		//On cree la fenetre
 		JFrame mainFrame = new JFrame("Course moto");
@@ -19,14 +26,14 @@ public class Main {
 		
 		//Elements utiles
 		//Modele
-		Vehicule V = new Vehicule();
-		Piste P = new Piste();
+		V = new Vehicule();
+		P = new Piste();
 		
 		//Vue
-		Affichage A = new Affichage(V, P);
+		A = new Affichage(V, P);
 		
 		//Controle
-		ControlClavier controlClavier = new ControlClavier(A, V, P);
+		controlClavier = new ControlClavier(A, V, P);
 		
 		mainFrame.addKeyListener(controlClavier);
 		
@@ -42,5 +49,6 @@ public class Main {
 									 );
 		
 	}
+	
 
 }
