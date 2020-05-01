@@ -79,7 +79,7 @@ public class Piste {
 		
 		trackL.add(new Point(currX, currY));
 		
-		symX = currX + 50 + ZOOM/2;
+		symX = currX + 25;
 		
 		trackR.add(new Point(symX , currY));
 		trackSize ++;
@@ -179,43 +179,45 @@ public class Piste {
 	 **/
 	public void trackEffect(String mvStat, int coef) {
 		Point pL, pR;
-
+		
 		for(int i = 0; i < trackSize; i++) {
 			pL = trackL.get(i);
 			pR = trackR.get(i);
 			switch (mvStat) {
 			case "LEFT":
-				pL.x += coef/10;
-				pR.x += coef/10;
+				pL.x += coef/2;
+				pR.x += coef/2;
 				
 				//the obstacles move
 				for(int j=0; j<this.obsList.size(); j++) {
-					this.obsList.get(j).vMoveLeft(coef/10);
+					this.obsList.get(j).vMoveLeft(coef/2);
 				}
 				for(int j=0; j<this.oppList.size(); j++) {
-					this.oppList.get(j).vMoveLeft(coef/10);
+					this.oppList.get(j).vMoveLeft(coef/2);
 				}
 				
 				break;
 				
 			case "RIGHT":
-				pL.x -= coef/10;
-				pR.x -= coef/10;
+				pL.x -= coef/2;
+				pR.x -= coef/2;
 				
 				//the obstacles move
 				for(int j=0; j<this.obsList.size(); j++) {
-					this.obsList.get(j).vMoveRight(coef/10);
+					this.obsList.get(j).vMoveRight(coef/2);
 				}
 				for(int j=0; j<this.oppList.size(); j++) {
-					this.oppList.get(j).vMoveRight(coef/10);
+					this.oppList.get(j).vMoveRight(coef/2);
 				}
 				
 				break;
 				
 			case "UP":
 				if(ZOOM > 0) {
-					pL.x += coef/10;
-					pR.x -= coef/10;
+					if(i == 0 || i == 1){
+						pL.x += coef/4;
+						pR.x -= coef/4;	
+					}
 					ZOOM --;
 					
 					//the obstacles move
@@ -234,8 +236,12 @@ public class Piste {
 				
 			case "DOWN":
 				if(ZOOM < 50) {
-					pL.x -= coef/10;
-					pR.x += coef/10;
+					
+					if(i == 0 || i == 1){
+						pL.x -= coef/4;
+						pR.x += coef/4;	
+					}
+					
 					ZOOM ++;
 					
 					//the obstacles move

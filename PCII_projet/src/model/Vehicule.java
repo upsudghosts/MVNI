@@ -181,8 +181,8 @@ public class Vehicule {
 		
 		this.mvStat = "NEUTRAL";
 	
-		this.startTime = -55;
-		this.secTl = -55;
+		this.startTime = 0;
+		this.secTl = 0;
 		
 		this.z = this.y;
 	}
