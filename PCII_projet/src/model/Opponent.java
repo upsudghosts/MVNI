@@ -19,7 +19,7 @@ public class Opponent extends Obstacle{
 	public Opponent(int x, int y) {
 		super(x, y);
 		this.w = 75;
-		this.h = 20;
+		this.h = 15;
 		this.speed = 1;
 		this.mvVal = 0;
 		this.mvStat = "NEUTRAL";

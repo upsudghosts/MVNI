@@ -61,7 +61,7 @@ public class Avancer extends Thread{
 			if(P.getDist()%5000 >= 0 && P.getDist()%5000 <= 40) {
 				cpTimePassed = System.currentTimeMillis();
 				System.out.println("Passed");
-				V.addTime(15);
+				V.addTime(25);
 			}
 			
 	        affTimePassed = System.currentTimeMillis()-A.getStarttime();

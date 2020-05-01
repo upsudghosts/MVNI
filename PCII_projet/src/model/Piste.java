@@ -89,14 +89,14 @@ public class Piste {
 	 * 
 	 **/
 	public void speedUp() {
-		if (MOVEVAL < 40) { MOVEVAL += 2;}
+		if (MOVEVAL < 25) { MOVEVAL += 2;}
 	}
 	
 	/** Decreases the speed by 1 if the current speed is not lower than 10 
 	 * 
 	 **/
 	public void speedDown() {
-		if(MOVEVAL > 10) { MOVEVAL --; }
+		if(MOVEVAL > 5) { MOVEVAL --; }
 	}
 	
 	
@@ -304,12 +304,12 @@ public class Piste {
 		int n = rand.nextInt(100);
 		if(n<3) {
 			//Obstacle on the ground
-			int x = rand.nextInt(maxX);
-			this.obsList.add(new Obstacle(x, horHeight));
+			int x = (trackL.get(2).x - 50) + rand.nextInt(100);
+			this.obsList.add(new Obstacle(x, horHeight - 60));
 		}else if(n==3) {
 			//Opponent
-			int x = rand.nextInt(maxX);
-			Opponent o = new Opponent(x, horHeight/2);
+			int x = trackL.get(2).x + rand.nextInt(50);
+			Opponent o = new Opponent(x, horHeight - 20);
 			this.oppList.add(o);
 		}
 	}
