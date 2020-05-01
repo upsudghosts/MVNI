@@ -42,18 +42,18 @@ public class Avancer extends Thread{
 	        
 			Point coordV = V.getCoord();
 			
-			CheckPoint cp = checkPassed();
-			if(cp != null) {
-				setCpTimePassed();
-				V.addTime(cp.getSecToAdd());
+			if(P.getDist() % 5000 == 0) {
+				V.addTime(20);
 			}
 			
-			if (coordV.y > screenSize.height/2 && coordV.y < screenSize.height - 3*V.getHitHeight()) {
+			if (coordV.y > screenSize.height/2 && coordV.y < screenSize.height - 3*V.getHitHeight() &&
+				coordV.x > P.getTrackL().get(1).x && coordV.x < P.getTrackR().get(1).x) {
 				P.speedUp();
 				//System.out.println("Speed Up");
 			}
-			else if (coordV.y < screenSize.height/2) {
+			else {
 				P.speedDown();
+				if (P.getSpeed() == 10) V.move("DOWN", 2);;
 				//System.out.println("Speed Down");
 			}
 			
@@ -78,19 +78,5 @@ public class Avancer extends Thread{
 		
 			A.change();
 		}
-	}
-	
-	private CheckPoint checkPassed() {
-		if(!P.getCP().isEmpty()) {
-			CheckPoint cp = P.getCP().get(0);
-			if(cp.getDist() == P.getDist()) {
-				return cp;
-			}
-		}
-		return null;
-	}
-	
-	private void setCpTimePassed() {
-		cpTimePassed = affTimePassed;
 	}
 }

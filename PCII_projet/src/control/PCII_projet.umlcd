@@ -700,21 +700,6 @@
   </edges>
   <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_5XhLUIr4EeqC4q-6vJG--A" targetItem="_uTS6QYS8EeqzOLi5J9EKCw" sourceItem="_5XgkQIr4EeqC4q-6vJG--A"/>
   <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_5Xn5AYr4EeqC4q-6vJG--A" targetItem="_uTS6U4S8EeqzOLi5J9EKCw" sourceItem="_5Xn5AIr4EeqC4q-6vJG--A"/>
-  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_ufu3gYr6EeqC4q-6vJG--A" targetItem="_uVTs1IS8EeqzOLi5J9EKCw" sourceItem="_ufu3gIr6EeqC4q-6vJG--A"/>
-  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_uf0XEYr6EeqC4q-6vJG--A" targetItem="_uVTs2YS8EeqzOLi5J9EKCw" sourceItem="_uf0XEIr6EeqC4q-6vJG--A"/>
-  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_uf52oIr6EeqC4q-6vJG--A" targetItem="_uVTs9IS8EeqzOLi5J9EKCw" sourceItem="_uf5PkIr6EeqC4q-6vJG--A"/>
-  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_uf_WMIr6EeqC4q-6vJG--A" targetItem="_uVTs94S8EeqzOLi5J9EKCw" sourceItem="_uf-vIIr6EeqC4q-6vJG--A"/>
-  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_ugEOsIr6EeqC4q-6vJG--A" targetItem="_uVTs-oS8EeqzOLi5J9EKCw" sourceItem="_ugDnoIr6EeqC4q-6vJG--A"/>
-  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_ugKVUIr6EeqC4q-6vJG--A" targetItem="_uVTs_YS8EeqzOLi5J9EKCw" sourceItem="_ugJuQIr6EeqC4q-6vJG--A"/>
-  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_ugPN0Ir6EeqC4q-6vJG--A" targetItem="_uVTtAIS8EeqzOLi5J9EKCw" sourceItem="_ugOmwIr6EeqC4q-6vJG--A"/>
-  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_ugVUcYr6EeqC4q-6vJG--A" targetItem="_970BcYruEeqC4q-6vJG--A" sourceItem="_ugVUcIr6EeqC4q-6vJG--A"/>
-  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_ugcpMIr6EeqC4q-6vJG--A" targetItem="_98pH4IruEeqC4q-6vJG--A" sourceItem="_ugcCIIr6EeqC4q-6vJG--A"/>
-  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_ugj98Yr6EeqC4q-6vJG--A" targetItem="_99XgoIruEeqC4q-6vJG--A" sourceItem="_ugj98Ir6EeqC4q-6vJG--A"/>
-  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_ugtH4Ir6EeqC4q-6vJG--A" targetItem="_9-HukYruEeqC4q-6vJG--A" sourceItem="_ugsg0Ir6EeqC4q-6vJG--A"/>
-  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_ug1DsIr6EeqC4q-6vJG--A" targetItem="_9-_4UIruEeqC4q-6vJG--A" sourceItem="_ug0coIr6EeqC4q-6vJG--A"/>
-  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_ug7xYIr6EeqC4q-6vJG--A" targetItem="_9_1l0IruEeqC4q-6vJG--A" sourceItem="_ug7KUIr6EeqC4q-6vJG--A"/>
-  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_uhIlsIr6EeqC4q-6vJG--A" targetItem="_-AshcIruEeqC4q-6vJG--A" sourceItem="_uhGJcIr6EeqC4q-6vJG--A"/>
-  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_uhQhgIr6EeqC4q-6vJG--A" targetItem="_1YeYUIr3EeqC4q-6vJG--A" sourceItem="_uhP6cIr6EeqC4q-6vJG--A"/>
   <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_52n9oYsCEeqC4q-6vJG--A" targetItem="_uUnv8oS8EeqzOLi5J9EKCw" sourceItem="_52n9oIsCEeqC4q-6vJG--A"/>
   <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_52vSYYsCEeqC4q-6vJG--A" targetItem="_uUnv-IS8EeqzOLi5J9EKCw" sourceItem="_52vSYIsCEeqC4q-6vJG--A"/>
   <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_5264kYsCEeqC4q-6vJG--A" targetItem="_uVD0xoS8EeqzOLi5J9EKCw" sourceItem="_5264kIsCEeqC4q-6vJG--A"/>
@@ -769,6 +754,21 @@
   <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_IO0LMIsDEeqC4q-6vJG--A" targetItem="_xw5S0IrlEeqC4q-6vJG--A" sourceItem="_IOzkIIsDEeqC4q-6vJG--A"/>
   <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_IO8uEIsDEeqC4q-6vJG--A" targetItem="_54T_sYsCEeqC4q-6vJG--A" sourceItem="_IO7f8IsDEeqC4q-6vJG--A"/>
   <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_IPEp4YsDEeqC4q-6vJG--A" targetItem="_54wroIsCEeqC4q-6vJG--A" sourceItem="_IPEp4IsDEeqC4q-6vJG--A"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_y_-M4IsYEeqC4q-6vJG--A" targetItem="_uVTs1IS8EeqzOLi5J9EKCw" sourceItem="_y_9l0IsYEeqC4q-6vJG--A"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_zADscYsYEeqC4q-6vJG--A" targetItem="_uVTs2YS8EeqzOLi5J9EKCw" sourceItem="_zADscIsYEeqC4q-6vJG--A"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_zAOEgIsYEeqC4q-6vJG--A" targetItem="_uVTs9IS8EeqzOLi5J9EKCw" sourceItem="_zANdcIsYEeqC4q-6vJG--A"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_zAULIIsYEeqC4q-6vJG--A" targetItem="_uVTs94S8EeqzOLi5J9EKCw" sourceItem="_zATkEIsYEeqC4q-6vJG--A"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_zAZDoYsYEeqC4q-6vJG--A" targetItem="_uVTs-oS8EeqzOLi5J9EKCw" sourceItem="_zAZDoIsYEeqC4q-6vJG--A"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_zAfKQYsYEeqC4q-6vJG--A" targetItem="_uVTs_YS8EeqzOLi5J9EKCw" sourceItem="_zAfKQIsYEeqC4q-6vJG--A"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_zAlQ4YsYEeqC4q-6vJG--A" targetItem="_uVTtAIS8EeqzOLi5J9EKCw" sourceItem="_zAlQ4IsYEeqC4q-6vJG--A"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_zAr-kYsYEeqC4q-6vJG--A" targetItem="_970BcYruEeqC4q-6vJG--A" sourceItem="_zAr-kIsYEeqC4q-6vJG--A"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_zAz6YYsYEeqC4q-6vJG--A" targetItem="_98pH4IruEeqC4q-6vJG--A" sourceItem="_zAz6YIsYEeqC4q-6vJG--A"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_zA-ScIsYEeqC4q-6vJG--A" targetItem="_99XgoIruEeqC4q-6vJG--A" sourceItem="_zA9rYIsYEeqC4q-6vJG--A"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_zBdaoIsYEeqC4q-6vJG--A" targetItem="_9-HukYruEeqC4q-6vJG--A" sourceItem="_zBczkIsYEeqC4q-6vJG--A"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_zBnysYsYEeqC4q-6vJG--A" targetItem="_9-_4UIruEeqC4q-6vJG--A" sourceItem="_zBnysIsYEeqC4q-6vJG--A"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_zBwVkYsYEeqC4q-6vJG--A" targetItem="_9_1l0IruEeqC4q-6vJG--A" sourceItem="_zBwVkIsYEeqC4q-6vJG--A"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_zB_mIIsYEeqC4q-6vJG--A" targetItem="_-AshcIruEeqC4q-6vJG--A" sourceItem="_zB9J4IsYEeqC4q-6vJG--A"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_zCJXIYsYEeqC4q-6vJG--A" targetItem="_1YeYUIr3EeqC4q-6vJG--A" sourceItem="_zCJXIIsYEeqC4q-6vJG--A"/>
   <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_uS21QIS8EeqzOLi5J9EKCw" name="Main">
     <modelElement href="../PCII_projet.uml#_tns_cIS8EeqzOLi5J9EKCw"/>
     <visualProperties xmi:id="_uS21QYS8EeqzOLi5J9EKCw" position="30.0,30.0"/>
@@ -3115,7 +3115,7 @@
         <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
       </type>
     </attributes>
-    <operations xmi:id="_uVTs1IS8EeqzOLi5J9EKCw" comments="_ufu3gIr6EeqC4q-6vJG--A" targetConnectionVisual="_ufu3gYr6EeqC4q-6vJG--A" name="getWidth">
+    <operations xmi:id="_uVTs1IS8EeqzOLi5J9EKCw" comments="_y_9l0IsYEeqC4q-6vJG--A" targetConnectionVisual="_y_-M4IsYEeqC4q-6vJG--A" name="getWidth">
       <modelElement href="../PCII_projet.uml#_toPK8IS8EeqzOLi5J9EKCw"/>
       <visibility xmi:id="_uVTs1YS8EeqzOLi5J9EKCw" label="+"/>
       <cardinality xmi:id="_uVTs1oS8EeqzOLi5J9EKCw" label="1" max="1" min="1"/>
@@ -3126,7 +3126,7 @@
         </type>
       </outParameters>
     </operations>
-    <operations xmi:id="_uVTs2YS8EeqzOLi5J9EKCw" comments="_uf0XEIr6EeqC4q-6vJG--A" targetConnectionVisual="_uf0XEYr6EeqC4q-6vJG--A" name="getHeight">
+    <operations xmi:id="_uVTs2YS8EeqzOLi5J9EKCw" comments="_zADscIsYEeqC4q-6vJG--A" targetConnectionVisual="_zADscYsYEeqC4q-6vJG--A" name="getHeight">
       <modelElement href="../PCII_projet.uml#_toPyAYS8EeqzOLi5J9EKCw"/>
       <visibility xmi:id="_uVTs2oS8EeqzOLi5J9EKCw" label="+"/>
       <cardinality xmi:id="_uVTs24S8EeqzOLi5J9EKCw" label="1" max="1" min="1"/>
@@ -3183,27 +3183,27 @@
         </type>
       </parameters>
     </operations>
-    <operations xmi:id="_uVTs9IS8EeqzOLi5J9EKCw" comments="_uf5PkIr6EeqC4q-6vJG--A" targetConnectionVisual="_uf52oIr6EeqC4q-6vJG--A" name="change">
+    <operations xmi:id="_uVTs9IS8EeqzOLi5J9EKCw" comments="_zANdcIsYEeqC4q-6vJG--A" targetConnectionVisual="_zAOEgIsYEeqC4q-6vJG--A" name="change">
       <modelElement href="../PCII_projet.uml#_toRAIIS8EeqzOLi5J9EKCw"/>
       <visibility xmi:id="_uVTs9YS8EeqzOLi5J9EKCw" label="+"/>
       <cardinality xmi:id="_uVTs9oS8EeqzOLi5J9EKCw" label="1" max="1" min="1"/>
     </operations>
-    <operations xmi:id="_uVTs94S8EeqzOLi5J9EKCw" comments="_uf-vIIr6EeqC4q-6vJG--A" targetConnectionVisual="_uf_WMIr6EeqC4q-6vJG--A" name="incrView">
+    <operations xmi:id="_uVTs94S8EeqzOLi5J9EKCw" comments="_zATkEIsYEeqC4q-6vJG--A" targetConnectionVisual="_zAULIIsYEeqC4q-6vJG--A" name="incrView">
       <modelElement href="../PCII_projet.uml#_toRAIYS8EeqzOLi5J9EKCw"/>
       <visibility xmi:id="_uVTs-IS8EeqzOLi5J9EKCw" label="+"/>
       <cardinality xmi:id="_uVTs-YS8EeqzOLi5J9EKCw" label="1" max="1" min="1"/>
     </operations>
-    <operations xmi:id="_uVTs-oS8EeqzOLi5J9EKCw" comments="_ugDnoIr6EeqC4q-6vJG--A" targetConnectionVisual="_ugEOsIr6EeqC4q-6vJG--A" name="loadImgV">
+    <operations xmi:id="_uVTs-oS8EeqzOLi5J9EKCw" comments="_zAZDoIsYEeqC4q-6vJG--A" targetConnectionVisual="_zAZDoYsYEeqC4q-6vJG--A" name="loadImgV">
       <modelElement href="../PCII_projet.uml#_toRnMIS8EeqzOLi5J9EKCw"/>
       <visibility xmi:id="_uVTs-4S8EeqzOLi5J9EKCw" label="-"/>
       <cardinality xmi:id="_uVTs_IS8EeqzOLi5J9EKCw" label="1" max="1" min="1"/>
     </operations>
-    <operations xmi:id="_uVTs_YS8EeqzOLi5J9EKCw" comments="_ugJuQIr6EeqC4q-6vJG--A" targetConnectionVisual="_ugKVUIr6EeqC4q-6vJG--A" name="loadImgEff">
+    <operations xmi:id="_uVTs_YS8EeqzOLi5J9EKCw" comments="_zAfKQIsYEeqC4q-6vJG--A" targetConnectionVisual="_zAfKQYsYEeqC4q-6vJG--A" name="loadImgEff">
       <modelElement href="../PCII_projet.uml#_toRnMYS8EeqzOLi5J9EKCw"/>
       <visibility xmi:id="_uVTs_oS8EeqzOLi5J9EKCw" label="-"/>
       <cardinality xmi:id="_uVTs_4S8EeqzOLi5J9EKCw" label="1" max="1" min="1"/>
     </operations>
-    <operations xmi:id="_uVTtAIS8EeqzOLi5J9EKCw" comments="_ugOmwIr6EeqC4q-6vJG--A" targetConnectionVisual="_ugPN0Ir6EeqC4q-6vJG--A" name="loadImgBg">
+    <operations xmi:id="_uVTtAIS8EeqzOLi5J9EKCw" comments="_zAlQ4IsYEeqC4q-6vJG--A" targetConnectionVisual="_zAlQ4YsYEeqC4q-6vJG--A" name="loadImgBg">
       <modelElement href="../PCII_projet.uml#_toRnMoS8EeqzOLi5J9EKCw"/>
       <visibility xmi:id="_uVTtAYS8EeqzOLi5J9EKCw" label="-"/>
       <cardinality xmi:id="_uVTtAoS8EeqzOLi5J9EKCw" label="1" max="1" min="1"/>
@@ -3249,7 +3249,7 @@
       <visibility xmi:id="_LMj5EIrfEeqC4q-6vJG--A" label="-"/>
       <cardinality xmi:id="_LMj5EYrfEeqC4q-6vJG--A" label="1" max="1" min="1"/>
     </operations>
-    <operations xmi:id="_970BcYruEeqC4q-6vJG--A" comments="_ugVUcIr6EeqC4q-6vJG--A" targetConnectionVisual="_ugVUcYr6EeqC4q-6vJG--A" name="drawPiste">
+    <operations xmi:id="_970BcYruEeqC4q-6vJG--A" comments="_zAr-kIsYEeqC4q-6vJG--A" targetConnectionVisual="_zAr-kYsYEeqC4q-6vJG--A" name="drawPiste">
       <modelElement href="../PCII_projet.uml#_97IE8IruEeqC4q-6vJG--A"/>
       <visibility xmi:id="_970BcoruEeqC4q-6vJG--A" label="-"/>
       <cardinality xmi:id="_970Bc4ruEeqC4q-6vJG--A" label="1" max="1" min="1"/>
@@ -3261,7 +3261,7 @@
         </type>
       </parameters>
     </operations>
-    <operations xmi:id="_98pH4IruEeqC4q-6vJG--A" comments="_ugcCIIr6EeqC4q-6vJG--A" targetConnectionVisual="_ugcpMIr6EeqC4q-6vJG--A" name="drawObstacles">
+    <operations xmi:id="_98pH4IruEeqC4q-6vJG--A" comments="_zAz6YIsYEeqC4q-6vJG--A" targetConnectionVisual="_zAz6YYsYEeqC4q-6vJG--A" name="drawObstacles">
       <modelElement href="../PCII_projet.uml#_97IE8oruEeqC4q-6vJG--A"/>
       <visibility xmi:id="_98pH4YruEeqC4q-6vJG--A" label="-"/>
       <cardinality xmi:id="_98pH4oruEeqC4q-6vJG--A" label="1" max="1" min="1"/>
@@ -3273,7 +3273,7 @@
         </type>
       </parameters>
     </operations>
-    <operations xmi:id="_99XgoIruEeqC4q-6vJG--A" comments="_ugj98Ir6EeqC4q-6vJG--A" targetConnectionVisual="_ugj98Yr6EeqC4q-6vJG--A" name="drawScore">
+    <operations xmi:id="_99XgoIruEeqC4q-6vJG--A" comments="_zA9rYIsYEeqC4q-6vJG--A" targetConnectionVisual="_zA-ScIsYEeqC4q-6vJG--A" name="drawScore">
       <modelElement href="../PCII_projet.uml#_97IE9IruEeqC4q-6vJG--A"/>
       <visibility xmi:id="_99XgoYruEeqC4q-6vJG--A" label="-"/>
       <cardinality xmi:id="_99XgooruEeqC4q-6vJG--A" label="1" max="1" min="1"/>
@@ -3285,7 +3285,7 @@
         </type>
       </parameters>
     </operations>
-    <operations xmi:id="_9-HukYruEeqC4q-6vJG--A" comments="_ugsg0Ir6EeqC4q-6vJG--A" targetConnectionVisual="_ugtH4Ir6EeqC4q-6vJG--A" name="drawTimer">
+    <operations xmi:id="_9-HukYruEeqC4q-6vJG--A" comments="_zBczkIsYEeqC4q-6vJG--A" targetConnectionVisual="_zBdaoIsYEeqC4q-6vJG--A" name="drawTimer">
       <modelElement href="../PCII_projet.uml#_97IE9oruEeqC4q-6vJG--A"/>
       <visibility xmi:id="_9-HukoruEeqC4q-6vJG--A" label="-"/>
       <cardinality xmi:id="_9-Huk4ruEeqC4q-6vJG--A" label="1" max="1" min="1"/>
@@ -3297,7 +3297,7 @@
         </type>
       </parameters>
     </operations>
-    <operations xmi:id="_9-_4UIruEeqC4q-6vJG--A" comments="_ug0coIr6EeqC4q-6vJG--A" targetConnectionVisual="_ug1DsIr6EeqC4q-6vJG--A" name="drawVehicule">
+    <operations xmi:id="_9-_4UIruEeqC4q-6vJG--A" comments="_zBnysIsYEeqC4q-6vJG--A" targetConnectionVisual="_zBnysYsYEeqC4q-6vJG--A" name="drawVehicule">
       <modelElement href="../PCII_projet.uml#_97IE-IruEeqC4q-6vJG--A"/>
       <visibility xmi:id="_9-_4UYruEeqC4q-6vJG--A" label="-"/>
       <cardinality xmi:id="_9-_4UoruEeqC4q-6vJG--A" label="1" max="1" min="1"/>
@@ -3309,7 +3309,7 @@
         </type>
       </parameters>
     </operations>
-    <operations xmi:id="_9_1l0IruEeqC4q-6vJG--A" comments="_ug7KUIr6EeqC4q-6vJG--A" targetConnectionVisual="_ug7xYIr6EeqC4q-6vJG--A" name="drawBg">
+    <operations xmi:id="_9_1l0IruEeqC4q-6vJG--A" comments="_zBwVkIsYEeqC4q-6vJG--A" targetConnectionVisual="_zBwVkYsYEeqC4q-6vJG--A" name="drawBg">
       <modelElement href="../PCII_projet.uml#_97IE-oruEeqC4q-6vJG--A"/>
       <visibility xmi:id="_9_1l0YruEeqC4q-6vJG--A" label="-"/>
       <cardinality xmi:id="_9_1l0oruEeqC4q-6vJG--A" label="1" max="1" min="1"/>
@@ -3321,7 +3321,7 @@
         </type>
       </parameters>
     </operations>
-    <operations xmi:id="_-AshcIruEeqC4q-6vJG--A" comments="_uhGJcIr6EeqC4q-6vJG--A" targetConnectionVisual="_uhIlsIr6EeqC4q-6vJG--A" name="drawFlyEffect">
+    <operations xmi:id="_-AshcIruEeqC4q-6vJG--A" comments="_zB9J4IsYEeqC4q-6vJG--A" targetConnectionVisual="_zB_mIIsYEeqC4q-6vJG--A" name="drawFlyEffect">
       <modelElement href="../PCII_projet.uml#_97IE_IruEeqC4q-6vJG--A"/>
       <visibility xmi:id="_-AshcYruEeqC4q-6vJG--A" label="-"/>
       <cardinality xmi:id="_-AshcoruEeqC4q-6vJG--A" label="1" max="1" min="1"/>
@@ -3340,7 +3340,7 @@
         </type>
       </parameters>
     </operations>
-    <operations xmi:id="_1YeYUIr3EeqC4q-6vJG--A" comments="_uhP6cIr6EeqC4q-6vJG--A" targetConnectionVisual="_uhQhgIr6EeqC4q-6vJG--A" name="paint">
+    <operations xmi:id="_1YeYUIr3EeqC4q-6vJG--A" comments="_zCJXIIsYEeqC4q-6vJG--A" targetConnectionVisual="_zCJXIYsYEeqC4q-6vJG--A" name="paint">
       <modelElement href="../PCII_projet.uml#_1W_KkIr3EeqC4q-6vJG--A"/>
       <visibility xmi:id="_1YeYUYr3EeqC4q-6vJG--A" label="+"/>
       <cardinality xmi:id="_1YeYUor3EeqC4q-6vJG--A" label="1" max="1" min="1"/>
@@ -3376,51 +3376,6 @@
   </nodes>
   <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_5Xn5AIr4EeqC4q-6vJG--A" sourceConnectionVisual="_5Xn5AYr4EeqC4q-6vJG--A" text="void startGame function that creates the necessary threads each time a new game starts." item="_uTS6U4S8EeqzOLi5J9EKCw">
     <modelElement href="../PCII_projet.uml#_5XbrwIr4EeqC4q-6vJG--A"/>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_ufu3gIr6EeqC4q-6vJG--A" sourceConnectionVisual="_ufu3gYr6EeqC4q-6vJG--A" text="Gives the default width of the interface&#xA;     * @return an int, the width of the interface&#xA;     *" item="_uVTs1IS8EeqzOLi5J9EKCw">
-    <modelElement href="../PCII_projet.uml#_ufp_AIr6EeqC4q-6vJG--A"/>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_uf0XEIr6EeqC4q-6vJG--A" sourceConnectionVisual="_uf0XEYr6EeqC4q-6vJG--A" text="Gives the default heigth of the interface&#xA;     * @return an int, the height of the interface&#xA;     *" item="_uVTs2YS8EeqzOLi5J9EKCw">
-    <modelElement href="../PCII_projet.uml#_ufp_AYr6EeqC4q-6vJG--A"/>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_uf5PkIr6EeqC4q-6vJG--A" sourceConnectionVisual="_uf52oIr6EeqC4q-6vJG--A" text="Repaints the interface : used if there is a change&#xA;     * &#xA;     *" item="_uVTs9IS8EeqzOLi5J9EKCw">
-    <modelElement href="../PCII_projet.uml#_ufp_Cor6EeqC4q-6vJG--A"/>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_uf-vIIr6EeqC4q-6vJG--A" sourceConnectionVisual="_uf_WMIr6EeqC4q-6vJG--A" text="of the vehicle and effect images to animate them&#xA;     * &#xA;     *" item="_uVTs94S8EeqzOLi5J9EKCw">
-    <modelElement href="../PCII_projet.uml#_ufp_C4r6EeqC4q-6vJG--A"/>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_ugDnoIr6EeqC4q-6vJG--A" sourceConnectionVisual="_ugEOsIr6EeqC4q-6vJG--A" text="Loads and adds all the vehicle images to the imgV ArrayList*" item="_uVTs-oS8EeqzOLi5J9EKCw">
-    <modelElement href="../PCII_projet.uml#_ufp_DIr6EeqC4q-6vJG--A"/>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_ugJuQIr6EeqC4q-6vJG--A" sourceConnectionVisual="_ugKVUIr6EeqC4q-6vJG--A" text="Loads and adds all the images representing flying effects to the imgEff ArrayList*" item="_uVTs_YS8EeqzOLi5J9EKCw">
-    <modelElement href="../PCII_projet.uml#_ufp_DYr6EeqC4q-6vJG--A"/>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_ugOmwIr6EeqC4q-6vJG--A" sourceConnectionVisual="_ugPN0Ir6EeqC4q-6vJG--A" text="Loads and adds all the elements of the background image to the imgBg ArrayList *" item="_uVTtAIS8EeqzOLi5J9EKCw">
-    <modelElement href="../PCII_projet.uml#_ufp_Dor6EeqC4q-6vJG--A"/>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_ugVUcIr6EeqC4q-6vJG--A" sourceConnectionVisual="_ugVUcYr6EeqC4q-6vJG--A" text="Draws the track&#xA;     * @param g the Graphics on which we draw&#xA;     *" item="_970BcYruEeqC4q-6vJG--A">
-    <modelElement href="../PCII_projet.uml#_ufp_Aor6EeqC4q-6vJG--A"/>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_ugcCIIr6EeqC4q-6vJG--A" sourceConnectionVisual="_ugcpMIr6EeqC4q-6vJG--A" text="Draws the obstacles of the track&#xA;     * @param g the Graphics on which we draw&#xA;     *" item="_98pH4IruEeqC4q-6vJG--A">
-    <modelElement href="../PCII_projet.uml#_ufp_A4r6EeqC4q-6vJG--A"/>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_ugj98Ir6EeqC4q-6vJG--A" sourceConnectionVisual="_ugj98Yr6EeqC4q-6vJG--A" text="Draws the current speed and the distance traveled&#xA;     * @param g the Graphics on which we draw&#xA;     *" item="_99XgoIruEeqC4q-6vJG--A">
-    <modelElement href="../PCII_projet.uml#_ufp_BIr6EeqC4q-6vJG--A"/>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_ugsg0Ir6EeqC4q-6vJG--A" sourceConnectionVisual="_ugtH4Ir6EeqC4q-6vJG--A" text="Draws the time since beginning of the game and time left until next checkpoint&#xA;     * @param g the Graphics on which we draw&#xA;     *" item="_9-HukYruEeqC4q-6vJG--A">
-    <modelElement href="../PCII_projet.uml#_ufp_BYr6EeqC4q-6vJG--A"/>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_ug0coIr6EeqC4q-6vJG--A" sourceConnectionVisual="_ug1DsIr6EeqC4q-6vJG--A" text="Draws the vehicle at the right coordinates&#xA;     * @param g the Graphics on which we draw&#xA;     *" item="_9-_4UIruEeqC4q-6vJG--A">
-    <modelElement href="../PCII_projet.uml#_ufp_Bor6EeqC4q-6vJG--A"/>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_ug7KUIr6EeqC4q-6vJG--A" sourceConnectionVisual="_ug7xYIr6EeqC4q-6vJG--A" text="Draws the background image&#xA;     * @param g the graphics on which we draw&#xA;     *" item="_9_1l0IruEeqC4q-6vJG--A">
-    <modelElement href="../PCII_projet.uml#_ufp_B4r6EeqC4q-6vJG--A"/>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_uhGJcIr6EeqC4q-6vJG--A" sourceConnectionVisual="_uhIlsIr6EeqC4q-6vJG--A" text="Draws an image representing effects where the vehicle is flying&#xA;     * @param g the Graphics on which we draw&#xA;     * @param coord the Point where we draw the image&#xA;     *" item="_-AshcIruEeqC4q-6vJG--A">
-    <modelElement href="../PCII_projet.uml#_ufp_CIr6EeqC4q-6vJG--A"/>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_uhP6cIr6EeqC4q-6vJG--A" sourceConnectionVisual="_uhQhgIr6EeqC4q-6vJG--A" text="Draws every element of this interface on a Graphics&#xA;     * @param g a Graphics on which we draw&#xA;     *" item="_1YeYUIr3EeqC4q-6vJG--A">
-    <modelElement href="../PCII_projet.uml#_ufp_CYr6EeqC4q-6vJG--A"/>
   </nodes>
   <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_52n9oIsCEeqC4q-6vJG--A" sourceConnectionVisual="_52n9oYsCEeqC4q-6vJG--A" text="Lowers the CheckPoint by increasing the value of the height variable*" item="_uUnv8oS8EeqzOLi5J9EKCw">
     <modelElement href="../PCII_projet.uml#_52eMoYsCEeqC4q-6vJG--A"/>
@@ -3583,5 +3538,50 @@
   </nodes>
   <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_IPEp4IsDEeqC4q-6vJG--A" sourceConnectionVisual="_IPEp4YsDEeqC4q-6vJG--A" text="Sets the abscissa at the higher left corner of the obstacle&#xD;&#xA;&#x9; * @param x the abscissa&#xD;&#xA;&#x9; *" item="_54wroIsCEeqC4q-6vJG--A">
     <modelElement href="../PCII_projet.uml#_IL-Sk4sDEeqC4q-6vJG--A"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_y_9l0IsYEeqC4q-6vJG--A" sourceConnectionVisual="_y_-M4IsYEeqC4q-6vJG--A" text="Gives the default width of the interface&#xA;     * @return an int, the width of the interface&#xA;     *" item="_uVTs1IS8EeqzOLi5J9EKCw">
+    <modelElement href="../PCII_projet.uml#_y_3fMIsYEeqC4q-6vJG--A"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_zADscIsYEeqC4q-6vJG--A" sourceConnectionVisual="_zADscYsYEeqC4q-6vJG--A" text="Gives the default heigth of the interface&#xA;     * @return an int, the height of the interface&#xA;     *" item="_uVTs2YS8EeqzOLi5J9EKCw">
+    <modelElement href="../PCII_projet.uml#_y_3fMYsYEeqC4q-6vJG--A"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_zANdcIsYEeqC4q-6vJG--A" sourceConnectionVisual="_zAOEgIsYEeqC4q-6vJG--A" text="Repaints the interface : used if there is a change&#xA;     * &#xA;     *" item="_uVTs9IS8EeqzOLi5J9EKCw">
+    <modelElement href="../PCII_projet.uml#_y_4GRIsYEeqC4q-6vJG--A"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_zATkEIsYEeqC4q-6vJG--A" sourceConnectionVisual="_zAULIIsYEeqC4q-6vJG--A" text="of the vehicle and effect images to animate them&#xA;     * &#xA;     *" item="_uVTs94S8EeqzOLi5J9EKCw">
+    <modelElement href="../PCII_projet.uml#_y_4GRYsYEeqC4q-6vJG--A"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_zAZDoIsYEeqC4q-6vJG--A" sourceConnectionVisual="_zAZDoYsYEeqC4q-6vJG--A" text="Loads and adds all the vehicle images to the imgV ArrayList*" item="_uVTs-oS8EeqzOLi5J9EKCw">
+    <modelElement href="../PCII_projet.uml#_y_4GRosYEeqC4q-6vJG--A"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_zAfKQIsYEeqC4q-6vJG--A" sourceConnectionVisual="_zAfKQYsYEeqC4q-6vJG--A" text="Loads and adds all the images representing flying effects to the imgEff ArrayList*" item="_uVTs_YS8EeqzOLi5J9EKCw">
+    <modelElement href="../PCII_projet.uml#_y_4GR4sYEeqC4q-6vJG--A"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_zAlQ4IsYEeqC4q-6vJG--A" sourceConnectionVisual="_zAlQ4YsYEeqC4q-6vJG--A" text="Loads and adds all the elements of the background image to the imgBg ArrayList *" item="_uVTtAIS8EeqzOLi5J9EKCw">
+    <modelElement href="../PCII_projet.uml#_y_4GSIsYEeqC4q-6vJG--A"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_zAr-kIsYEeqC4q-6vJG--A" sourceConnectionVisual="_zAr-kYsYEeqC4q-6vJG--A" text="Draws the track&#xA;     * @param g the Graphics on which we draw&#xA;     *" item="_970BcYruEeqC4q-6vJG--A">
+    <modelElement href="../PCII_projet.uml#_y_3fMosYEeqC4q-6vJG--A"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_zAz6YIsYEeqC4q-6vJG--A" sourceConnectionVisual="_zAz6YYsYEeqC4q-6vJG--A" text="Draws the obstacles of the track&#xA;     * @param g the Graphics on which we draw&#xA;     *" item="_98pH4IruEeqC4q-6vJG--A">
+    <modelElement href="../PCII_projet.uml#_y_3fM4sYEeqC4q-6vJG--A"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_zA9rYIsYEeqC4q-6vJG--A" sourceConnectionVisual="_zA-ScIsYEeqC4q-6vJG--A" text="Draws the current speed and the distance traveled&#xA;     * @param g the Graphics on which we draw&#xA;     *" item="_99XgoIruEeqC4q-6vJG--A">
+    <modelElement href="../PCII_projet.uml#_y_3fNIsYEeqC4q-6vJG--A"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_zBczkIsYEeqC4q-6vJG--A" sourceConnectionVisual="_zBdaoIsYEeqC4q-6vJG--A" text="Draws the time since beginning of the game and time left until next checkpoint&#xA;     * @param g the Graphics on which we draw&#xA;     *" item="_9-HukYruEeqC4q-6vJG--A">
+    <modelElement href="../PCII_projet.uml#_y_3fNYsYEeqC4q-6vJG--A"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_zBnysIsYEeqC4q-6vJG--A" sourceConnectionVisual="_zBnysYsYEeqC4q-6vJG--A" text="Draws the vehicle at the right coordinates&#xA;     * @param g the Graphics on which we draw&#xA;     *" item="_9-_4UIruEeqC4q-6vJG--A">
+    <modelElement href="../PCII_projet.uml#_y_4GQIsYEeqC4q-6vJG--A"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_zBwVkIsYEeqC4q-6vJG--A" sourceConnectionVisual="_zBwVkYsYEeqC4q-6vJG--A" text="Draws the background image&#xA;     * @param g the graphics on which we draw&#xA;     *" item="_9_1l0IruEeqC4q-6vJG--A">
+    <modelElement href="../PCII_projet.uml#_y_4GQYsYEeqC4q-6vJG--A"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_zB9J4IsYEeqC4q-6vJG--A" sourceConnectionVisual="_zB_mIIsYEeqC4q-6vJG--A" text="Draws an image representing effects where the vehicle is flying&#xA;     * @param g the Graphics on which we draw&#xA;     * @param coord the Point where we draw the image&#xA;     *" item="_-AshcIruEeqC4q-6vJG--A">
+    <modelElement href="../PCII_projet.uml#_y_4GQosYEeqC4q-6vJG--A"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_zCJXIIsYEeqC4q-6vJG--A" sourceConnectionVisual="_zCJXIYsYEeqC4q-6vJG--A" text="Draws every element of this interface on a Graphics&#xA;     * @param g a Graphics on which we draw&#xA;     *" item="_1YeYUIr3EeqC4q-6vJG--A">
+    <modelElement href="../PCII_projet.uml#_y_4GQ4sYEeqC4q-6vJG--A"/>
   </nodes>
 </com.yattasolutions.uml.diagrams.classifier:ClassDiagram>

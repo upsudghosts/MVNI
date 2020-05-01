@@ -144,4 +144,11 @@ public class Opponent extends Obstacle{
 		}
 	}
 	
+	/** Gives the status of the movement : tells if the vehicle is going up, down, left, right or if it doesn't move
+	 * @return a String, the status of the movement
+	 **/
+	public String getMoveStatus() {
+		return mvStat;
+	}
+	
 }

@@ -4,7 +4,7 @@
     <eAnnotations xmi:id="_tdFq4IS8EeqzOLi5J9EKCw" source="http://ns.yatta.de/umllab">
       <contents xmi:type="ecore:EAnnotation" xmi:id="_tdGR8IS8EeqzOLi5J9EKCw" source="codegen">
         <details xmi:id="_tdGR8YS8EeqzOLi5J9EKCw" key="codegenDirectory" value="/PCII_projet/src"/>
-        <details xmi:id="_uRRg4IS8EeqzOLi5J9EKCw" key="AssociatedSourceCode" value="/PCII_projet/src/control/Voler.java;3110415738/1;/PCII_projet/src/Main.java;2816730656/1;/PCII_projet/src/control/Avancer.java;3142790471/1;/PCII_projet/src/control/ControlClavier.java;3652947331/1;/PCII_projet/src/control/Effects.java;348062097/1;/PCII_projet/src/model/CheckPoint.java;54002242/1;/PCII_projet/src/model/CheckPointList.java;929168106/1;/PCII_projet/src/model/Obstacle.java;340705076/1;/PCII_projet/src/model/Opponent.java;4177436281/1;/PCII_projet/src/model/Piste.java;381620258/1;/PCII_projet/src/model/Vehicule.java;1025972168/1;/PCII_projet/src/view/Affichage.java;292379435/1;"/>
+        <details xmi:id="_uRRg4IS8EeqzOLi5J9EKCw" key="AssociatedSourceCode" value="/PCII_projet/src/control/Voler.java;3110415738/1;/PCII_projet/src/Main.java;2816730656/1;/PCII_projet/src/control/Avancer.java;3142790471/1;/PCII_projet/src/control/ControlClavier.java;3652947331/1;/PCII_projet/src/control/Effects.java;348062097/1;/PCII_projet/src/model/CheckPoint.java;54002242/1;/PCII_projet/src/model/CheckPointList.java;929168106/1;/PCII_projet/src/model/Obstacle.java;340705076/1;/PCII_projet/src/model/Opponent.java;4177436281/1;/PCII_projet/src/model/Piste.java;381620258/1;/PCII_projet/src/model/Vehicule.java;1025972168/1;/PCII_projet/src/view/Affichage.java;3622390872/1;"/>
       </contents>
       <contents xmi:type="ecore:EAnnotation" xmi:id="_uh_wIIowEeqC4q-6vJG--A" source="preferences">
         <contents xmi:type="ecore:EAnnotation" xmi:id="_uh_wIYowEeqC4q-6vJG--A" source="com.yattasolutions.codegen.reverse">
@@ -2625,14 +2625,13 @@
           <language>java</language>
           <body>Image NewI;
  	ArrayList&lt;Obstacle> oL = P.getOL();
+ 	NewI = imgObst.get(0).getScaledInstance(o.getW(), o.getH(), BufferedImage.SCALE_SMOOTH);
  	for(int i = 0; i &lt; oL.size(); i++) {
  		Obstacle o = oL.get(i);
  		g2d.setColor(Color.GRAY);
  		
- 		NewI = imgObst.get(0).getScaledInstance(o.getW(), o.getH(), BufferedImage.SCALE_SMOOTH);
-     	
+
  		g2d.drawImage(NewI, o.getX(), o.getY(), null);
- 	
  		
  		g2d.drawRect(o.getX(), o.getY(), o.getW(), o.getH());
  		g2d.setColor(Color.BLACK);
@@ -2762,7 +2761,7 @@
  </body>
         </ownedBehavior>
         <ownedOperation xmi:id="_toPK8IS8EeqzOLi5J9EKCw" name="getWidth" method="_tq42UIS8EeqzOLi5J9EKCw">
-          <ownedComment xmi:id="_ufp_AIr6EeqC4q-6vJG--A">
+          <ownedComment xmi:id="_y_3fMIsYEeqC4q-6vJG--A">
             <body>Gives the default width of the interface
      * @return an int, the width of the interface
      *</body>
@@ -2772,7 +2771,7 @@
           </ownedParameter>
         </ownedOperation>
         <ownedOperation xmi:id="_toPyAYS8EeqzOLi5J9EKCw" name="getHeight" method="_tq42UoS8EeqzOLi5J9EKCw">
-          <ownedComment xmi:id="_ufp_AYr6EeqC4q-6vJG--A">
+          <ownedComment xmi:id="_y_3fMYsYEeqC4q-6vJG--A">
             <body>Gives the default heigth of the interface
      * @return an int, the height of the interface
      *</body>
@@ -2802,31 +2801,31 @@
           </ownedParameter>
         </ownedOperation>
         <ownedOperation xmi:id="_toRAIIS8EeqzOLi5J9EKCw" name="change" method="_tq5dbYS8EeqzOLi5J9EKCw">
-          <ownedComment xmi:id="_ufp_Cor6EeqC4q-6vJG--A">
+          <ownedComment xmi:id="_y_4GRIsYEeqC4q-6vJG--A">
             <body>Repaints the interface : used if there is a change
      * 
      *</body>
           </ownedComment>
         </ownedOperation>
         <ownedOperation xmi:id="_toRAIYS8EeqzOLi5J9EKCw" name="incrView" method="_tq6EcIS8EeqzOLi5J9EKCw">
-          <ownedComment xmi:id="_ufp_C4r6EeqC4q-6vJG--A">
+          <ownedComment xmi:id="_y_4GRYsYEeqC4q-6vJG--A">
             <body>of the vehicle and effect images to animate them
      * 
      *</body>
           </ownedComment>
         </ownedOperation>
         <ownedOperation xmi:id="_toRnMIS8EeqzOLi5J9EKCw" name="loadImgV" visibility="private" method="_tq6EcYS8EeqzOLi5J9EKCw" raisedException="_tpoSEYS8EeqzOLi5J9EKCw">
-          <ownedComment xmi:id="_ufp_DIr6EeqC4q-6vJG--A">
+          <ownedComment xmi:id="_y_4GRosYEeqC4q-6vJG--A">
             <body>Loads and adds all the vehicle images to the imgV ArrayList*</body>
           </ownedComment>
         </ownedOperation>
         <ownedOperation xmi:id="_toRnMYS8EeqzOLi5J9EKCw" name="loadImgEff" visibility="private" method="_tq6EcoS8EeqzOLi5J9EKCw" raisedException="_tpoSEYS8EeqzOLi5J9EKCw">
-          <ownedComment xmi:id="_ufp_DYr6EeqC4q-6vJG--A">
+          <ownedComment xmi:id="_y_4GR4sYEeqC4q-6vJG--A">
             <body>Loads and adds all the images representing flying effects to the imgEff ArrayList*</body>
           </ownedComment>
         </ownedOperation>
         <ownedOperation xmi:id="_toRnMoS8EeqzOLi5J9EKCw" name="loadImgBg" visibility="private" method="_tq6Ec4S8EeqzOLi5J9EKCw" raisedException="_tpoSEYS8EeqzOLi5J9EKCw">
-          <ownedComment xmi:id="_ufp_Dor6EeqC4q-6vJG--A">
+          <ownedComment xmi:id="_y_4GSIsYEeqC4q-6vJG--A">
             <body>Loads and adds all the elements of the background image to the imgBg ArrayList *</body>
           </ownedComment>
         </ownedOperation>
@@ -2842,7 +2841,7 @@
         </ownedOperation>
         <ownedOperation xmi:id="_LEapsIrfEeqC4q-6vJG--A" name="loadImObst" visibility="private" method="_LEfiMIrfEeqC4q-6vJG--A" raisedException="_tpoSEYS8EeqzOLi5J9EKCw"/>
         <ownedOperation xmi:id="_97IE8IruEeqC4q-6vJG--A" name="drawPiste" visibility="private" method="_97LIQIruEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_ufp_Aor6EeqC4q-6vJG--A">
+          <ownedComment xmi:id="_y_3fMosYEeqC4q-6vJG--A">
             <body>Draws the track
      * @param g the Graphics on which we draw
      *</body>
@@ -2850,7 +2849,7 @@
           <ownedParameter xmi:id="_97IE8YruEeqC4q-6vJG--A" name="g2d" type="_tp4ww4S8EeqzOLi5J9EKCw"/>
         </ownedOperation>
         <ownedOperation xmi:id="_97IE8oruEeqC4q-6vJG--A" name="drawObstacles" visibility="private" method="_97LIQoruEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_ufp_A4r6EeqC4q-6vJG--A">
+          <ownedComment xmi:id="_y_3fM4sYEeqC4q-6vJG--A">
             <body>Draws the obstacles of the track
      * @param g the Graphics on which we draw
      *</body>
@@ -2858,7 +2857,7 @@
           <ownedParameter xmi:id="_97IE84ruEeqC4q-6vJG--A" name="g2d" type="_tp4ww4S8EeqzOLi5J9EKCw"/>
         </ownedOperation>
         <ownedOperation xmi:id="_97IE9IruEeqC4q-6vJG--A" name="drawScore" visibility="private" method="_97LIRIruEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_ufp_BIr6EeqC4q-6vJG--A">
+          <ownedComment xmi:id="_y_3fNIsYEeqC4q-6vJG--A">
             <body>Draws the current speed and the distance traveled
      * @param g the Graphics on which we draw
      *</body>
@@ -2866,7 +2865,7 @@
           <ownedParameter xmi:id="_97IE9YruEeqC4q-6vJG--A" name="g2d" type="_tp4ww4S8EeqzOLi5J9EKCw"/>
         </ownedOperation>
         <ownedOperation xmi:id="_97IE9oruEeqC4q-6vJG--A" name="drawTimer" visibility="private" method="_97LvUIruEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_ufp_BYr6EeqC4q-6vJG--A">
+          <ownedComment xmi:id="_y_3fNYsYEeqC4q-6vJG--A">
             <body>Draws the time since beginning of the game and time left until next checkpoint
      * @param g the Graphics on which we draw
      *</body>
@@ -2874,7 +2873,7 @@
           <ownedParameter xmi:id="_97IE94ruEeqC4q-6vJG--A" name="g2d" type="_tp4ww4S8EeqzOLi5J9EKCw"/>
         </ownedOperation>
         <ownedOperation xmi:id="_97IE-IruEeqC4q-6vJG--A" name="drawVehicule" visibility="private" method="_97LvUoruEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_ufp_Bor6EeqC4q-6vJG--A">
+          <ownedComment xmi:id="_y_4GQIsYEeqC4q-6vJG--A">
             <body>Draws the vehicle at the right coordinates
      * @param g the Graphics on which we draw
      *</body>
@@ -2882,7 +2881,7 @@
           <ownedParameter xmi:id="_97IE-YruEeqC4q-6vJG--A" name="g2d" type="_tp4ww4S8EeqzOLi5J9EKCw"/>
         </ownedOperation>
         <ownedOperation xmi:id="_97IE-oruEeqC4q-6vJG--A" name="drawBg" visibility="private" method="_97LvVIruEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_ufp_B4r6EeqC4q-6vJG--A">
+          <ownedComment xmi:id="_y_4GQYsYEeqC4q-6vJG--A">
             <body>Draws the background image
      * @param g the graphics on which we draw
      *</body>
@@ -2890,7 +2889,7 @@
           <ownedParameter xmi:id="_97IE-4ruEeqC4q-6vJG--A" name="g2d" type="_tp4ww4S8EeqzOLi5J9EKCw"/>
         </ownedOperation>
         <ownedOperation xmi:id="_97IE_IruEeqC4q-6vJG--A" name="drawFlyEffect" visibility="private" method="_97LvVoruEeqC4q-6vJG--A">
-          <ownedComment xmi:id="_ufp_CIr6EeqC4q-6vJG--A">
+          <ownedComment xmi:id="_y_4GQosYEeqC4q-6vJG--A">
             <body>Draws an image representing effects where the vehicle is flying
      * @param g the Graphics on which we draw
      * @param coord the Point where we draw the image
@@ -2900,7 +2899,7 @@
           <ownedParameter xmi:id="_97IE_oruEeqC4q-6vJG--A" name="coord" type="_tppgMoS8EeqzOLi5J9EKCw"/>
         </ownedOperation>
         <ownedOperation xmi:id="_1W_KkIr3EeqC4q-6vJG--A" name="paint" method="_1XCN4Ir3EeqC4q-6vJG--A">
-          <ownedComment xmi:id="_ufp_CYr6EeqC4q-6vJG--A">
+          <ownedComment xmi:id="_y_4GQ4sYEeqC4q-6vJG--A">
             <body>Draws every element of this interface on a Graphics
      * @param g a Graphics on which we draw
      *</body>
