@@ -229,7 +229,7 @@ public class Affichage extends JPanel{
     		switch(o.getMoveStatus()) {
 	    	case "LEFT":
 				g2d.rotate(Math.toRadians(-20), o.getX() + o.getW()/4, o.getY());
-				break;
+				break; 
 			case "RIGHT":
 				g2d.rotate(Math.toRadians(20), o.getX() + o.getW() - (o.getW()/4), o.getY());
 				break;

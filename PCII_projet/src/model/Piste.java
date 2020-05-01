@@ -155,7 +155,7 @@ public class Piste {
 		for(int i=0; i<obsList.size(); i++) {
 			Obstacle o = obsList.get(i);
 			o.decreaseHeight(MOVEVAL);
-			if(o.getH()>=maxY) {
+			if(o.getH()>=maxY) { 
 				obsList.remove(o);
 			}
 		}

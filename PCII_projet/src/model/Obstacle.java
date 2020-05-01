@@ -132,7 +132,7 @@ public class Obstacle {
 			/*
 			this.y -= 2;
 			this.h += this.h*2/60;
-			this.x -= 2;
+			this.x -= 2; 
 			this.w += this.w*2/60;
 			*/
 			this.y -= 2;
