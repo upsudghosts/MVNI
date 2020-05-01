@@ -117,8 +117,11 @@ public class Opponent extends Obstacle{
 			case "UP":
 				if(this.getY()  <= (int)(screenSize.height*0.2)) {
 					//y = (int)(screenSize.height*0.2);
+					/*
 					this.setY((int)(screenSize.height*0.2));
 					this.setD((int)(screenSize.height*0.2));
+					*/
+					this.vMoveRight((int)(screenSize.height*0.2));
 					break;
 				}
 				//y -= coef;

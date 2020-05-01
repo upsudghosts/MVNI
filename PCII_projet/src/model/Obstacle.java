@@ -183,6 +183,7 @@ public class Obstacle {
 		//this.w = w;
 		this.h = h;
 		this.w = w;
+		
 	} 
 	
 	/** Zooms in the obstacle to represent the vehicle going lower by increasing the height and width of the obstacle
@@ -194,8 +195,8 @@ public class Obstacle {
 		this.y-=n/2;
 		this.x -= n/2;
 		
-		this.h = h;
-		this.w = w;
+		this.h += h;
+		this.w += w;
 	}
 	
 	/** Tests if the obstacle is hitting a given vehicle
