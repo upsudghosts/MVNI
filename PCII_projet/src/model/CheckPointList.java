@@ -2,6 +2,9 @@ package model;
 
 import java.util.ArrayList;
 
+/**
+* This class is the CheckPointList class, it regroup our CheckPoints .
+*/
 public class CheckPointList {
 	private ArrayList<CheckPoint> cpList;
 	private int horHeight;
@@ -13,6 +16,13 @@ public class CheckPointList {
 		this.cpList = new ArrayList<CheckPoint>();
 		this.horHeight = horY;
 	}
+	
+	/**
+	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 *                    - FUNCTIONS -
+	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 */
+	
 	
 	/** Gives the current checkpoint list
 	 * @return the checkpoint list
@@ -34,7 +44,7 @@ public class CheckPointList {
 	 * @param maxY an integer. If a checkpoint's height is higher (ad it seems lower on the screen), the checkpoint is removed
 	 **/
 	public void moveCP(int moveVal, int maxY) {
-		//The checkpoints move and we remove it if needed
+		/**The checkpoints move and we remove it if needed.*/
 		for(int i=0; i<cpList.size(); i++) {
 			CheckPoint cp = cpList.get(i);
 			cp.decreaseHeight(moveVal);

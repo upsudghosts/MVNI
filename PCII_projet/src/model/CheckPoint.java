@@ -1,5 +1,8 @@
 package model;
 
+/**
+* This class is the CheckPoint class, it defines the object we commonly call a checkPoint in game.
+*/
 public class CheckPoint {
 
 	private int height, dist;
@@ -13,6 +16,12 @@ public class CheckPoint {
 		this.height = hor;
 		this.dist =  dist;
 	}
+	
+	/**
+	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 *                    - FUNCTIONS -
+	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 */
 	
 	/**Lowers the CheckPoint by increasing the value of the height variable**/
 	public void decreaseHeight(int n) {
