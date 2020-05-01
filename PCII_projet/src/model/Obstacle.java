@@ -23,8 +23,8 @@ public class Obstacle {
 		this.d = 0; 
 		
 
-		this.w = 30;
-		this.h = 50;
+		this.w = 20;
+		this.h = 60;
 		
 		//this.x = x+500;
 		this.x = x;

@@ -43,10 +43,10 @@ public class Avancer extends Thread{
 				e.printStackTrace();
 			}
 	        
-			Point coordV = V.getCoord();
+			Point coordV = V.getCenter();
 			
 			
-			if (coordV.y > screenSize.height/2 && coordV.y < screenSize.height - 3*V.getHitHeight() &&
+			if (coordV.y > screenSize.height/2 && coordV.y < screenSize.height - V.getHitHeight()/3 &&
 				coordV.x > P.getTrackL().get(1).x && coordV.x < P.getTrackR().get(1).x) {
 				P.speedUp();
 				//System.out.println("Speed Up");

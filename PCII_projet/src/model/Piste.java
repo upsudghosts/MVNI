@@ -155,6 +155,8 @@ public class Piste {
 		for(int i=0; i<obsList.size(); i++) {
 			Obstacle o = obsList.get(i);
 			o.decreaseHeight(MOVEVAL);
+			o.h += MOVEVAL;
+			o.w += MOVEVAL;
 			if(o.getH()>=maxY) { 
 				obsList.remove(o);
 			}
@@ -163,6 +165,8 @@ public class Piste {
 			Opponent o = oppList.get(i);
 			o.decreaseHeight(MOVEVAL);
 			o.move();
+			o.h += MOVEVAL/10;
+			o.w += MOVEVAL/10;
 			if(o.getH()>=maxY) {
 				oppList.remove(o);
 				//The score gets higher when the vehicle passes an opponent

@@ -18,7 +18,7 @@ public class Vehicule {
 	
 	private String mvStat;
 	
-	private long startTime, secTl, secPassed; //LEFT TO LIVE in seconds
+	private long startTime, secTl; //LEFT TO LIVE in seconds
 	
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	
@@ -28,8 +28,8 @@ public class Vehicule {
 	public Vehicule() {
 		this.x = screenSize.width/2-this.hitWidth;
 		this.y = screenSize.height/2+this.hitHeight;
-		this.hitHeight = 75;
-		this.hitWidth = 150;
+		this.hitHeight = 150;
+		this.hitWidth = 200;
 		
 		this.inFlight = false;
 		this.isAlive = true;
@@ -47,6 +47,10 @@ public class Vehicule {
 	 **/
 	public Point getCoord() {
 		return new Point(x, y);
+	}
+	
+	public Point getCenter() {
+		return new Point(x+hitWidth/2, y+hitHeight/2);
 	}
 	
 	/** Gives the distance of the vehicle
@@ -106,22 +110,22 @@ public class Vehicule {
 				x -= coef;
 				break;
 			case "RIGHT":
-				if(x  >= screenSize.width - 2*hitWidth) {
-					x = screenSize.width - 2*hitWidth;
+				if(x  >= screenSize.width - hitWidth) {
+					x = screenSize.width - hitWidth;
 					break;
 				}
 				x += coef;
 				break;
 			case "UP":
-				if(y  <= (int)(screenSize.height*0.2)) {
-					y = (int)(screenSize.height*0.2);
+				if(y  <= (int)(screenSize.height*0.4)) {
+					y = (int)(screenSize.height*0.4);
 					break;
 				}
 				y -= coef;
 				break;
 			case "DOWN":
-				if(y  >= screenSize.height - 4*hitHeight) {
-					y = screenSize.height - 4*hitHeight;
+				if(y  >= screenSize.height - 2*hitHeight) {
+					y = screenSize.height - 2*hitHeight;
 					break;
 				}
 				y += coef;
