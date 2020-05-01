@@ -78,8 +78,8 @@ public class Affichage extends JPanel{
 	 * - img[...] : the ArrayLists which regroup all the images for one object.
 	 *  
 	 */
-    private String spaceships, effects, parallax_mountains, ground, obstacle;
-	private ArrayList<BufferedImage> imgV, imgEff, imgBg, imgG, imgObst; 
+    private String spaceships, effects, parallax_mountains, ground, obstacle, checkpt;
+	private ArrayList<BufferedImage> imgV, imgEff, imgBg, imgG, imgObst, imgCp; 
 	
 	/**Loads and adds all the images representing the Vehicle to the imgV ArrayList**/
 	private void loadImgV() throws IOException {
@@ -125,11 +125,19 @@ public class Affichage extends JPanel{
     } 
 
     /**Loads and adds all the images representing Obstacles to the imgObst ArrayList**/
-    private void loadImObst() throws IOException {
+    private void loadImgObst() throws IOException {
     	this.obstacle = "./assets/obstacles/";
     	this.imgObst = new ArrayList<BufferedImage>();
     	
     	imgObst.add(ImageIO.read(new File(obstacle + "pine.png")));
+    }
+	
+    /**Loads and adds all the images representing Obstacles to the imgObst ArrayList**/
+    private void loadImgCp() throws IOException {
+    	this.checkpt = "./assets/checkpoints/";
+    	this.imgCp = new ArrayList<BufferedImage>();
+    	
+    	imgCp.add(ImageIO.read(new File(checkpt + "cp.png")));
     }
 	
     /**Flying orb effect*/
@@ -219,9 +227,10 @@ public class Affichage extends JPanel{
     	this.loadImgV();
     	this.loadImgEff();
     	this.loadImgBg();
-    	this.loadImObst();
+    	this.loadImgObst();
     	this.loadImgGround();
-        
+    	this.loadImgCp();
+    	
     	this.green_light = 0;
     	
 		this.starttime = System.currentTimeMillis();
@@ -286,14 +295,24 @@ public class Affichage extends JPanel{
 					g2d.drawLine(Temp.x, HEIGHT, Temp.x, Temp.y);
 					g2d.setColor(Color.BLACK);
 				}
-			
 			}
 			prevR= Temp;
 		}
 		
 		/** Checkpoints */
 		for(CheckPoint cp : cpL) {
-			g2d.drawLine(0, cp.getHeight(), WIDTH, cp.getHeight());
+			if(showHitbox) {
+				g2d.drawLine(0, cp.getHeight(), WIDTH, cp.getHeight());
+			}
+			for(int x = 0; x < WIDTH; x += imgCp.get(0).getWidth()) {
+				g2d.drawImage(
+						imgCp.get(0),
+						x, cp.getHeight(),
+						100, 30,
+						null);
+			}
+			
+			
 		}
     }
     
