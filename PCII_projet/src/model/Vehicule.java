@@ -36,8 +36,8 @@ public class Vehicule {
 		
 		this.mvStat = "NEUTRAL";
 	
-		this.startTime = 70;
-		this.secTl = 70;
+		this.startTime = 25;
+		this.secTl = 25;
 		
 		this.z = this.y;
 	}
@@ -143,6 +143,7 @@ public class Vehicule {
 	 **/
 	public void addTime(long l) {
 		startTime = secTl + l;
+		secTl += l;
 	}
 	
 	/** Gives the status of the movement : tells if the vehicle is going up, down, left, right or if it doesn't move

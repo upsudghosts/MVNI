@@ -25,7 +25,7 @@ public class CheckPointList {
 	 * @param dist the distance of the CheckPoint
 	 **/
 	public void addCP(int dist) {
-		cpList.add(new CheckPoint(horHeight, 20, dist));
+		cpList.add(new CheckPoint(horHeight, dist));
 	}
 	
 	/** Moves the checkPoint :

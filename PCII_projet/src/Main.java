@@ -36,7 +36,10 @@ public class Main {
 		mainFrame.setVisible(true);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		JOptionPane.showMessageDialog(null, "Press space to start game.");
+		JOptionPane.showMessageDialog(null, 
+										"Space : Start game \n" +
+										"H : Toggle Hitboxes"
+									 );
 		
 	}
 

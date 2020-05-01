@@ -61,18 +61,22 @@ public class ControlClavier implements KeyListener{
 		switch(e.getKeyCode()) {
 			case KeyEvent.VK_DOWN :
 				Fly.update_moveStatus(3);
+				A.set_bg_parallax("NEUTRAL");
 				break;
 				
 			case KeyEvent.VK_UP :
 				Fly.update_moveStatus(2);
+				A.set_bg_parallax("NEUTRAL");
 				break;
 				
 			case KeyEvent.VK_LEFT :
 				Fly.update_moveStatus(0);
+				A.set_bg_parallax("LEFT");
 				break;
 				
 			case KeyEvent.VK_RIGHT :
 				Fly.update_moveStatus(1);
+				A.set_bg_parallax("RIGHT");
 				break;
 				
 			case KeyEvent.VK_SPACE:
@@ -86,6 +90,9 @@ public class ControlClavier implements KeyListener{
 					/**Repainting our work canvas.*/
 					A.change();
 				}
+				break;
+			case KeyEvent.VK_H:
+				A.showHitbox();
 				break;
 		}
 	}

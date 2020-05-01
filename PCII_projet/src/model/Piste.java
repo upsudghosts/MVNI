@@ -10,7 +10,7 @@ public class Piste {
 	private int horHeight, trackSize;
 	private int maxX, maxY, symX;
 	
-	private int traveledDist; //score 
+	private int traveledDist, score; //score 
 	public final int tDistUp = 1;
 	
 	private int traveledSinceCP;
@@ -34,7 +34,8 @@ public class Piste {
 		//this.cpList.add(new CheckPoint(this.horHeight));
 		
 		this.trackSize = 0;
-		this.traveledDist = 0;
+		this.traveledDist = 1;
+		this.score = 0;
 		
 		this.traveledSinceCP = 0;
 	}
@@ -120,6 +121,7 @@ public class Piste {
 			trackSize --;
 		}
 		traveledDist += tDistUp * MOVEVAL;
+		score = traveledDist;
 		traveledSinceCP += tDistUp * MOVEVAL;
 		//The checkpoints move and we remove it if needed
 		/*
@@ -162,7 +164,7 @@ public class Piste {
 			if(o.getH()>maxY) {
 				oppList.remove(o);
 				//The score gets higher when the vehicle passes an opponent
-				this.traveledDist += 500;
+				this.score += 10;
 			}
 		}
 	}
@@ -275,8 +277,8 @@ public class Piste {
 		return false;
 	}
 	
-	/** Adds an obstacle on the ground with a probability 2/100 or a flying obstacle with a probability of 1/100
-	 * 
+	/** 
+	 * Adds an obstacle on the ground with a probability 2/100 or a flying obstacle with a probability of 1/100.
 	 **/
 	public void addRandObst() {
 		Random rand = new Random();
@@ -335,6 +337,13 @@ public class Piste {
 	 **/
 	public int getDist() {
 		return traveledDist;
+	}
+
+	/** Gives the score
+	 * @return an integer,  the score
+	 **/
+	public int getScore() {
+		return score;
 	}
 	
 	public int toCp() {
