@@ -287,7 +287,7 @@ public class Affichage extends JPanel{
     	
     	g2d.fillPolygon(polyLG);
     	
-    	//Right
+    	//Right 
     	Polygon polyLR = new Polygon();
 
     	for(int i=0; i<ptR.size(); i++) {

@@ -121,7 +121,7 @@ public class Opponent extends Obstacle{
 					this.setD(this.getD()+mvVal);
 				}
 				break;
-			case "NEUTRAL":
+			case "NEUTRAL": 
 				break;
 		}
 	}

@@ -300,7 +300,7 @@ public class Piste {
 	 **/
 	public void addRandObst() {
 		Random rand = new Random();
-		
+		 
 		int n = rand.nextInt(100);
 		if(n<3) {
 			/** Obstacle on the ground. */
