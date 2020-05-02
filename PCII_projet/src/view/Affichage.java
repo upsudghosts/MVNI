@@ -124,6 +124,10 @@ public class Affichage extends JPanel{
     	this.imgG = new ArrayList<BufferedImage>();
     	
     	imgG.add(ImageIO.read(new File(ground+"grass.png")));
+    	
+    	for(int i = 1; i < 11; i++) {
+    		imgG.add(ImageIO.read(new File(ground+"moving_grass_"+i+".png")));
+    	}
     } 
 
     /**Loads and adds all the images representing Obstacles to the imgObst ArrayList**/
@@ -143,7 +147,7 @@ public class Affichage extends JPanel{
     }
 	
     /**Flying orb effect*/
-    private int green_light;
+    private int green_light, grass_move;
    
     /**For parallax effect :speed of different layers of background*/
     private int[] mvBg;
@@ -227,6 +231,7 @@ public class Affichage extends JPanel{
     	this.loadImgCp();
     	
     	this.green_light = 0;
+    	this.grass_move = 1;
     	
 		this.starttime = System.currentTimeMillis();
     }
@@ -496,13 +501,23 @@ public class Affichage extends JPanel{
      * @param g2d the graphics2D on which we draw
      **/
     private void drawGround(Graphics2D g2d) {
+    		
     	BufferedImage I = imgG.get(0);
+    	/*
+    	g2d.drawImage(
+   				I, 
+   				0, horHeight ,
+   				WIDTH, HEIGHT - horHeight - V.getCoord().y/6,
+   				null);
+    	*/
     	
     	g2d.drawImage(
 				I, 
 				0, horHeight ,
 				WIDTH, HEIGHT - horHeight - V.getCoord().y/6,
 				null);
+		
+    	
     }
     
     /** Draws an image representing effects where the vehicle is flying
@@ -552,6 +567,10 @@ public class Affichage extends JPanel{
      * 
      **/
     public void incrView() {
+    	/*
+    	if(grass_move < 10) { grass_move ++; }
+    	else { grass_move = 1; }
+    	*/
     	if(green_light < 3) { green_light ++; }
     	else { green_light = 0; }
     }
