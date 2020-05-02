@@ -133,8 +133,8 @@ public class Opponent extends Obstacle{
 				//y -= coef; 
 				if(!(this.h<30) && !(this.w<30)) {
 					int y = this.getY()-mvVal;
-					int w = this.getW()-mvVal/2;
-					int h = this.getH()-mvVal/2;
+					int w = this.getW()-mvVal/5;
+					int h = this.getH()-mvVal/5;
 					
 					
 					//this.setY(this.getY()-mvVal);

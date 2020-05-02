@@ -135,10 +135,11 @@ public class Obstacle {
 			this.x -= 2; 
 			this.w += this.w*2/60;
 			*/
-			this.y -= 2;
-			this.h += 2;
-			this.x -= 2;
-			this.w += 2;
+			
+			this.y -= 1;
+			this.h += 1;
+			this.x -= 1;
+			this.w += 1;
 		}
 	}
 	

@@ -137,6 +137,40 @@ public class Affichage extends JPanel{
     	}
     			
     	g2d.fillPolygon(poly);
+    	
+    	g2d.setColor(Color.WHITE);
+    	// White lines
+    	//Left
+    	Polygon polyLG = new Polygon();
+
+    	for(int i=0; i<ptL.size(); i++) {
+    		Point TempL = ptL.get(i);
+    		int ecart = ptR.get(i).x - TempL.x;
+    		polyLG.addPoint(TempL.x+ecart/10, TempL.y);
+    	}
+    	for(int i=ptL.size()-1; i>=0; i--) {
+    		Point TempL = ptL.get(i);
+    		int ecart = ptR.get(i).x - TempL.x;
+    		polyLG.addPoint(TempL.x+ecart/10+ecart/20, TempL.y);
+    	}
+    	
+    	g2d.fillPolygon(polyLG);
+    	
+    	//Right
+    	Polygon polyLR = new Polygon();
+
+    	for(int i=0; i<ptR.size(); i++) {
+    		Point Temp = ptR.get(i);
+    		int ecart = Temp.x - ptL.get(i).x;
+    		polyLR.addPoint(Temp.x-ecart/12-ecart/20, Temp.y);
+    	}
+    	for(int i=ptL.size()-1; i>=0; i--) {
+    		Point Temp = ptR.get(i);
+    		int ecart = Temp.x - ptL.get(i).x;
+    		polyLR.addPoint(Temp.x-ecart/12, Temp.y);
+    	}
+    	g2d.fillPolygon(polyLR);
+    	
     			
     	//TrackL
     	Point prevL = null;
