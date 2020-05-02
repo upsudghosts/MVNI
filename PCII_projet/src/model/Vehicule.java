@@ -22,9 +22,17 @@ public class Vehicule {
 	
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	
-	/** Constructor of the Vehicule class
-	 * 
-	 **/
+	/*-------------------------------------------------------------------------------------------------------*/
+    
+    /**
+	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 *                    - CONSTRUCTOR -
+	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 */
+    
+    /**
+     * Constructor for the Vehicule Class of the MVNI Project.
+     */
 	public Vehicule() {
 		this.x = screenSize.width/2-this.hitWidth;
 		this.y = screenSize.height/2+this.hitHeight;
@@ -36,11 +44,20 @@ public class Vehicule {
 		
 		this.mvStat = "NEUTRAL";
 	
-		this.startTime = 0;
-		this.secTl = 0;
+		this.startTime = -20;
+		this.secTl = -20;
 		
 		this.z = this.y;
 	}
+	
+	/*-------------------------------------------------------------------------------------------------------*/
+    
+	
+	/**
+	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 *                    - FUNCTIONS -
+	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 */
 	
 	/**Gives a point with the coordinates of the vehicle
 	 * @return a Point with the coordinates of the vehicle

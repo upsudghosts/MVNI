@@ -25,31 +25,191 @@ import model.Vehicule;
 public class Affichage extends JPanel{
 	private static final long serialVersionUID = 1L;
 
-	//DEfault interface size
+	/**
+	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 *                    - MISCELLANIOUS -
+	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 */
+	
+	/**Default interface size*/
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     public final int WIDTH = screenSize.width;
     public final int HEIGHT = screenSize.height;
     
-    //Horizon height
+    /** Gives the default width of the interface
+     * @return an int, the width of the interface
+     **/
+    public int getWidth() {
+    	return WIDTH;
+    }
+    
+    /** Gives the default height of the interface
+     * @return an int, the height of the interface
+     **/
+    public int getHeight() {
+    	return HEIGHT;
+    }
+    
+    
+    /**Horizon height*/
     private final int horHeight = (int) (this.HEIGHT*0.17);
-    
-    private int[] mvBg;
-    
-    //Model
-    private Vehicule V;
-    private Piste P;
-    
-    //Img Access
-    private String spaceships, effects, parallax_mountains, ground, obstacle;
-	private ArrayList<BufferedImage> imgV, imgEff, imgBg, imgG, imgObst; 
-    //Animation vehicule
-    private int green_light;
-    
-    //Timer
-    private long starttime, secPassed, minPassed;
     
     private boolean showHitbox;
     
+    /**
+	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 *                     - OBJECTS -
+	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 * 
+	 * - V : the vehicle used by the player.
+	 * - P : the track which the player has to follow.
+	 * - A : the graphic space .
+	 *  
+	 */
+    private Vehicule V;
+    private Piste P;
+    
+    /**
+	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 *                     - IMAGE ACCESS -
+	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 * 
+	 * - String : the paths to the folders which contain our PNG files..
+	 * - img[...] : the ArrayLists which regroup all the images for one object.
+	 *  
+	 */
+    private String spaceships, effects, parallax_mountains, ground, obstacle, checkpt;
+	private ArrayList<BufferedImage> imgV, imgEff, imgBg, imgG, imgObst, imgCp; 
+	
+	/**Loads and adds all the images representing the Vehicle to the imgV ArrayList**/
+	private void loadImgV() throws IOException {
+    	this.spaceships = "./assets/spaceships/";
+    	this.imgV= new ArrayList<BufferedImage>();
+    	
+     	imgV.add(ImageIO.read(new File(spaceships+"colored-ufo.png")));
+     	imgV.add(ImageIO.read(new File(spaceships+"ennemy-ufo.png")));
+
+    }
+     
+    /**Loads and adds all the images representing flying effects to the imgEff ArrayList**/
+    private void loadImgEff() throws IOException {
+    	this.effects = "./assets/effects/green-particle/";
+    	this.imgEff= new ArrayList<BufferedImage>();
+    	
+    	imgEff.add(ImageIO.read(new File(effects+"1.png")));
+    	imgEff.add(ImageIO.read(new File(effects+"2.png")));
+    	imgEff.add(ImageIO.read(new File(effects+"3.png")));
+    	imgEff.add(ImageIO.read(new File(effects+"4.png")));
+    	
+    }
+
+    /** Loads and adds all the elements of the background image to the imgBg ArrayList **/
+    private void loadImgBg() throws IOException {
+    	this.parallax_mountains = "./assets/parallax_mountain_pack/layers/";
+    	this.imgBg= new ArrayList<BufferedImage>();
+    	
+    	imgBg.add(ImageIO.read(new File(parallax_mountains+"parallax-mountain-bg.png")));
+    	imgBg.add(ImageIO.read(new File(parallax_mountains+"parallax-mountain-montain-far.png")));
+    	imgBg.add(ImageIO.read(new File(parallax_mountains+"parallax-mountain-mountains.png")));
+    	imgBg.add(ImageIO.read(new File(parallax_mountains+"parallax-mountain-trees.png")));
+    	imgBg.add(ImageIO.read(new File(parallax_mountains+"parallax-mountain-foreground-trees.png")));
+    	
+    }
+    
+    /**Loads and adds all the images representing the ground to the imgG ArrayList**/
+    private void loadImgGround() throws IOException {
+    	this.ground = "./assets/ground/";
+    	this.imgG = new ArrayList<BufferedImage>();
+    	
+    	imgG.add(ImageIO.read(new File(ground+"grass.png")));
+    } 
+
+    /**Loads and adds all the images representing Obstacles to the imgObst ArrayList**/
+    private void loadImgObst() throws IOException {
+    	this.obstacle = "./assets/obstacles/";
+    	this.imgObst = new ArrayList<BufferedImage>();
+    	
+    	imgObst.add(ImageIO.read(new File(obstacle + "pine.png")));
+    }
+	
+    /**Loads and adds all the images representing Obstacles to the imgObst ArrayList**/
+    private void loadImgCp() throws IOException {
+    	this.checkpt = "./assets/checkpoints/";
+    	this.imgCp = new ArrayList<BufferedImage>();
+    	
+    	imgCp.add(ImageIO.read(new File(checkpt + "cp.png")));
+    }
+	
+    /**Flying orb effect*/
+    private int green_light;
+   
+    /**For parallax effect :speed of different layers of background*/
+    private int[] mvBg;
+
+    /**
+	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 *                     - TIMER -
+	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 * 
+	 * - starttime : System.currentMillis() at which the timer starts
+	 * - [...]Passes: Seconds and Minutes passed since the beginning of the program.
+	 *  
+	 */
+    private long starttime, secPassed, minPassed;
+    
+    /**
+     * Function to get the starttime
+     * @return a long : the starttime
+     */
+    public long getStarttime() {
+    	return starttime;
+    }
+    
+    /**
+     * Function to get the seconds that have passed.
+     * @return a long : the seconds
+     */
+    public long getSec() {
+    	return secPassed;
+    }
+    
+    /**
+     * Function to set starttime at current time of System
+     */
+    public void setStarttime() {
+    	starttime = System.currentTimeMillis();
+    }
+    
+    /**
+     * Function to add to the minutes that have passed
+     * @param m the long to add
+     */
+    public void setMinPassed(long m) {
+    	minPassed += m;
+    }
+    
+    /**
+     * Function to add to the seconds that have passed
+     * @param s the long to add
+     */
+    public void setSecPassed(long s) {
+    	secPassed = s;
+    }
+    
+    
+    /*-------------------------------------------------------------------------------------------------------*/
+    
+    /**
+	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 *                    - CONSTRUCTOR -
+	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 */
+    
+    /**
+     * Constructor for the Affichage Class of the MVNI Project.
+     * @param : Vehicule the players vehicle
+     * @param : Piste the track
+     */
     public Affichage(Vehicule v, Piste p) throws IOException {
     	this.mvBg = new int[]{0, 0, 0, 0};
 
@@ -67,64 +227,35 @@ public class Affichage extends JPanel{
     	this.loadImgV();
     	this.loadImgEff();
     	this.loadImgBg();
-    	this.loadImObst();
+    	this.loadImgObst();
     	this.loadImgGround();
-        
+    	this.loadImgCp();
+    	
     	this.green_light = 0;
     	
 		this.starttime = System.currentTimeMillis();
     }
     
-    /** Gives the default width of the interface
-     * @return an int, the width of the interface
-     **/
-    public int getWidth() {
-    	return WIDTH;
-    }
+    /*-------------------------------------------------------------------------------------------------------*/
     
-    /** Gives the default heigth of the interface
-     * @return an int, the height of the interface
-     **/
-    public int getHeight() {
-    	return HEIGHT;
-    }
-    
-    public long getStarttime() {
-    	return starttime;
-    }
-    
-    public long getMins() {
-    	return minPassed;
-    }
-    
-    public long getSec() {
-    	return secPassed;
-    }
-    
-    public void setStarttime() {
-    	starttime = System.currentTimeMillis();
-    }
-    
-    public void setMinPassed(long m) {
-    	minPassed += m;
-    }
-    
-    public void setSecPassed(long s) {
-    	secPassed = s;
-    }
-    
+    /**
+	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 *                    - DRAWING FUNCTIONS -
+	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 */
+
     /** Draws the track
-     * @param g the Graphics on which we draw
+     * @param g2d the graphics2D on which we draw
      **/
     private void drawPiste(Graphics2D g2d) {
-    	//Track
+    	/** Track */
     	g2d.drawLine(0, P.getHorizon(), WIDTH, P.getHorizon());
     	
     	ArrayList<Point> ptL = P.getTrackL();
     	ArrayList<Point> ptR = P.getTrackR();
     	ArrayList<CheckPoint> cpL = P.getCP();
     	
-    	//Image
+    	/** Filling the road in black */
     	Polygon poly = new Polygon();
 
     	for(int i=0; i<ptL.size(); i++) {
@@ -172,13 +303,13 @@ public class Affichage extends JPanel{
     	g2d.fillPolygon(polyLR);
     	
     			
-    	//TrackL
+    	/** Left track : trackL */
     	Point prevL = null;
 		for(Point Temp : ptL) {
 			if(prevL != null) {
 				g2d.drawLine(prevL.x, prevL.y, Temp.x, Temp.y);
 				if(showHitbox) {
-					//Acceleration zone left delimiter
+					/** Acceleration zone : left delimiter */
 					g2d.setColor(Color.RED);
 					g2d.drawLine(Temp.x, HEIGHT, Temp.x, Temp.y);
 					g2d.setColor(Color.BLACK);
@@ -187,55 +318,40 @@ public class Affichage extends JPanel{
 			prevL = Temp;
 		}
     	
-    	//TrackR
+		/** Right track : trackR */
 		Point prevR = null;
 		for(Point Temp : ptR) {
 			if(prevR != null) {
 				g2d.drawLine(prevR.x, prevR.y, Temp.x, Temp.y);
 				if(showHitbox) {
-					//Acceleration zone RIGHT delimiter
+					/** Acceleration zone : right delimiter */
 					g2d.setColor(Color.RED);
 					g2d.drawLine(Temp.x, HEIGHT, Temp.x, Temp.y);
 					g2d.setColor(Color.BLACK);
 				}
-			
 			}
 			prevR= Temp;
 		}
 		
-		//Checkpoints
+		/** Checkpoints */
 		for(CheckPoint cp : cpL) {
-			g2d.drawLine(0, cp.getHeight(), WIDTH, cp.getHeight());
+			if(showHitbox) {
+				g2d.drawLine(0, cp.getHeight(), WIDTH, cp.getHeight());
+			}
+			for(int x = 0; x < WIDTH; x += imgCp.get(0).getWidth()) {
+				g2d.drawImage(
+						imgCp.get(0),
+						x, cp.getHeight(),
+						100, 30,
+						null);
+			}
+			
+			
 		}
-		
-		
-		
-		
-		/*
-		BufferedImage source = imgG.get(0);
-		
-		GeneralPath clip = new GeneralPath();
-		int[] polX = poly.xpoints;
-		int[] polY = poly.ypoints;
-		clip.moveTo(polX[0], polY[0]);
-		for(int i=1; i<polX.length; i++) {
-			clip.lineTo(polX[i], polY[i]);
-		}
-		clip.closePath();
-		
-		Rectangle bounds = clip.getBounds();
-		BufferedImage img = new BufferedImage(bounds.width, bounds.height, BufferedImage.TYPE_INT_ARGB);
-		
-		clip.transform(AffineTransform.getTranslateInstance(-65, -123));
-		g2.setClip(clip);
-		g2.translate(-65, -123);
-		g2.drawImage(source, 0, 0, null);
-		g2.dispose();
-		*/
     }
     
     /** Draws the obstacles of the track
-     * @param g the Graphics on which we draw
+     * @param g2d the graphics2D on which we draw
      **/
     private void drawObstacles(Graphics2D g2d) {
     	ArrayList<Obstacle> oL = P.getOL();
@@ -255,24 +371,9 @@ public class Affichage extends JPanel{
     		}
     		
     	}
+    	
     	ArrayList<Opponent> opL = P.getOpL();
     	for(Opponent o : opL) {
-    		/*
-    		switch(o.getMoveStatus()) {
-	    	case "LEFT":
-				g2d.rotate(Math.toRadians(-20), o.getX() + o.getW()/4, o.getY());
-				break; 
-			case "RIGHT":
-				g2d.rotate(Math.toRadians(20), o.getX() + o.getW() - (o.getW()/4), o.getY());
-				break;
-			case "UP":
-				break;
-			case "DOWN":
-				break;
-			case "NEUTRAL":
-				break;
-    		}
-    		*/
     		g2d.drawImage(
     				imgV.get(1),
     				o.getX(), o.getY(),
@@ -287,7 +388,7 @@ public class Affichage extends JPanel{
     }
     
     /** Draws the current speed and the distance traveled
-     * @param g the Graphics on which we draw
+     * @param g2d the graphics2D on which we draw
      **/
     private void drawScore(Graphics2D g2d) {
     	g2d.setColor(Color.WHITE);
@@ -301,7 +402,7 @@ public class Affichage extends JPanel{
     }
     
     /** Draws the time since beginning of the game and time left until next checkpoint
-     * @param g the Graphics on which we draw
+     * @param g2d the graphics2D on which we draw
      **/
     private void drawTimer(Graphics2D g2d) {
     	g2d.setColor(Color.WHITE);
@@ -318,7 +419,7 @@ public class Affichage extends JPanel{
     }
     
     /** Draws the vehicle at the right coordinates
-     * @param g the Graphics on which we draw
+     * @param g2d the graphics2D on which we draw
      **/
     private void drawVehicule(Graphics2D g2d){
     	Point vcoord = V.getCoord();
@@ -359,7 +460,7 @@ public class Affichage extends JPanel{
     }
     
     /** Draws the background image
-     * @param g the graphics on which we draw
+     * @param g2d the graphics2D on which we draw
      **/
     private void drawBg(Graphics2D g2d){ 	
     	for(int i = 0; i < imgBg.size(); i++){
@@ -384,7 +485,9 @@ public class Affichage extends JPanel{
     }
    
     
-    
+    /** Draws the ground image
+     * @param g2d the graphics2D on which we draw
+     **/
     private void drawGround(Graphics2D g2d) {
     	BufferedImage I = imgG.get(0);
     	
@@ -396,7 +499,7 @@ public class Affichage extends JPanel{
     }
     
     /** Draws an image representing effects where the vehicle is flying
-     * @param g the Graphics on which we draw
+     * @param g2d the graphics2D on which we draw
      * @param coord the Point where we draw the image
      **/
     private void drawFlyEffect(Graphics2D g2d, Point coord) {
@@ -406,8 +509,6 @@ public class Affichage extends JPanel{
     			V.getHitWidth(), V.getHitHeight(),
     			null);
     }
-    
-    
    
     /** Draws every element of this interface on a Graphics
      * @param g a Graphics on which we draw
@@ -454,6 +555,10 @@ public class Affichage extends JPanel{
     	else this.showHitbox = true;
     }
     
+    /**
+     * Sets the movement coefficient for our background images.
+     * @param dir the direction in which the vehicle is going.
+     */
     public void set_bg_parallax(String dir) {
     	switch(dir) {
     		case "LEFT":
@@ -471,55 +576,10 @@ public class Affichage extends JPanel{
     	}
     }
     
-    private void loadImgV() throws IOException {
-    	this.spaceships = "./assets/spaceships/";
-    	this.imgV= new ArrayList<BufferedImage>();
-    	
-     	imgV.add(ImageIO.read(new File(spaceships+"colored-ufo.png")));
-     	imgV.add(ImageIO.read(new File(spaceships+"ennemy-ufo.png")));
-
-    }
     
-    
-    /**Loads and adds all the images representing flying effects to the imgEff ArrayList**/
-    private void loadImgEff() throws IOException {
-    	this.effects = "./assets/effects/green-particle/";
-    	this.imgEff= new ArrayList<BufferedImage>();
-    	
-    	imgEff.add(ImageIO.read(new File(effects+"1.png")));
-    	imgEff.add(ImageIO.read(new File(effects+"2.png")));
-    	imgEff.add(ImageIO.read(new File(effects+"3.png")));
-    	imgEff.add(ImageIO.read(new File(effects+"4.png")));
-    	
-    }
-
-    /** Loads and adds all the elements of the background image to the imgBg ArrayList **/
-    private void loadImgBg() throws IOException {
-    	this.parallax_mountains = "./assets/parallax_mountain_pack/layers/";
-    	this.imgBg= new ArrayList<BufferedImage>();
-    	
-    	imgBg.add(ImageIO.read(new File(parallax_mountains+"parallax-mountain-bg.png")));
-    	imgBg.add(ImageIO.read(new File(parallax_mountains+"parallax-mountain-montain-far.png")));
-    	imgBg.add(ImageIO.read(new File(parallax_mountains+"parallax-mountain-mountains.png")));
-    	imgBg.add(ImageIO.read(new File(parallax_mountains+"parallax-mountain-trees.png")));
-    	imgBg.add(ImageIO.read(new File(parallax_mountains+"parallax-mountain-foreground-trees.png")));
-    	
-    }
-    
-    private void loadImgGround() throws IOException {
-    	this.ground = "./assets/ground/";
-    	this.imgG = new ArrayList<BufferedImage>();
-    	
-    	imgG.add(ImageIO.read(new File(ground+"grass.png")));
-    } 
-
-    private void loadImObst() throws IOException {
-    	this.obstacle = "./assets/obstacles/";
-    	this.imgObst = new ArrayList<BufferedImage>();
-    	
-    	imgObst.add(ImageIO.read(new File(obstacle + "pine.png")));
-    }
-    
+    /**
+     * Restores everything to default.s
+     */
     public void restart() {
     	this.mvBg = new int[]{0, 0, 0, 0};
     	

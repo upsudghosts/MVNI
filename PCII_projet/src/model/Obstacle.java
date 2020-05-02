@@ -1,17 +1,18 @@
 package model;
 
 public class Obstacle {
-	//Coordinates
+	/** Coordinates. */
 	private int x;
 	private int y;
-	//Width and height of the hitbox
+	
+	/** Width and height of the hitbox. */
 	protected int w;
 	protected int h;
 	
-	//Length of the hitbox
+	/** Length of the hitbox. */
 	private int z;
 	
-	//Travelled distance 
+	/** Travelled distance.*/
 	private int d;
 	
 	/** Constructor of the Obstacle class
@@ -21,15 +22,19 @@ public class Obstacle {
 	public Obstacle(int x, int y) {
 		this.z = 100;
 		this.d = 0; 
-		
 
 		this.w = 20;
 		this.h = 60;
 		
-		//this.x = x+500;
 		this.x = x;
 		this.y = y-this.h;
 	}
+	
+	/**
+	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 *                    - FUNCTIONS -
+	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 */
 	
 	/** Gives the abscissa at the higher left corner of the obstacle
 	 * @return an integer, the abscissa
@@ -100,19 +105,6 @@ public class Obstacle {
 	public void setD(int d) {
 		this.d = d;
 	}
-	 
-	/*
-	public void moveObt(int moveVal, int maxY) {
-		//The obstacles move and we remove it if needed
-		for(int i=0; i<  .size(); i++) {
-			CheckPoint cp = cpList.get(i);
-			cp.decreaseHeight(moveVal);
-			if(cp.getHeight()>maxY) {
-				cpList.remove(cp);
-			}
-		}
-	}
-	*/
 	
 	/** Moves the obstacle to the bottom from a given value
 	 * @param moveVal the value that we want to move the obstacle
@@ -121,20 +113,7 @@ public class Obstacle {
 		y += moveVal;
 		this.d += moveVal;
 		
-		//the obstacle gets bigger
-		/*
-		this.y -= 2;
-		this.h += 2;
-		this.x -= 2;
-		this.w += 2;
-		*/
 		if(!(this.h>200) && !(this.w>200)) {
-			/*
-			this.y -= 2;
-			this.h += this.h*2/60;
-			this.x -= 2; 
-			this.w += this.w*2/60;
-			*/
 			
 			this.y -= 1;
 			this.h += 1;
@@ -163,17 +142,10 @@ public class Obstacle {
 	public void vMoveUp(int n) {
 		this.y+=n/2;
 		this.x += n/2;
-		//this.x+=n/4;
-		
-		//this.w-=n/2;
-		
-		
+
 		if(!(this.h<15) && !(this.w<15)) {
 			this.h-=n/2;
 			this.w-=n;
-			
-			//this.h+=n/2;
-			//this.w+=n;
 		}
 	}
 	
@@ -183,12 +155,9 @@ public class Obstacle {
 	public void vMoveDown(int n) {
 		this.y-=n/2;
 		this.x -= n/2;
-		//this.x-=n/4;
-		
-		//this.w+=n/2;
+
 		this.h+=n/2;
 		this.w+=n;
-		//this.x -= n/2;
 		
 		if(this.h>200 || this.w>200) {
 			this.h-=n/2;
@@ -204,9 +173,7 @@ public class Obstacle {
 	public void vMoveUp(int n, int w, int h) {
 		this.y+=n/2;
 		this.x += n/2;
-		
-		//this.h = h;
-		//this.w = w;
+
 		this.h = h;
 		this.w = w;
 		
@@ -230,22 +197,7 @@ public class Obstacle {
 	 * @return true if the vehicle is hitting the obstacle, false otherwise
 	 **/
 	public boolean hitV(Vehicule V) {
-		//If the obstacle is too far away from the vehicle, we know they cannot touch each other
-		/*
-		if(zV < this.d-this.z/2 || zV > this.d+this.z/2) {
-			return false;
-		}
-		
-		int maxG = Math.max(this.x, xV);
-		int minD = Math.min(this.x+this.w, xV+wV);
-		int minH = Math.min(this.y+this.h, yV+hV);
-		int maxB = Math.max(this.y, yV);
-		
-		if(maxG<minD && maxB<minH) {
-			return true;
-		}
-		return false;
-		*/
+		/**If the obstacle is too far away from the vehicle, we know they cannot touch each other.*/
 		
 		if(V.getZ() < this.d-this.z/2 || V.getZ() > this.d+this.z/2) {
 			return false;

@@ -4,6 +4,10 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+* This class is the "Track" class, it will be used to create our track, 
+* regroup all obstacles and opponents but also set the interaction with checkpoints.
+*/
 public class Piste {
 	
 	private int MOVEVAL = 20, ZOOM = 0;
@@ -17,20 +21,27 @@ public class Piste {
 	
 	private ArrayList<Point> trackL, trackR;
 
-	//private ArrayList<CheckPoint> cpList; //the checkpoint list
-	private CheckPointList cpList; //the checkpoint list (new version)
+	private CheckPointList cpList; /** The checkpoint list (new version) */
 	private ArrayList<Obstacle> obsList; //the obstacle list
 	private ArrayList<Opponent> oppList;//the opponent list
-	private int obsW;
-	private int obsH;
 
+	/*-------------------------------------------------------------------------------------------------------*/
+    
+    /**
+	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 *                    - CONSTRUCTOR -
+	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 */
+    
+    /**
+     * Constructor for the Piste Class of the MVNI Project.
+     */
 	public Piste() {
 		this.trackL = new ArrayList<Point>();
 		this.trackR= new ArrayList<Point>();
-		//this.cpList = new ArrayList<CheckPoint>();
+
 		this.obsList = new ArrayList<Obstacle>();
 		this.oppList = new ArrayList<Opponent>();
-		//this.cpList.add(new CheckPoint(this.horHeight));
 		
 		this.trackSize = 0;
 		this.traveledDist = 0;
@@ -38,6 +49,14 @@ public class Piste {
 		
 		this.traveledSinceCP = 0;
 	}
+	
+	/*-------------------------------------------------------------------------------------------------------*/
+    
+	/**
+	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 *                    - FUNCTIONS -
+	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 */
 	
 	/** Creates a track with two initial points at the bottom of the screen, and adds more points generated with the addPoint() method
 	 * Also creates the CheckPointList and gives it the value of the horizon
@@ -99,7 +118,9 @@ public class Piste {
 		if(MOVEVAL > 5) { MOVEVAL --; }
 	}
 	
-	
+	/** Moves the track and everything on it from back to front.
+	 *  Used also to give a perception of perspective.
+	 */
 	public void moveTrack() {
 		if ( trackL.get(trackSize - 2).y < maxY) {	
 			for(int i = 0; i < trackL.size()-1; i++){
@@ -119,39 +140,24 @@ public class Piste {
 			trackR.remove(0);
 			trackSize --;
 		}
-		
-		
+	
 		traveledDist +=  MOVEVAL;
-		
 		score = traveledDist;
 		traveledSinceCP +=  MOVEVAL;
-		//The checkpoints move and we remove it if needed
-		/*
-		for(int i=0; i<cpList.size(); i++) {
-			CheckPoint cp = cpList.get(i);
-			cp.decreaseHeight(MOVEVAL);
-			if(cp.getHeight()>maxY) {
-				cpList.remove(cp);
-			}
-		}
-		*/
+		
+		/** The checkpoints move. */
 		cpList.moveCP(MOVEVAL, maxY);
-		//We add a checkpoint if we need it
-		/*
-		if(traveledDist%1000 == 0) {
-			cpList.add(new CheckPoint(horHeight));
-		}
-		*/
+		
+		/** We add a checkpoint if we need it.*/
 		if(traveledSinceCP >= DISTTOCP) {
 			traveledSinceCP = 0;
 			cpList.addCP(traveledDist+DISTTOCP);
 		}
 		
-		
-		//Obstacle
+		/** Obstacle */
 		this.addRandObst();
 		
-		//The obstacles move and we remove it if needed
+		/** The obstacles move and we remove it if needed. */
 		for(int i=0; i<obsList.size(); i++) {
 			Obstacle o = obsList.get(i);
 			o.decreaseHeight(MOVEVAL);
@@ -295,34 +301,17 @@ public class Piste {
 	public void addRandObst() {
 		Random rand = new Random();
 		
-		/*
-		if(Math.random() >= 0.9) {
-			int x = (int) Math.random()*this.maxX;
-			this.obsList.add(new Obstacle(x, horHeight));
-		}
-		*/
 		int n = rand.nextInt(100);
 		if(n<3) {
-			//Obstacle on the ground
+			/** Obstacle on the ground. */
 			int x = (trackL.get(2).x - 50) + rand.nextInt(100);
 			this.obsList.add(new Obstacle(x, horHeight - 60));
 		}else if(n==3) {
-			//Opponent
+			/** Opponent */
 			int x = trackL.get(2).x + rand.nextInt(50);
 			Opponent o = new Opponent(x, horHeight - 20);
 			this.oppList.add(o);
 		}
-	}
-	
-	//To zoom or dezoom all the obstacles consistently
-	public void vMoveUp(int n) {
-		this.obsH -= n/2;
-		this.obsW -= n;
-	}
-	
-	public void vMoveDown(int n) {
-		this.obsH += n/2;
-		this.obsW += n;
 	}
 	
 	/** Gives the horizon height

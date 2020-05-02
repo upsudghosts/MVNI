@@ -4,6 +4,9 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.Random;
 
+/**
+* This class is the Opponent class, it defines our adversaries.
+*/
 public class Opponent extends Obstacle{
 	
 	private int speed;
@@ -25,19 +28,6 @@ public class Opponent extends Obstacle{
 		this.mvStat = "NEUTRAL";
 	}
 	
-	/*
-	@Override
-	public void decreaseHeight(int moveVal) {
-		this.setY(this.getY() + moveVal);
-		this.setD(this.getD() + moveVal);
-		
-		//the obstacle gets bigger
-		this.setY(this.getY()-2);
-		this.setH(this.getY()+4);
-		this.setX(this.getY()-2);
-		this.setW(this.getY()+4);
-	}
-	*/
 	/** Moves the obstacle to the bottom from a given value
 	 * @param moveVal the value that we want to move the obstacle
 	 **/
@@ -46,7 +36,7 @@ public class Opponent extends Obstacle{
 		int y = this.getY() + moveVal*speed;
 		int d = this.getD() + moveVal*speed;
 		
-		//the obstacle gets bigger
+		/** The obstacle gets bigger. */
 		y -=2*speed;
 		int h = this.getH() + 2*speed;
 		int x = this.getX() - 2*speed;
@@ -65,7 +55,7 @@ public class Opponent extends Obstacle{
 	public void move() {
 		Random ran = new Random();
 		
-		//The opponent changes the way they move
+		/** The opponent changes the way they move. */
 		int n = ran.nextInt(100);
 		if(n<=1) {
 			int mv = ran.nextInt(5);
@@ -94,52 +84,30 @@ public class Opponent extends Obstacle{
 			this.speed = (110-s)/100;
 		}
 		
-		//The opponent moves
+		/** The opponent moves according to it's movement state. */
 		switch (mvStat) {
 			case "LEFT":
 				if(this.getX()  <= this.getW()) {
 					this.setX(this.getW());
-					//x = hitWidth;
 					break;
 				} 
 				this.setX(this.getX()-mvVal);
-				//x -= coef;
 				break;
 			case "RIGHT":
 				if(this.getX()  >= screenSize.width - 2*this.getW()) {
-					//x = screenSize.width - 2*hitWidth;
 					this.setX(screenSize.width - 2*this.getW());
 					break;
 				}
 				this.setX(this.getX() + mvVal);
-				//x += coef;
+
 				break;
 			case "UP":
-				/*
-				if(this.getY()  <= (int)(screenSize.height*0.2)) {
-					//y = (int)(screenSize.height*0.2);
-					
-					this.setY((int)(screenSize.height*0.2));
-					this.setD((int)(screenSize.height*0.2));
-					
-					
-					break;
-				}
-				*/
-				//System.out.println("mvVal : " + mvVal);
-				//System.out.println("w1 : " + this.getW());
-				//this.vMoveUp(mvVal);
-				//System.out.println("w2 : " + this.getW());
-				//y -= coef; 
 				if(!(this.h<30) && !(this.w<30)) {
 					int y = this.getY()-mvVal;
 					int w = this.getW()-mvVal/5;
 					int h = this.getH()-mvVal/5;
 					
-					
-					//this.setY(this.getY()-mvVal);
 					this.setY(y);
-					//this.setW(n);
 					this.setW(w);
 					this.setH(h);
 					this.setD(this.getD()-mvVal);
@@ -148,24 +116,10 @@ public class Opponent extends Obstacle{
 				
 				break;
 			case "DOWN":
-				/*
-				if(this.getY()  >= screenSize.height - 4*this.getH()) {
-					//y = screenSize.height - 4*hitHeight;
-					
-					this.setY(screenSize.height - 4*this.getH());
-					this.setD(screenSize.height - 4*this.getH());
-					
-					
-					break;
-				}
-				*/
 				if(!(this.h>300) && !(this.w>300)) {
 					this.setY(this.getY()+mvVal);
 					this.setD(this.getD()+mvVal);
 				}
-				
-				//y += coef;
-				//this.vMoveDown(mvVal);
 				break;
 			case "NEUTRAL":
 				break;

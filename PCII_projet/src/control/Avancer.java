@@ -117,7 +117,7 @@ public class Avancer extends Thread{
 			
 			/**Check if the checkpoint was passed. 
 			 *Checking with boundaries not exact value or else will not work.*/
-			if(P.getDist()%5000 >= 0 && P.getDist()%5000 <= 40) {
+			if(P.getDist()%5000 >= 0 && P.getDist()%5000 <= 25) {
 				/**Setting checpoint's passage time.*/
 				cpTimePassed = System.currentTimeMillis();
 				/**Adding time to our ship's timer.*/
