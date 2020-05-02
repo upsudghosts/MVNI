@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -8,6 +9,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.Rectangle;
+import java.awt.Stroke;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -155,7 +157,7 @@ public class Affichage extends JPanel{
 	 * - [...]Passes: Seconds and Minutes passed since the beginning of the program.
 	 *  
 	 */
-    private long starttime, secPassed, minPassed;
+    private long starttime, secPassed;
     
     /**
      * Function to get the starttime
@@ -179,14 +181,7 @@ public class Affichage extends JPanel{
     public void setStarttime() {
     	starttime = System.currentTimeMillis();
     }
-    
-    /**
-     * Function to add to the minutes that have passed
-     * @param m the long to add
-     */
-    public void setMinPassed(long m) {
-    	minPassed += m;
-    }
+
     
     /**
      * Function to add to the seconds that have passed
@@ -270,6 +265,15 @@ public class Affichage extends JPanel{
     	g2d.fillPolygon(poly);
     	
     	g2d.setColor(Color.WHITE);
+    	Stroke s = new BasicStroke(
+    				4.0f, // Width 
+    				BasicStroke.CAP_SQUARE, // End cap 
+    				BasicStroke.JOIN_MITER,// Join style 
+    				10.0f, // Miter limit 
+    				new float[] {20.0f,20.0f}, // Dash pattern 
+    				0.0f);
+    	g2d.setStroke(s);
+    	g2d.setColor(Color.lightGray);
     	// White lines
     	//Left
     	Polygon polyLG = new Polygon();
@@ -407,7 +411,9 @@ public class Affichage extends JPanel{
     private void drawTimer(Graphics2D g2d) {
     	g2d.setColor(Color.WHITE);
     	
-    	String totTime = "Timer : " + minPassed + "m " + secPassed + "s";
+    	long minPassed = secPassed/60;
+    	long affSecPassed = secPassed - minPassed*60;
+    	String totTime = "Timer : " + minPassed + "m " + affSecPassed + "s";
     	
     	long minTl = V.getTTL()/60;
     	long secTl = V.getTTL() - minTl*60;
@@ -417,6 +423,7 @@ public class Affichage extends JPanel{
     	g2d.drawString(TimeLeft, WIDTH-200, 45);
     	
     }
+  
     
     /** Draws the vehicle at the right coordinates
      * @param g2d the graphics2D on which we draw

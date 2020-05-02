@@ -72,7 +72,6 @@ public class Avancer extends Thread{
 		
 		//Initializing first time for checkpoint as our thread's starting time.
 		this.cpTimePassed = System.currentTimeMillis(); 
-		
 	}
 	
 	/*-------------------------------------------------------------------------------------------------------*/
@@ -86,9 +85,6 @@ public class Avancer extends Thread{
 	@Override
 	public void run() {
 		System.out.println("Move Thread Started");
-		
-		/**Setting View minutes to 0.*/
-		A.setMinPassed(0);
 		
 		/**While the vehicle is in flight (i.e not dead) :*/
 		while(V.getFlyStatus()) {
@@ -134,16 +130,6 @@ public class Avancer extends Thread{
 	        A.setSecPassed(affTimePassed/1000);	
 	        /**Decreasing ship's timer.*/
 	        V.timeDecrease(veTimePassed/1000);
-	        
-	        /**If a minute has passed then setting View's seconds to 0.
-	         *Resetting Starting time as well.*/
-	        if(A.getSec()== 60)
-	        {
-	            A.setSecPassed(0);
-	            A.setStarttime();
-	        }
-	        /**Minutes counter in View going up each 60 seconds.*/
-	        if((A.getSec()%60)==0) A.setMinPassed(1);
 	        
 	        /**Moving the track.*/
 			P.moveTrack();
