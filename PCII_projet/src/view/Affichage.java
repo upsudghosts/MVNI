@@ -356,7 +356,7 @@ public class Affichage extends JPanel{
     private void drawObstacles(Graphics2D g2d) {
     	ArrayList<Obstacle> oL = P.getOL();
  
-    	for(int i = 0; i < oL.size(); i++) {
+    	for(int i = oL.size()-1; i >= 0; i--) {
     		Obstacle o = oL.get(i);
     		g2d.setColor(Color.GRAY);
 
