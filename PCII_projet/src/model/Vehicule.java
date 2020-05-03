@@ -45,7 +45,7 @@ public class Vehicule {
 		this.mvStat = "NEUTRAL";
 	
 		this.startTime = -20;
-		this.secTl = -20;
+		this.secTl = this.startTime;
 		
 		this.z = this.y;
 	}

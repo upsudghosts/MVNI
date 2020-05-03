@@ -62,9 +62,9 @@ public class Voler extends Thread {
     
     /**
      * Constructor for the Effects Class of the MVNI Project.
-     * @param : Affichage the view
-     * @param : Piste the track
-     * @param : Vehicule the players vehicle
+     * @param a the view
+     * @param track the track
+     * @param ve the players vehicle
      */
 	public Voler(Affichage a, Piste track, Vehicule ve) {
 		/** 20 seemed like a good choice. */

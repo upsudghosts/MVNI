@@ -271,7 +271,7 @@ public class Affichage extends JPanel{
     	
     	g2d.setColor(Color.WHITE);
     	Stroke s = new BasicStroke(
-    				4.0f, // Width 
+    				2.0f, // Width 
     				BasicStroke.CAP_SQUARE, // End cap 
     				BasicStroke.JOIN_MITER,// Join style 
     				10.0f, // Miter limit 
@@ -293,7 +293,6 @@ public class Affichage extends JPanel{
     		int ecart = ptR.get(i).x - TempL.x;
     		polyLG.addPoint(TempL.x+ecart/10+ecart/20, TempL.y);
     	}
-    	
     	g2d.fillPolygon(polyLG);
     	
     	//Right 
@@ -314,7 +313,8 @@ public class Affichage extends JPanel{
     			
     	/** Left track : trackL */
     	Point prevL = null;
-		for(Point Temp : ptL) {
+		for(int i = 0; i < ptL.size(); i++) {
+			Point Temp = ptL.get(i);
 			if(prevL != null) {
 				g2d.drawLine(prevL.x, prevL.y, Temp.x, Temp.y);
 				if(showHitbox) {
@@ -329,7 +329,8 @@ public class Affichage extends JPanel{
     	
 		/** Right track : trackR */
 		Point prevR = null;
-		for(Point Temp : ptR) {
+		for(int i = 0; i < ptR.size(); i++) {
+			Point Temp = ptR.get(i);
 			if(prevR != null) {
 				g2d.drawLine(prevR.x, prevR.y, Temp.x, Temp.y);
 				if(showHitbox) {
@@ -481,7 +482,7 @@ public class Affichage extends JPanel{
     			g2d.drawImage(
         				I, 
         				0,0,
-        				WIDTH, horHeight-2, 
+        				WIDTH, horHeight, 
         				null);
     		} else {
     			int imageW = I.getWidth();
@@ -490,6 +491,7 @@ public class Affichage extends JPanel{
 	    	        g2d.drawImage(
 	    	        		I, 
 	    	        		x + mvBg[i-1], 0,
+	    	        		I.getWidth(), horHeight,
 	    	        		this);
     	        }
     		}
@@ -507,15 +509,16 @@ public class Affichage extends JPanel{
     	g2d.drawImage(
    				I, 
    				0, horHeight ,
-   				WIDTH, HEIGHT - horHeight - V.getCoord().y/6,
    				null);
+    	
     	*/
     	
     	g2d.drawImage(
 				I, 
-				0, horHeight ,
-				WIDTH, HEIGHT - horHeight - V.getCoord().y/6,
+				0, horHeight - 2,
+				WIDTH, HEIGHT - V.getCoord().y/6,
 				null);
+		
 		
     	
     }

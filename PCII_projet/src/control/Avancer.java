@@ -61,9 +61,9 @@ public class Avancer extends Thread{
     
     /**
      * Constructor for the "Moving" Class of the MVNI Project.
-     * @param : Affichage the view
-     * @param : Piste the track
-     * @param : Vehicule the players vehicle
+     * @param a the view
+     * @param track the track
+     * @param ve the players vehicle
      */
 	public Avancer (Affichage a, Piste track, Vehicule ve) {
 		this.P = track;

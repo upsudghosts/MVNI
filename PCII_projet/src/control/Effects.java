@@ -40,8 +40,8 @@ public class Effects extends Thread{
     
     /**
      * Constructor for the Effects Class of the MVNI Project.
-     * @param : Affichage the view
-     * @param : Vehicule the players vehicle
+     * @param a the view
+     * @param ve the players vehicle
      */
 	public Effects(Affichage a, Vehicule ve) {
 		this.A = a;

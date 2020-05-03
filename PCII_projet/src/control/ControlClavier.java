@@ -49,9 +49,9 @@ public class ControlClavier implements KeyListener{
     
     /**
      * Constructor for the Keyboard Listener Class of the MVNI Project.
-     * @param : Affichage the view
-     * @param : Vehicule the players vehicle
-     * @param : Piste the track
+     * @param a the view
+     * @param v the players vehicle
+     * @param p the track
      */
 	public ControlClavier (Affichage a, Vehicule v, Piste p) {
 		this.A = a;

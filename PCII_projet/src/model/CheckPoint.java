@@ -9,7 +9,6 @@ public class CheckPoint {
 	
 	/** Constructor of the CheckPoint class
 	 * @param hor the horizon height
-	 * @param tta the time to add to the timer
 	 * @param dist the distance of the checkpoint
 	 **/
 	public CheckPoint(int hor, int dist) {
@@ -23,7 +22,9 @@ public class CheckPoint {
 	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	 */
 	
-	/**Lowers the CheckPoint by increasing the value of the height variable**/
+	/**Lowers the CheckPoint by increasing the value of the height variable
+	 * @param n the value to add
+	 */
 	public void decreaseHeight(int n) {
 		height += n;
 	}
