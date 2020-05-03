@@ -147,7 +147,7 @@ public class Affichage extends JPanel{
     }
 	
     /**Flying orb effect*/
-    private int green_light, grass_move;
+    private int green_light;
    
     /**For parallax effect :speed of different layers of background*/
     private int[] mvBg;
@@ -231,7 +231,6 @@ public class Affichage extends JPanel{
     	this.loadImgCp();
     	
     	this.green_light = 0;
-    	this.grass_move = 1;
     	
 		this.starttime = System.currentTimeMillis();
     }
@@ -505,13 +504,6 @@ public class Affichage extends JPanel{
     private void drawGround(Graphics2D g2d) {
     		
     	BufferedImage I = imgG.get(0);
-    	/*
-    	g2d.drawImage(
-   				I, 
-   				0, horHeight ,
-   				null);
-    	
-    	*/
     	
     	g2d.drawImage(
 				I, 
